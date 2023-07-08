@@ -1,9 +1,0 @@
-[gd_scene format=3 uid="uid://y76g3866hpa"]
-
-[node name="test" type="Node2D"]
-
-[node name="RigidBody2D_player" type="RigidBody2D" parent="."]
-
-[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D_player"]
-
-[node name="Camera2D" type="Camera2D" parent="RigidBody2D_player"]

@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://cgi5fouwkl34f"]
+
+[ext_resource type="Script" path="res://Scenes/hud.gd" id="1_ay4kn"]
+[ext_resource type="FontFile" uid="uid://cpofd6x0yqcyc" path="res://kenney_space-shooter-redux/Bonus/kenvector_future_thin.ttf" id="2_upu7g"]
+[ext_resource type="PackedScene" uid="uid://di41sse0tcmxt" path="res://Scenes/ui_life.tscn" id="3_yh510"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_glgbf"]
+font = ExtResource("2_upu7g")
+font_size = 48
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_ay4kn")
+
+[node name="Score" type="Label" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 23.0
+offset_right = 305.0
+offset_bottom = 93.0
+text = "SCORE: 9999"
+label_settings = SubResource("LabelSettings_glgbf")
+
+[node name="Lives" type="HBoxContainer" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 20.0
+offset_top = 72.0
+offset_right = 127.0
+offset_bottom = 98.0
+scale = Vector2(1.5, 1.5)
+
+[node name="UILife" parent="Lives" instance=ExtResource("3_yh510")]
+layout_mode = 2
+
+[node name="UILife2" parent="Lives" instance=ExtResource("3_yh510")]
+layout_mode = 2
+
+[node name="UILife3" parent="Lives" instance=ExtResource("3_yh510")]
+layout_mode = 2

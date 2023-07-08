@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0xktoob8b2vu"]
+
+[ext_resource type="Script" path="res://Scenes/Player.gd" id="1_ydqg6"]
+[ext_resource type="Texture2D" uid="uid://ohcrvq1vlpm1" path="res://kenney_space-shooter-redux/PNG/playerShip1_blue.png" id="2_36hmj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_al22k"]
+radius = 20.0
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_ydqg6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_36hmj")
+region_rect = Rect2(222.512, -0.135635, 101.62, 83.6755)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_al22k")
+
+[node name="Muzzle" type="Node2D" parent="."]
+position = Vector2(0, -28)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
