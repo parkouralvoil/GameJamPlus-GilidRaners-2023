@@ -4,7 +4,7 @@ extends Control
 	set(value):
 		score.text = "SCORE: " + str(value)
 
-var uilife_scene = preload("res://Scenes/ui_life.tscn")
+var uilife_scene = preload("res://Scenes/ui/ui_life.tscn")
 
 @onready var lives = $Lives
 

@@ -1,8 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cgi5fouwkl34f"]
+[gd_scene load_steps=5 format=3]
 
-[ext_resource type="Script" path="res://Scenes/hud.gd" id="1_ay4kn"]
+[ext_resource type="Script" path="res://Scenes/ui/hud.gd" id="1_ay4kn"]
 [ext_resource type="FontFile" uid="uid://cpofd6x0yqcyc" path="res://kenney_space-shooter-redux/Bonus/kenvector_future_thin.ttf" id="2_upu7g"]
-[ext_resource type="PackedScene" uid="uid://di41sse0tcmxt" path="res://Scenes/ui_life.tscn" id="3_yh510"]
+[ext_resource type="PackedScene" uid="uid://di41sse0tcmxt" path="res://Scenes/ui/ui_life.tscn" id="3_yh510"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_glgbf"]
 font = ExtResource("2_upu7g")

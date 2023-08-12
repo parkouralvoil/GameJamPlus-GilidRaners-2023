@@ -12,13 +12,16 @@ signal died
 @export var pre_accel := 50.0
 @export var pre_max_speed := 200.0
 @export var pre_rotation_speed := 480.0
+@export var pre_dash_speed := 1500.0
+
+var health := 100
 
 @onready var muzzle = $Muzzle
 @onready var sprite = $Sprite2D
 @onready var cshape = $CollisionShape2D
 # need to disable collision shape 2d
 
-var laser_scene = preload("res://Scenes/laser.tscn")
+var laser_scene = preload("res://Scenes/player/laser.tscn")
 
 var shoot_cd = false
 var rate_of_fire = 0.15
@@ -90,7 +93,7 @@ func _physics_process(delta):
 				fast_rotation_speed = 480 * (1 - weaken_fast_rotaiton)
 			else:
 				fast_rotation_speed = 480
-			print(fast_rotation_speed)
+			#print(fast_rotation_speed)
 			
 			if Input.is_action_pressed("shift_button") and y_movement == -1:
 				fast_max_speed = 500 * 1.5
@@ -103,23 +106,27 @@ func _physics_process(delta):
 		movement_state.PRECISE:
 			input_direction = Vector2(x_movement, y_movement)
 			
-			var omni_move = input_direction.normalized() * pre_accel
-			
 			# smooth slow down
 			if velocity.length() > pre_max_speed:
 				if input_direction != Vector2.ZERO:
-					velocity = velocity.move_toward(omni_move, 9)
+					velocity = velocity.move_toward(pre_max_speed * input_direction.normalized(), 9)
 				else:
 					velocity = velocity.move_toward(Vector2.ZERO, 9)
 			else:
 				if input_direction != Vector2.ZERO:
-					velocity += omni_move
+					velocity += input_direction.normalized() * pre_accel
 					velocity = velocity.limit_length(pre_max_speed)
 				else:
 					velocity = velocity.move_toward(Vector2.ZERO, 20)
 					
-			if Input.is_action_pressed("shift_button") and input_direction != Vector2.ZERO:
-				pass
+			if (Input.is_action_just_pressed("shift_button") 
+				and input_direction != Vector2.ZERO 
+				and velocity.length() != pre_dash_speed):
+					
+				velocity = pre_dash_speed * input_direction.normalized()
+				await get_tree().create_timer(0.15).timeout
+				velocity = pre_max_speed * input_direction.normalized()
+				await get_tree().create_timer(0.1).timeout
 
 			# smooth rotation
 			# https://www.youtube.com/watch?v=ciT_jDol9G8&ab_channel=JasonLothamer
@@ -156,7 +163,7 @@ func shoot_laser():
 	l.rotation = rotation
 	emit_signal("laser_shot", l)
 
-
+#region 
 func die():
 	if alive == true:
 		alive = false
@@ -166,8 +173,15 @@ func die():
 		emit_signal('died')
 
 
+func damage(value: int):
+	health -= value
+	if health <= 0:
+		die()
+
+
 func respawn(pos):
 	if alive == false:
+		health = 100
 		alive = true
 		global_position = pos
 		velocity = Vector2.ZERO	

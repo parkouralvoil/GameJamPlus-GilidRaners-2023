@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://d33oiqrncna11"]
+[gd_scene load_steps=5 format=3]
 
-[ext_resource type="Script" path="res://Scenes/game_over_screen.gd" id="1_1ks64"]
+[ext_resource type="Script" path="res://Scenes/ui/game_over_screen.gd" id="1_1ks64"]
 [ext_resource type="FontFile" uid="uid://chj4i8mao1yqs" path="res://kenney_space-shooter-redux/Bonus/kenvector_future.ttf" id="1_kvw3s"]
 [ext_resource type="FontFile" uid="uid://cpofd6x0yqcyc" path="res://kenney_space-shooter-redux/Bonus/kenvector_future_thin.ttf" id="2_8mrnc"]
 

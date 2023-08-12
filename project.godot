@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Spaceship-bullet-hell"
-run/main_scene="res://Scenes/Game.tscn"
+run/main_scene="res://Scenes/level/Game.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 config/icon="res://icon.svg"
 

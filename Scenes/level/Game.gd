@@ -2,13 +2,15 @@ extends Node2D
 
 @onready var lasers = $Lasers
 @onready var player = $Player
+@onready var EnemyTurret = $EnemyTurret
+
 @onready var asteroids = $Asteroids
 @onready var hud = $UI/HUD
 @onready var game_over_screen = $UI/GameOverScreen
 @onready var player_spawn_pos = $PlayerSpawnPos
 @onready var player_spawn_area = $PlayerSpawnPos/PlayerSpawnArea
 
-var asteroid_scene = preload("res://Scenes/asteroid.tscn")
+var asteroid_scene = preload("res://Scenes/asteroids/asteroid.tscn")
 
 var score: int:
 	set(value):
@@ -27,6 +29,8 @@ func _ready():
 	player.connect("laser_shot", _on_player_laser_shot)
 	player.connect("died", _on_player_died)
 	
+	EnemyTurret.connect('enemy_laser_shot', _on_enemy_laser_shot)
+	
 	for asteroid in asteroids.get_children():
 		asteroid.connect("exploded", _on_asteroid_exploded)
 	
@@ -36,6 +40,10 @@ func _process(delta):
 	
 	
 func _on_player_laser_shot(laser):
+	$LaserSound.play()
+	lasers.add_child(laser)
+	
+func _on_enemy_laser_shot(laser):
 	$LaserSound.play()
 	lasers.add_child(laser)
 	

@@ -31,15 +31,15 @@ func _ready():
 		AsteroidSize.LARGE:
 			speed = randf_range(50, 100)
 			sprite.texture = preload("res://kenney_space-shooter-redux/PNG/Meteors/meteorGrey_big4.png")
-			cshape.shape = preload("res://Scenes/asteroid_cshape_large.tres")
+			cshape.shape = preload("res://Scenes/asteroids/asteroid_cshape_large.tres")
 		AsteroidSize.MEDIUM:
 			speed = randf_range(100, 150)
 			sprite.texture = preload("res://kenney_space-shooter-redux/PNG/Meteors/meteorGrey_med2.png")
-			cshape.shape = preload("res://Scenes/asteroid_cshape_medium.tres")
+			cshape.shape = preload("res://Scenes/asteroids/asteroid_cshape_medium.tres")
 		AsteroidSize.SMALL:
 			speed = randf_range(100, 200)
 			sprite.texture = preload("res://kenney_space-shooter-redux/PNG/Meteors/meteorGrey_tiny1.png")
-			cshape.shape = preload("res://Scenes/asteroid_cshape_small.tres")	
+			cshape.shape = preload("res://Scenes/asteroids/asteroid_cshape_small.tres")	
 
 func _physics_process(delta):
 	global_position += movement_vector.rotated(rotation) * speed * delta
