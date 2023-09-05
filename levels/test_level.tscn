@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bs87ye7h58650"]
+[gd_scene load_steps=10 format=3 uid="uid://bs87ye7h58650"]
 
 [ext_resource type="Texture2D" uid="uid://c385fg3k50q3y" path="res://temporary_assets/DungeonTileSetV1.0.png" id="1_axmb5"]
 [ext_resource type="Script" path="res://levels/test_level.gd" id="1_qxluh"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://daul7ev5657p5" path="res://levels/level_camera.tscn" id="3_xnb0x"]
 [ext_resource type="Script" path="res://levels/level_camera.gd" id="4_tut35"]
 [ext_resource type="PackedScene" uid="uid://cwtuskfpjx053" path="res://ui/player_hud.tscn" id="6_ufsul"]
+[ext_resource type="PackedScene" uid="uid://cojc7kpdy6h2y" path="res://entities/enemy_trap.tscn" id="7_7vuky"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jtok7"]
 texture = ExtResource("1_axmb5")
@@ -319,3 +320,6 @@ script = ExtResource("4_tut35")
 tilemap = NodePath("../../ground")
 
 [node name="player_hud" parent="." instance=ExtResource("6_ufsul")]
+
+[node name="enemy_trap" parent="." instance=ExtResource("7_7vuky")]
+position = Vector2(132, 384)

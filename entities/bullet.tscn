@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://1v52kp5jttnh"]
+[gd_scene load_steps=5 format=3 uid="uid://1v52kp5jttnh"]
 
 [ext_resource type="Script" path="res://entities/bullet.gd" id="1_bbxn1"]
 [ext_resource type="Texture2D" uid="uid://cd05f0x011c73" path="res://temporary_assets/Arrows.png" id="2_3qupo"]
@@ -6,8 +6,12 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6udka"]
 size = Vector2(21, 8)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_htlyw"]
+radius = 6.0
+
 [node name="bullet" type="CharacterBody2D"]
 collision_layer = 8
+collision_mask = 5
 script = ExtResource("1_bbxn1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -17,7 +21,6 @@ region_rect = Rect2(4, 13, 24, 7)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 0)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_6udka")
 
 [node name="Timer_Lifespan" type="Timer" parent="."]
@@ -25,4 +28,18 @@ wait_time = 5.0
 one_shot = true
 autostart = true
 
+[node name="Timer_DeactivateHitbox" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(10, 0)
+shape = SubResource("CircleShape2D_htlyw")
+
 [connection signal="timeout" from="Timer_Lifespan" to="." method="_on_timer_lifespan_timeout"]
+[connection signal="timeout" from="Timer_DeactivateHitbox" to="." method="_on_timer_deactivate_hitbox_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

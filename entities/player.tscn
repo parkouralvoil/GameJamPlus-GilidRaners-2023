@@ -1,7 +1,11 @@
-[gd_scene load_steps=28 format=3 uid="uid://k3e86wyibwv8"]
+[gd_scene load_steps=32 format=3 uid="uid://k3e86wyibwv8"]
 
 [ext_resource type="Script" path="res://entities/player.gd" id="1_uppic"]
 [ext_resource type="Texture2D" uid="uid://dmaxqf16gyors" path="res://temporary_assets/BaseCharacterTemplate.png" id="2_inrnk"]
+[ext_resource type="Script" path="res://scripts/State Machine.gd" id="3_73eq6"]
+[ext_resource type="Script" path="res://scripts/player states/PlayerOnGround.gd" id="4_53up4"]
+[ext_resource type="Script" path="res://scripts/player states/PlayerInAir.gd" id="5_enbi2"]
+[ext_resource type="Script" path="res://scripts/player states/PlayerFire.gd" id="6_er8oo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kuaxw"]
 atlas = ExtResource("2_inrnk")
@@ -203,6 +207,7 @@ color = Color(0.545098, 0.545098, 0.545098, 0.52549)
 
 [node name="player" type="CharacterBody2D"]
 collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_uppic")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -239,6 +244,23 @@ one_shot = true
 
 [node name="Marker2D" type="Marker2D" parent="Node2D_Aim"]
 position = Vector2(7, 0)
+
+[node name="Timer_FireRateCD" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_73eq6")
+initial_state = NodePath("PlayerOnGround")
+
+[node name="PlayerOnGround" type="Node" parent="State Machine"]
+script = ExtResource("4_53up4")
+
+[node name="PlayerInAir" type="Node" parent="State Machine"]
+script = ExtResource("5_enbi2")
+
+[node name="PlayerFire" type="Node" parent="State Machine"]
+script = ExtResource("6_er8oo")
 
 [connection signal="timeout" from="Timer_EnergyStartCD" to="." method="_on_timer_energy_start_cd_timeout"]
 [connection signal="timeout" from="Timer_EnergyRegenCD" to="." method="_on_timer_energy_regen_cd_timeout"]

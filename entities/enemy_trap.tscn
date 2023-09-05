@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://cojc7kpdy6h2y"]
+
+[ext_resource type="Texture2D" uid="uid://8lgjaytudte8" path="res://icon.svg" id="1_ih7yi"]
+[ext_resource type="Script" path="res://entities/enemy_trap.gd" id="1_koovj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ag5nj"]
+size = Vector2(124, 126)
+
+[node name="enemy_trap" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 10
+script = ExtResource("1_koovj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ag5nj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ih7yi")
+
+[node name="Node2D_Aim" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="Node2D_Aim"]
+position = Vector2(60, 0)

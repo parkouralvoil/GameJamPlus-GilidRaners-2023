@@ -1,12 +1,6 @@
 class_name Player
 extends CharacterBody2D
 
-enum States {
-	ON_GROUND, 
-	IN_AIR, 
-	FIRE,
-	}
-
 const bullet_path = preload("res://entities/bullet.tscn")
 
 # g for ground variables
@@ -28,14 +22,14 @@ var atk: int = 5
 var energy: int = 80
 var max_energy: int = 80
 
-var has_air_jumped: bool = false
+var stop_energy_regen: bool = false
 
-var current_state := States.IN_AIR
 @onready var jump_CD = $Timer_JumpCD
 @onready var energy_start_CD = $Timer_EnergyStartCD
 @onready var energy_regen_CD = $Timer_EnergyRegenCD
 @onready var timer_is_firing = $Timer_IsFiring
 var is_firing := false
+@onready var fire_rate_CD = $Timer_FireRateCD
 
 @onready var anim_sprite = $AnimatedSprite2D
 @onready var jump_particles = $GPUParticles2D_Jump
@@ -43,151 +37,41 @@ var is_firing := false
 @onready var bullet_aim = $Node2D_Aim
 @onready var bullet_position = $Node2D_Aim/Marker2D
 
+@onready var state_machine = $"State Machine"
+
 # input logic (when i add input buffers for jumping or cooldowns)
-var x_movement
-var y_movement
+var x_movement: float
+var y_movement: float
+
+var input_fire: bool = false
 
 func _ready():
-	if velocity.y <= 0 and anim_sprite.animation != "falling":
-		anim_sprite.play("falling")
+	print(state_machine.states)
+	pass
 	
 func _process(delta):
 	bullet_aim.look_at(get_global_mouse_position())
 	
-	
-func _physics_process(delta):
 	x_movement = Input.get_axis("move_left", "move_right")
 	y_movement = Input.get_axis("move_up", "move_down")
-	
-	#gravity
-	if not is_on_floor():
-		velocity.y += gravity * delta
-		change_state(null, States.IN_AIR)
-	else:
-		has_air_jumped = false
-		change_state(null, States.ON_GROUND)
-		
+
+
+func _physics_process(delta):
 	# energy regen
-	if energy < max_energy and has_air_jumped == false and energy_regen_CD.is_stopped():
+	if energy < max_energy and stop_energy_regen == false and energy_regen_CD.is_stopped():
 		energy_regen_CD.start()
 	elif energy >= max_energy:
 		energy_regen_CD.stop()
 		energy == max_energy
-		
-	match current_state:
-		States.ON_GROUND:
-			if is_firing:
-				anim_sprite.play("shoot")
-				velocity = Vector2.ZERO
-			else:
-				energy_start_CD.stop()
-				has_air_jumped = false
-				ground_movement(delta)
-				
-				if Input.is_action_just_pressed("move_up") and jump_CD.is_stopped():
-					velocity.y = g_jump_speed
-					jump_CD.start()
-					
-				#animation:
-				if abs(velocity.x) <= 0.1 and anim_sprite.animation != "idle":
-					anim_sprite.play("idle")
-				elif abs(velocity.x) > 0.1 and anim_sprite.animation != "walk":
-					anim_sprite.play("walk")
-				
-			#flip char
-			if x_movement == -1:
-				anim_sprite.scale.x = -1
-			elif x_movement == 1:
-				anim_sprite.scale.x = 1
-			
-		States.IN_AIR:
-			if is_firing:
-				anim_sprite.play("shoot")
-				velocity = recoil_direction * 10 # TODO: needs to go to 0
-				
-			else:
-				air_movement(delta)
-				
-				#animation:
-				if velocity.y > 0.1 and anim_sprite.animation != "falling":
-					anim_sprite.play("falling")
-				elif velocity.y <= -300 and anim_sprite.animation != "jump_high":
-					anim_sprite.play("jump_high")
-				elif -300 < velocity.y and velocity.y <= -0.1 and anim_sprite.animation != "jump_med":
-					anim_sprite.play("jump_med")
-				
-				if Input.is_action_just_pressed("move_up") and jump_CD.is_stopped() and energy >= 15:
-					velocity.y = a_jump_speed
-					if x_movement == 0:
-						velocity = Vector2(velocity.x * 0.2, a_jump_speed)
-					else:
-						velocity = Vector2(x_movement * a_speed, a_jump_speed * 0.8)
-						
-					jump_particles.emitting = true
-					jump_CD.start()
-					energy_start_CD.start()
-					energy_regen_CD.stop()
-					has_air_jumped = true
-					energy -= 20
-	
-	if Input.is_action_just_pressed("shoot"): #TODO: need to add CD here lol
-		is_firing = true
-		# direction of player
-		if get_global_mouse_position() < global_position:
-			anim_sprite.scale.x = 1
-		else:
-			anim_sprite.scale.x = -1
-		timer_is_firing.start()
-		shoot_bullet()
 	
 	move_and_slide()
-	#print(anim_sprite.animation)
-
-func change_state(prev_state, new_state):
-	if current_state != new_state:
-		enter_state(new_state)
-	
-func enter_state(new_state):
-	current_state = new_state
-	
-func exit_state(prev_state):
-	pass
-
-# the price to pay for not using rigidbody2d (aka my own physics code)
-func ground_movement(input_delta):
-	if x_movement == 1:
-		velocity.x = min(velocity.x + g_accel * input_delta, g_speed)
-	elif x_movement == -1:
-		velocity.x = max(velocity.x - g_accel * input_delta, -g_speed)
-	else: # no input
-		if velocity.x > 0.1:
-			velocity.x = max(velocity.x - g_friction * input_delta, 0)
-		elif velocity.x < -0.1:
-			velocity.x = min(velocity.x + g_friction * input_delta, 0)
-		else:
-			velocity.x = 0
-			
-func air_movement(input_delta):
-	if x_movement == 1:
-		velocity.x = min(velocity.x + a_accel * input_delta, a_speed)
-	elif x_movement == -1:
-		velocity.x = max(velocity.x - a_accel * input_delta, -a_speed)
-	else: # no input
-		if velocity.x > 0.1:
-			velocity.x = max(velocity.x - a_friction * input_delta, 0)
-		elif velocity.x < -0.1:
-			velocity.x = min(velocity.x + a_friction * input_delta, 0)
-		else:
-			velocity.x = 0
 
 
 func _on_timer_energy_start_cd_timeout():
-	has_air_jumped = false
-
+	stop_energy_regen = false
 
 func _on_timer_energy_regen_cd_timeout():
 	energy += 10
-
 
 func _on_timer_is_firing_timeout():
 	is_firing = false
@@ -202,4 +86,30 @@ func shoot_bullet():
 	recoil_direction = -bullet.direction.normalized()
 
 # GENERAL TODO:
-# 4. gun knocks back player
+
+# sept 5: need to do
+# 1. more convenient firing (hold down m1 to keep shooting)
+# 2. adjustable bullet (in code, it can be swapped between enemy or player use)
+# 3. enemy_trap fires arrows
+# 4. enemy_trap moves up and down
+# 5. player can take dmg and die
+# 6. player can respawn
+
+
+# archives:
+# Player script will contain all logic responsible for
+	# choosing weapon, firing weapon, whether weapon has certain properties or not
+	# PlayerFire.gd will only bother with actually moving the player, slowing them down, and chainging states.
+	
+# variables:
+	# if a state script needs a particular component of the player,
+	# imo it is clearer if it's referenced by the state script itself
+	# but there is a benefit to making the 
+	# player.gd be the "central logic" part
+	# while all the other states just focus on moving/acting the player
+
+# the responsibility changing current states will still be managed by the states
+
+# ok in hindsight, prob way better to just have the states handle the transitions too
+# also, repeated shooting should be in fire state
+# also, player should be able to cancel fire recoil by jumping

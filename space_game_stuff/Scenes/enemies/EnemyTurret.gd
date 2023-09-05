@@ -1,4 +1,4 @@
-class_name Enemy extends CharacterBody2D
+class_name OLDEnemy extends CharacterBody2D
 
 signal enemy_laser_shot(laser)
 signal enemy_died
