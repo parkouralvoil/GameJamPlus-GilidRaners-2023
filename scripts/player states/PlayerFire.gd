@@ -8,12 +8,7 @@ class_name PlayerFire
 @onready var timer_is_firing: Timer = player.get_node("Timer_IsFiring")
 
 func Enter():
-	player.is_firing = true
-	fire_rate_CD.start()
-	timer_is_firing.start()
-	
-	player.shoot_bullet()
-	flip_player()
+	player.fire()
 	
 	apply_recoil()
 
@@ -22,8 +17,9 @@ func Exit():
 
 
 func Update(_delta: float):
-	pass
-
+	if player.fire_input and fire_rate_CD.is_stopped() and player.ammo > 0:
+		player.fire()
+		apply_recoil()
 
 func Physics_Update(_delta: float):
 	if player:
@@ -36,13 +32,7 @@ func Physics_Update(_delta: float):
 			Transitioned.emit(self, "PlayerOnGround")
 		else:
 			Transitioned.emit(self, "PlayerInAir")
-			
-	if Input.is_action_just_pressed("shoot") and fire_rate_CD.is_stopped(): # continue firing
-		fire_rate_CD.start()
-		timer_is_firing.start()
-		player.shoot_bullet()
-		flip_player()
-		apply_recoil()
+		
 		
 func apply_recoil():
 	if player.is_on_floor():
@@ -71,9 +61,3 @@ func halt_recoil(input_delta):
 func change_animation():
 	if anim_sprite.animation != "shoot":
 		anim_sprite.play("shoot")
-
-func flip_player():
-	if player.get_global_mouse_position().x < player.global_position.x:
-		anim_sprite.scale.x = 1
-	else:
-		anim_sprite.scale.x = -1

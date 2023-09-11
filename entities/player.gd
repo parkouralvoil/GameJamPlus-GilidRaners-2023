@@ -1,7 +1,7 @@
 class_name Player
 extends CharacterBody2D
 
-const bullet_path = preload("res://entities/bullet.tscn")
+var bullet_path = load("res://entities/projectiles/projectile_arrow.tscn")
 
 # g for ground variables
 var g_speed: float = 200
@@ -17,10 +17,12 @@ var a_friction: float = 500
 var recoil_direction: Vector2 = Vector2.ZERO
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-var health: int = 100
-var atk: int = 5
-var energy: int = 80
-var max_energy: int = 80
+var hp: float = 100.0
+var atk: float = 10.0
+var max_energy: int = 100
+var energy: int = max_energy
+var max_ammo: int = 8
+var ammo: int = max_ammo
 
 var stop_energy_regen: bool = false
 
@@ -30,6 +32,7 @@ var stop_energy_regen: bool = false
 @onready var timer_is_firing = $Timer_IsFiring
 var is_firing := false
 @onready var fire_rate_CD = $Timer_FireRateCD
+@onready var reload_timer = $Timer_Reload
 
 @onready var anim_sprite = $AnimatedSprite2D
 @onready var jump_particles = $GPUParticles2D_Jump
@@ -43,7 +46,7 @@ var is_firing := false
 var x_movement: float
 var y_movement: float
 
-var input_fire: bool = false
+var fire_input: bool = false
 
 func _ready():
 	print(state_machine.states)
@@ -51,10 +54,25 @@ func _ready():
 	
 func _process(delta):
 	bullet_aim.look_at(get_global_mouse_position())
-	
+	if hp <= 0:
+		# disable all inputs
+		
+		# IT IS MUCH PREFERABLE TO HAVE A DEAD STATE BRUV
+		x_movement = 0
+		y_movement = 0
+		velocity.x = 0
+		fire_input = false
+		anim_sprite.modulate = Color(1, 0 ,0)
+		die()
+		return
+		
 	x_movement = Input.get_axis("move_left", "move_right")
 	y_movement = Input.get_axis("move_up", "move_down")
-
+	
+	fire_input = Input.is_action_pressed("shoot")
+	
+	if !is_firing and reload_timer.is_stopped() and ammo < max_ammo:
+		reload_timer.start()
 
 func _physics_process(delta):
 	# energy regen
@@ -78,38 +96,58 @@ func _on_timer_is_firing_timeout():
 
 func shoot_bullet():
 	var bullet = bullet_path.instantiate()
+	var projectile_lifespan: float = 0.9
 	
+	bullet.lifespan = projectile_lifespan
 	get_parent().add_child(bullet)
+	bullet.sprite.self_modulate = Color(1, 0.647059, 0, 1)
 	bullet.global_position = bullet_position.global_position
 	bullet.direction = get_global_mouse_position() - bullet.global_position
 	bullet.rotation = bullet_aim.rotation
+	
+	bullet.damage = atk
 	recoil_direction = -bullet.direction.normalized()
+	
+	ammo -= 1
+	if !reload_timer.is_stopped():
+		reload_timer.stop()
 
+func take_damage(damage):
+	if hp - damage > 0:
+		anim_sprite.self_modulate = Color(1, 0, 0)
+		await get_tree().create_timer(0.2).timeout
+		anim_sprite.self_modulate = Color(1, 1, 1)
+		hp -= damage
+	else:
+		hp = 0
+
+func die():
+	pass
+	
+func flip_player():
+	if get_global_mouse_position().x < global_position.x:
+		anim_sprite.scale.x = 1
+	else:
+		anim_sprite.scale.x = -1
+		
+func fire():
+	is_firing = true
+	fire_rate_CD.start()
+	timer_is_firing.start()
+	
+	shoot_bullet()
+	flip_player()
 # GENERAL TODO:
 
-# sept 5: need to do
-# 1. more convenient firing (hold down m1 to keep shooting)
-# 2. adjustable bullet (in code, it can be swapped between enemy or player use)
-# 3. enemy_trap fires arrows
-# 4. enemy_trap moves up and down
-# 5. player can take dmg and die
-# 6. player can respawn
+# Sept 10
+# > give player less airtime from shooting
+# > let player cancel "is_firing" by jumping/air jumping 
+# > player can respawn
+
+# game design issue
+# i can just take cover lol
+# solution: long ranged enemies, wallhack, aoe circular attack, like ReverseStory
 
 
-# archives:
-# Player script will contain all logic responsible for
-	# choosing weapon, firing weapon, whether weapon has certain properties or not
-	# PlayerFire.gd will only bother with actually moving the player, slowing them down, and chainging states.
-	
-# variables:
-	# if a state script needs a particular component of the player,
-	# imo it is clearer if it's referenced by the state script itself
-	# but there is a benefit to making the 
-	# player.gd be the "central logic" part
-	# while all the other states just focus on moving/acting the player
-
-# the responsibility changing current states will still be managed by the states
-
-# ok in hindsight, prob way better to just have the states handle the transitions too
-# also, repeated shooting should be in fire state
-# also, player should be able to cancel fire recoil by jumping
+func _on_timer_reload_timeout():
+	ammo = max_ammo

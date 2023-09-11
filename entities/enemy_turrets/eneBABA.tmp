@@ -1,0 +1,112 @@
+[gd_scene load_steps=11 format=3 uid="uid://bx1ojieysbx4j"]
+
+[ext_resource type="Script" path="res://entities/enemy_turrets/enemy_ranged.gd" id="1_42bwg"]
+[ext_resource type="Texture2D" uid="uid://bo821tp3rcbb2" path="res://temporary_assets/crossbow spriteframe.png" id="2_n8ace"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ag5nj"]
+size = Vector2(34, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gsl48"]
+atlas = ExtResource("2_n8ace")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wkojv"]
+atlas = ExtResource("2_n8ace")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t6qgt"]
+atlas = ExtResource("2_n8ace")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ibxgl"]
+atlas = ExtResource("2_n8ace")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2gmdq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gsl48")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wkojv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t6qgt")
+}],
+"loop": false,
+"name": &"fire",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ibxgl")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bkdyh"]
+size = Vector2(1200, 800)
+
+[sub_resource type="LabelSettings" id="LabelSettings_aqcy7"]
+font_size = 13
+
+[node name="enemy_ranged" type="CharacterBody2D"]
+collision_layer = 4
+script = ExtResource("1_42bwg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_ag5nj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -1)
+sprite_frames = SubResource("SpriteFrames_2gmdq")
+animation = &"fire"
+frame = 2
+frame_progress = 1.0
+
+[node name="Node2D_Aim" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="Node2D_Aim"]
+position = Vector2(16, 0)
+
+[node name="Timer_Reload" type="Timer" parent="."]
+wait_time = 2.5
+one_shot = true
+
+[node name="Timer_FireRateCD" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="Area2D_PlayerNearby" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_PlayerNearby"]
+position = Vector2(4, 1)
+shape = SubResource("RectangleShape2D_bkdyh")
+
+[node name="RayCast2D_Player" type="RayCast2D" parent="."]
+target_position = Vector2(0, 0)
+collision_mask = 3
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label_HP" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = -16.0
+offset_top = 20.0
+offset_right = 27.0
+offset_bottom = 46.0
+text = "40/40"
+label_settings = SubResource("LabelSettings_aqcy7")
+
+[connection signal="timeout" from="Timer_Reload" to="." method="_on_timer_reload_timeout"]
+[connection signal="timeout" from="Timer_FireRateCD" to="." method="_on_timer_fire_rate_cd_timeout"]
