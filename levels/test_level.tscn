@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bs87ye7h58650"]
+[gd_scene load_steps=11 format=3 uid="uid://bs87ye7h58650"]
 
 [ext_resource type="Texture2D" uid="uid://c385fg3k50q3y" path="res://temporary_assets/DungeonTileSetV1.0.png" id="1_axmb5"]
 [ext_resource type="Script" path="res://levels/test_level.gd" id="1_qxluh"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://levels/level_camera.gd" id="4_tut35"]
 [ext_resource type="PackedScene" uid="uid://cwtuskfpjx053" path="res://ui/player_hud.tscn" id="6_ufsul"]
 [ext_resource type="PackedScene" uid="uid://bx1ojieysbx4j" path="res://entities/enemy_turrets/enemy_ranged.tscn" id="8_p7hgi"]
+[ext_resource type="PackedScene" uid="uid://bf1s3l40wbjjl" path="res://entities/enemy_turrets/enemy_laser.tscn" id="8_u806n"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jtok7"]
 texture = ExtResource("1_axmb5")
@@ -329,43 +330,9 @@ position = Vector2(1808, 1301)
 [node name="enemy_ranged" parent="Node2D" instance=ExtResource("8_p7hgi")]
 position = Vector2(-1067, -939)
 
-[node name="enemy_ranged2" parent="Node2D" instance=ExtResource("8_p7hgi")]
-position = Vector2(-1069, -1170)
+[node name="enemy_laser" parent="Node2D" instance=ExtResource("8_u806n")]
+position = Vector2(-1581, -1124)
 
-[node name="enemy_ranged3" parent="Node2D" instance=ExtResource("8_p7hgi")]
-position = Vector2(-732, -1140)
-
-[node name="enemy_ranged4" parent="Node2D" instance=ExtResource("8_p7hgi")]
-position = Vector2(-738, -952)
-initial_rotation = 50.0
-
-[node name="enemy_ranged5" parent="Node2D" instance=ExtResource("8_p7hgi")]
-position = Vector2(-863, 37)
-initial_rotation = 50.0
-
-[node name="enemy_ranged6" parent="Node2D" instance=ExtResource("8_p7hgi")]
-position = Vector2(-863, 305)
-initial_rotation = 50.0
-
-[node name="enemy_ranged7" parent="Node2D" instance=ExtResource("8_p7hgi")]
-position = Vector2(-209, 42)
-initial_rotation = 50.0
-
-[node name="enemy_ranged8" parent="Node2D" instance=ExtResource("8_p7hgi")]
-position = Vector2(-208, 304)
-initial_rotation = 50.0
-
-[node name="enemy_ranged9" parent="Node2D" instance=ExtResource("8_p7hgi")]
-position = Vector2(-30, 177)
-initial_rotation = 50.0
-
-[node name="enemy_ranged10" parent="Node2D" instance=ExtResource("8_p7hgi")]
-position = Vector2(-1033, 158)
-initial_rotation = 50.0
-
-[node name="enemy_ranged11" parent="Node2D" instance=ExtResource("8_p7hgi")]
-position = Vector2(-1057, -4)
-initial_rotation = 50.0
-
-[node name="enemy_ranged12" parent="Node2D" instance=ExtResource("8_p7hgi")]
-initial_rotation = 50.0
+[node name="enemy_laser2" parent="Node2D" instance=ExtResource("8_u806n")]
+position = Vector2(-1347, -1060)
+rotation = 0.785398

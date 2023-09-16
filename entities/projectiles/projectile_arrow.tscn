@@ -10,6 +10,7 @@ size = Vector2(24, 8)
 radius = 7.0
 
 [node name="projectile_arrow" type="CharacterBody2D"]
+scale = Vector2(0.8, 0.8)
 collision_layer = 8
 script = ExtResource("1_bk0qx")
 

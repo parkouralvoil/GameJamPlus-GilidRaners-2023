@@ -1,5 +1,4 @@
-extends CharacterBody2D
-class_name Enemy
+extends Enemy
 
 var bullet_path = load("res://entities/projectiles/projectile_arrow.tscn")
 
@@ -21,6 +20,7 @@ var atk: float = 5.0
 
 var target: Player = null
 var player_in_sight: bool = false
+var burst_started: bool = false
 
 # vision stuff:
 var angle_to: float = 100
@@ -52,18 +52,19 @@ func _process(delta):
 	if target != null and player_in_sight:
 		#turret_aim.look_at(target.global_position)
 		rotate_char(delta)
-		
+
 		if fire_rate_CD.is_stopped() and ammo > 0 and abs(angle_to) < 0.3: 
 			fire_rate_CD.start() # shoot bullet is located here
 		elif ammo <= 0 and reload_CD.is_stopped():
 			if !fire_rate_CD.is_stopped(): 
 				fire_rate_CD.stop()
 			reload_CD.start()
-			
+
 	else:
 		anim_sprite.play("idle")
 		if !fire_rate_CD.is_stopped(): 
 			fire_rate_CD.stop()
+	
 
 func _physics_process(delta):
 	pass
@@ -122,15 +123,10 @@ func player_vision():
 func _on_timer_fire_rate_cd_timeout():
 	ammo -= 1
 	shoot_bullet()
-	print((angle_to), anim_sprite.rotation_degrees)
+	#print((angle_to), anim_sprite.rotation_degrees)
 	if !anim_sprite.is_playing():
 		anim_sprite.play("fire")
 
 
 func _on_timer_reload_timeout():
 	ammo = 3
-
-# we have 3 turret enemies:
-	# 1. this one, autobow, fires 3 arrows in burst, light stagger, dies in 4 hits
-	# 2. laser crystal, fires 4 lasers in + or x direction, heavy stagger, dies in 3 hits
-	# 3. fire spirit, fires 3 firebombs at once, heavy stagger, dies in 2 hits

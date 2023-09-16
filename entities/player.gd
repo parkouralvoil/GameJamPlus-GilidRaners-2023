@@ -24,6 +24,10 @@ var energy: int = max_energy
 var max_ammo: int = 8
 var ammo: int = max_ammo
 
+# projectile info
+var projectile_speed: float = 750
+var projectile_lifespan: float = 0.65
+
 var stop_energy_regen: bool = false
 
 @onready var jump_CD = $Timer_JumpCD
@@ -96,7 +100,6 @@ func _on_timer_is_firing_timeout():
 
 func shoot_bullet():
 	var bullet = bullet_path.instantiate()
-	var projectile_lifespan: float = 0.9
 	
 	bullet.lifespan = projectile_lifespan
 	get_parent().add_child(bullet)
@@ -104,6 +107,7 @@ func shoot_bullet():
 	bullet.global_position = bullet_position.global_position
 	bullet.direction = get_global_mouse_position() - bullet.global_position
 	bullet.rotation = bullet_aim.rotation
+	bullet.projectile_speed = projectile_speed
 	
 	bullet.damage = atk
 	recoil_direction = -bullet.direction.normalized()
