@@ -17,7 +17,7 @@ var a_friction: float = 500
 var recoil_direction: Vector2 = Vector2.ZERO
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-var hp: float = 100.0
+var hp: float = 1000.0
 var atk: float = 10.0
 var max_energy: int = 100
 var energy: int = max_energy
@@ -26,7 +26,7 @@ var ammo: int = max_ammo
 
 # projectile info
 var projectile_speed: float = 750
-var projectile_lifespan: float = 0.65
+var projectile_lifespan: float = 0.55
 
 var stop_energy_regen: bool = false
 

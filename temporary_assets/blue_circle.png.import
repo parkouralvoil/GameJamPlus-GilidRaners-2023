@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3qu7q6jv6w1g"
-path="res://.godot/imported/mana wisp.png-38afdc9443b678d3002421224433c4cf.ctex"
+uid="uid://b20w5dnll1xsg"
+path="res://.godot/imported/blue_circle.png-76f83e25feadafb98a79ac45e5b76d71.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://temporary_assets/mana wisp.png"
-dest_files=["res://.godot/imported/mana wisp.png-38afdc9443b678d3002421224433c4cf.ctex"]
+source_file="res://temporary_assets/blue_circle.png"
+dest_files=["res://.godot/imported/blue_circle.png-76f83e25feadafb98a79ac45e5b76d71.ctex"]
 
 [params]
 

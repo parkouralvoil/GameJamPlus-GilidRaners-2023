@@ -6,8 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://daul7ev5657p5" path="res://levels/level_camera.tscn" id="3_xnb0x"]
 [ext_resource type="Script" path="res://levels/level_camera.gd" id="4_tut35"]
 [ext_resource type="PackedScene" uid="uid://cwtuskfpjx053" path="res://ui/player_hud.tscn" id="6_ufsul"]
-[ext_resource type="PackedScene" uid="uid://bx1ojieysbx4j" path="res://entities/enemy_turrets/enemy_ranged.tscn" id="8_p7hgi"]
 [ext_resource type="PackedScene" uid="uid://bf1s3l40wbjjl" path="res://entities/enemy_turrets/enemy_laser.tscn" id="8_u806n"]
+[ext_resource type="PackedScene" uid="uid://drqyrkt6rv3xv" path="res://entities/enemy_turrets/enemy_wisp.tscn" id="8_y8ulk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jtok7"]
 texture = ExtResource("1_axmb5")
@@ -317,7 +317,7 @@ layer_0/tile_data = PackedInt32Array(524289, 196608, 0, 589825, 196608, 0, 65536
 [node name="player_hud" parent="CanvasLayer" instance=ExtResource("6_ufsul")]
 
 [node name="player" parent="." instance=ExtResource("2_he5gv")]
-position = Vector2(98, 100)
+position = Vector2(1148, 432)
 
 [node name="level_camera" parent="player" node_paths=PackedStringArray("tilemap") instance=ExtResource("3_xnb0x")]
 zoom = Vector2(1.5, 1.5)
@@ -325,14 +325,21 @@ script = ExtResource("4_tut35")
 tilemap = NodePath("../../ground")
 
 [node name="Node2D" type="Node2D" parent="."]
-position = Vector2(1808, 1301)
 
-[node name="enemy_ranged" parent="Node2D" instance=ExtResource("8_p7hgi")]
-position = Vector2(-1067, -939)
+[node name="enemy_wisp" parent="Node2D" instance=ExtResource("8_y8ulk")]
+position = Vector2(890, 1297)
+
+[node name="enemy_wisp2" parent="Node2D" instance=ExtResource("8_y8ulk")]
+position = Vector2(1710, 1302)
 
 [node name="enemy_laser" parent="Node2D" instance=ExtResource("8_u806n")]
-position = Vector2(-1581, -1124)
+position = Vector2(748, 1740)
 
 [node name="enemy_laser2" parent="Node2D" instance=ExtResource("8_u806n")]
-position = Vector2(-1347, -1060)
-rotation = 0.785398
+position = Vector2(751, 1601)
+
+[node name="enemy_laser3" parent="Node2D" instance=ExtResource("8_u806n")]
+position = Vector2(1848, 1409)
+
+[node name="enemy_laser4" parent="Node2D" instance=ExtResource("8_u806n")]
+position = Vector2(1845, 1286)

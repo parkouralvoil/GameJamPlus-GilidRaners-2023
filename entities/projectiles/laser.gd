@@ -1,9 +1,8 @@
 extends RayCast2D
 
 var prev_is_casting: bool = false
-var is_casting: bool = false
+var is_casting: bool = true
 
-@onready var enemy: Enemy = get_parent().get_parent()
 @onready var laser_line: Line2D = $Line2D
 @onready var animator: AnimationPlayer = $AnimationPlayer
 
@@ -14,13 +13,17 @@ var is_casting: bool = false
 @onready var collision_particle: GPUParticles2D = $CollisionParticles
 
 @onready var dmg_proc_CD: Timer = $Timer_DmgProc
+@onready var reload_CD: Timer = $Timer_Reload
 
 var laser_size: float = 7.0
+var cast_point: Vector2 = target_position
 
-var damage: float = 20
+var damage: float = 20.0
+var target: Player = null
 
 func _ready():
-	set_physics_process(false)
+	is_casting = true
+	set_physics_process(true)
 	laser_line.points[1] = Vector2.ZERO
 	casting_particle.emitting = false
 	collision_particle.emitting = false
@@ -30,7 +33,6 @@ func _process(delta: float):
 	set_is_casting()
 
 func _physics_process(delta: float):
-	var cast_point: Vector2 = target_position
 	force_raycast_update()
 	
 	if is_colliding():
@@ -38,15 +40,12 @@ func _physics_process(delta: float):
 		collision_particle.global_rotation = get_collision_normal().angle()
 		collision_particle.position = cast_point
 		
-	#print("RAH")
-	for body in hitbox.get_overlapping_bodies():
-		if body is Player and dmg_proc_CD.is_stopped():
-			body.take_damage(damage)
-			dmg_proc_CD.start()
-			print("DPS RACE")
-			
 	laser_line.points[1] = cast_point
-	hitbox_length.shape.b = cast_point / 0.45 # cuz of wonky width workaround with scale
+	hitbox_length.shape.b = cast_point
+	
+	if target != null and dmg_proc_CD.is_stopped():
+		target.take_damage(damage)
+		dmg_proc_CD.start()
 	
 	
 func set_is_casting(): # set by enemy script
@@ -65,3 +64,21 @@ func set_is_casting(): # set by enemy script
 
 func _on_timer_dmg_proc_timeout():
 	pass # Replace with function body.
+
+
+func _on_area_2d_body_entered(body):
+	if body is Player:
+		target = body
+
+
+func _on_area_2d_body_exited(body):
+	if body is Player:
+		target = null
+
+func _deactivate_laser(): # for animation player
+	is_casting = false
+	reload_CD.start()
+
+
+func _on_timer_reload_timeout():
+	is_casting = true

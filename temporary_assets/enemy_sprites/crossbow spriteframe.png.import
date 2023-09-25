@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bblg0d50jbo3m"
-path="res://.godot/imported/laser crystal.png-729b3dc174a066f65490141abc1c41ee.ctex"
+uid="uid://bo821tp3rcbb2"
+path="res://.godot/imported/crossbow spriteframe.png-a5982212f0c12adb4dd92ece592f4e3c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://temporary_assets/laser crystal.png"
-dest_files=["res://.godot/imported/laser crystal.png-729b3dc174a066f65490141abc1c41ee.ctex"]
+source_file="res://temporary_assets/enemy_sprites/crossbow spriteframe.png"
+dest_files=["res://.godot/imported/crossbow spriteframe.png-a5982212f0c12adb4dd92ece592f4e3c.ctex"]
 
 [params]
 

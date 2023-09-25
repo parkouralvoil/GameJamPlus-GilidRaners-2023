@@ -1,38 +1,37 @@
 [gd_scene load_steps=11 format=3 uid="uid://bx1ojieysbx4j"]
 
 [ext_resource type="Script" path="res://entities/enemy_turrets/enemy_ranged.gd" id="1_42bwg"]
-[ext_resource type="Texture2D" uid="uid://bo821tp3rcbb2" path="res://temporary_assets/crossbow spriteframe.png" id="2_n8ace"]
+[ext_resource type="Texture2D" uid="uid://bo821tp3rcbb2" path="res://temporary_assets/enemy_sprites/crossbow spriteframe.png" id="2_kqjn0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ag5nj"]
 size = Vector2(34, 38)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gsl48"]
-atlas = ExtResource("2_n8ace")
-region = Rect2(64, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wkojv"]
-atlas = ExtResource("2_n8ace")
-region = Rect2(128, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_t6qgt"]
-atlas = ExtResource("2_n8ace")
+[sub_resource type="AtlasTexture" id="AtlasTexture_36pfi"]
+atlas = ExtResource("2_kqjn0")
 region = Rect2(0, 0, 64, 64)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_lc1ya"]
+atlas = ExtResource("2_kqjn0")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d7mg5"]
+atlas = ExtResource("2_kqjn0")
+region = Rect2(128, 0, 64, 64)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_ibxgl"]
-atlas = ExtResource("2_n8ace")
 region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2gmdq"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gsl48")
+"texture": SubResource("AtlasTexture_36pfi")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wkojv")
+"texture": SubResource("AtlasTexture_lc1ya")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_t6qgt")
+"texture": SubResource("AtlasTexture_d7mg5")
 }],
 "loop": false,
 "name": &"fire",
@@ -65,7 +64,6 @@ shape = SubResource("RectangleShape2D_ag5nj")
 position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_2gmdq")
 animation = &"fire"
-frame = 2
 frame_progress = 1.0
 
 [node name="Node2D_Aim" type="Node2D" parent="."]
@@ -88,6 +86,7 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_PlayerNearby"]
 position = Vector2(4, 1)
 shape = SubResource("RectangleShape2D_bkdyh")
+debug_color = Color(0, 0.729412, 0.854902, 0.0588235)
 
 [node name="RayCast2D_Player" type="RayCast2D" parent="."]
 target_position = Vector2(0, 0)

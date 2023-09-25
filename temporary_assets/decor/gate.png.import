@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bo821tp3rcbb2"
-path="res://.godot/imported/crossbow spriteframe.png-2f6a18fb6df027dea86491f597dc1559.ctex"
+uid="uid://cc3a35sqsmbbc"
+path="res://.godot/imported/gate.png-9af5569adfc3390879f9f59f68fdaf1d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://temporary_assets/crossbow spriteframe.png"
-dest_files=["res://.godot/imported/crossbow spriteframe.png-2f6a18fb6df027dea86491f597dc1559.ctex"]
+source_file="res://temporary_assets/decor/gate.png"
+dest_files=["res://.godot/imported/gate.png-9af5569adfc3390879f9f59f68fdaf1d.ctex"]
 
 [params]
 

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cd71br7rhtq2l"]
+
+[ext_resource type="Texture2D" uid="uid://cc3a35sqsmbbc" path="res://temporary_assets/decor/gate.png" id="1_dbbu1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_58tty"]
+
+[node name="door" type="StaticBody2D"]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_58tty")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_dbbu1")

@@ -4,7 +4,7 @@
 
 [sub_resource type="Animation" id="Animation_wlf8b"]
 resource_name = "laser_firing"
-length = 3.8
+length = 3.9
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -12,10 +12,10 @@ tracks/0/path = NodePath("Line2D:width")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.584875, 0.60683, 1.10683, 1.15, 3.60668, 3.8005),
-"transitions": PackedFloat32Array(1, 0, 1, 0, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.584875, 0.60683, 1.10683, 1.15, 3.6, 3.8),
+"transitions": PackedFloat32Array(1, 1, 0, 1, 0, 1, 1, 1),
 "update": 0,
-"values": [1.0, 1.0, 4.0, 4.0, 7.0, 7.0, 0.0]
+"values": [0.0, 1.0, 1.0, 4.0, 4.0, 5.0, 5.0, 0.0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -27,7 +27,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.35, 0.60683, 0.80683, 0.90683, 1.10683, 1.15, 3.60668, 3.7965),
 "transitions": PackedFloat32Array(1, 1, 2, 0, 2, 0, 1, 1, 1),
 "update": 0,
-"values": [Color(0.717647, 0.729412, 0.760784, 1), Color(0.717647, 0.729412, 0.760784, 1), Color(0.552941, 0.0352941, 0.207843, 1), Color(0.552941, 0.0352941, 0.207843, 0.0784314), Color(0.552941, 0.0352941, 0.207843, 1), Color(0.552941, 0.0352941, 0.207843, 0.0784314), Color(0.756863, 0.0745098, 0.298039, 1), Color(0.756863, 0.0745098, 0.298039, 1), Color(0.0980392, 0, 0.0156863, 0)]
+"values": [Color(0.717647, 0.729412, 0.760784, 1), Color(0.717647, 0.729412, 0.760784, 1), Color(0.341176, 0.0117647, 0.113725, 1), Color(0.552941, 0.0352941, 0.207843, 0.0784314), Color(0.341176, 0.0117647, 0.113725, 1), Color(0.552941, 0.0352941, 0.207843, 0.0784314), Color(0.756863, 0.0745098, 0.298039, 1), Color(0.756863, 0.0745098, 0.298039, 1), Color(0.0980392, 0, 0.0156863, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -65,14 +65,28 @@ tracks/4/keys = {
 "update": 1,
 "values": [false, true, false]
 }
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(3.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_deactivate_laser"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v7w68"]
 _data = {
 "laser_firing": SubResource("Animation_wlf8b")
 }
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_f8ker"]
-b = Vector2(0, 2.222)
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_btd4f"]
+resource_local_to_scene = true
 
 [sub_resource type="Gradient" id="Gradient_2pm6j"]
 offsets = PackedFloat32Array(0, 0.989189)
@@ -120,7 +134,7 @@ script = ExtResource("1_qc3b8")
 
 [node name="Line2D" type="Line2D" parent="."]
 points = PackedVector2Array(0, 0, 0, 1000)
-width = 1.0
+width = 0.0
 default_color = Color(0.717647, 0.729412, 0.760784, 1)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -133,9 +147,9 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-scale = Vector2(0.45, 0.45)
-shape = SubResource("SegmentShape2D_f8ker")
+shape = SubResource("SegmentShape2D_btd4f")
 disabled = true
+debug_color = Color(0.905882, 0.282353, 0.294118, 0.729412)
 
 [node name="CastingParticles" type="GPUParticles2D" parent="."]
 rotation = 1.5708
@@ -145,11 +159,20 @@ process_material = SubResource("ParticleProcessMaterial_2uhf0")
 
 [node name="CollisionParticles" type="GPUParticles2D" parent="."]
 rotation = 1.5708
+emitting = false
 amount = 10
 process_material = SubResource("ParticleProcessMaterial_el2xi")
 lifetime = 0.8
 
 [node name="Timer_DmgProc" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
 
+[node name="Timer_Reload" type="Timer" parent="."]
+wait_time = 4.3
+one_shot = true
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
 [connection signal="timeout" from="Timer_DmgProc" to="." method="_on_timer_dmg_proc_timeout"]
+[connection signal="timeout" from="Timer_Reload" to="." method="_on_timer_reload_timeout"]

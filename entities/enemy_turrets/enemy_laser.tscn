@@ -1,17 +1,20 @@
 [gd_scene load_steps=8 format=3 uid="uid://bf1s3l40wbjjl"]
 
 [ext_resource type="Script" path="res://entities/enemy_turrets/enemy_laser.gd" id="1_f6uyk"]
-[ext_resource type="Texture2D" uid="uid://bblg0d50jbo3m" path="res://temporary_assets/laser crystal.png" id="2_je47r"]
-[ext_resource type="PackedScene" uid="uid://dhgcf5nbtrfdn" path="res://entities/projectiles/laser.tscn" id="2_un8cf"]
+[ext_resource type="Texture2D" uid="uid://bblg0d50jbo3m" path="res://temporary_assets/enemy_sprites/laser crystal.png" id="2_mj23k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ag5nj"]
 size = Vector2(26, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_talrf"]
+atlas = ExtResource("2_mj23k")
+region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2gmdq"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_je47r")
+"texture": SubResource("AtlasTexture_talrf")
 }],
 "loop": false,
 "name": &"idle",
@@ -19,27 +22,30 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bkdyh"]
-size = Vector2(1200, 1200)
+size = Vector2(500, 500)
 
 [sub_resource type="LabelSettings" id="LabelSettings_aqcy7"]
 font_size = 13
 
 [node name="enemy_laser" type="CharacterBody2D"]
+position = Vector2(0, 1)
 collision_layer = 4
 script = ExtResource("1_f6uyk")
 
-[node name="laser_collection" type="Node2D" parent="."]
+[node name="laser_container" type="Node2D" parent="."]
+position = Vector2(0, -1)
 
-[node name="laser_up" parent="laser_collection" instance=ExtResource("2_un8cf")]
-rotation = -3.14159
+[node name="Marker2D_down" type="Marker2D" parent="laser_container"]
+position = Vector2(0, 8)
 
-[node name="laser_down" parent="laser_collection" instance=ExtResource("2_un8cf")]
+[node name="Marker2D_up" type="Marker2D" parent="laser_container"]
+position = Vector2(0, -8)
 
-[node name="laser_left" parent="laser_collection" instance=ExtResource("2_un8cf")]
-rotation = 1.5708
+[node name="Marker2D_left" type="Marker2D" parent="laser_container"]
+position = Vector2(-8, 0)
 
-[node name="laser_right" parent="laser_collection" instance=ExtResource("2_un8cf")]
-rotation = 4.71239
+[node name="Marker2D_right" type="Marker2D" parent="laser_container"]
+position = Vector2(8, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)
@@ -50,14 +56,6 @@ position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_2gmdq")
 animation = &"idle"
 
-[node name="Timer_Reload" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
-
-[node name="Timer_LaserDuration" type="Timer" parent="."]
-wait_time = 4.0
-one_shot = true
-
 [node name="Area2D_PlayerNearby" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
@@ -65,9 +63,9 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_PlayerNearby"]
 position = Vector2(4, 1)
 shape = SubResource("RectangleShape2D_bkdyh")
+debug_color = Color(0.392157, 0.886275, 1, 0.0901961)
 
 [node name="Control" type="Control" parent="."]
-top_level = true
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1.0
@@ -76,11 +74,8 @@ offset_bottom = 1.0
 [node name="Label_HP" type="Label" parent="Control"]
 layout_mode = 0
 offset_left = -16.0
-offset_top = 20.0
+offset_top = 14.0
 offset_right = 27.0
-offset_bottom = 46.0
+offset_bottom = 40.0
 text = "40/40"
 label_settings = SubResource("LabelSettings_aqcy7")
-
-[connection signal="timeout" from="Timer_Reload" to="." method="_on_timer_reload_timeout"]
-[connection signal="timeout" from="Timer_LaserDuration" to="." method="_on_timer_laser_lifespan_timeout"]
