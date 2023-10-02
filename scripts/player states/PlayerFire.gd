@@ -32,6 +32,9 @@ func Physics_Update(_delta: float):
 			Transitioned.emit(self, "PlayerOnGround")
 		else:
 			Transitioned.emit(self, "PlayerInAir")
+	
+	if player.hp <= 0:
+		Transitioned.emit(self, "PlayerDead")
 		
 		
 func apply_recoil():

@@ -1,16 +1,9 @@
 extends Enemy
 
-var max_hp: float = 20.0
-var hp: float = max_hp
-var atk: float = 20.0 
-
 var laser_path = load("res://entities/projectiles/laser.tscn")
 var laser_range: float = 2000
 
 @export var diagonal_laser: bool = false
-
-@onready var hitbox: CollisionShape2D = $CollisionShape2D
-@onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 @onready var hitbox_playerNearby: Area2D = $Area2D_PlayerNearby
 
@@ -19,28 +12,30 @@ var laser_range: float = 2000
 @onready var marker_left: Marker2D = $laser_container/Marker2D_left
 @onready var marker_right: Marker2D = $laser_container/Marker2D_right
 
-var target: Player = null
 var player_in_sight: bool = false
+var markers
 
 # laser start up and fire
 var laser_ready: bool = false
-
-# healthbar:
-@onready var display_hp = $Control/Label_HP:
-	set(value):
-		display_hp.text = "{0}/{1}".format([str(value), str(max_hp)])
+var cleared_lasers: bool = false
 
 func _ready():
+	max_hp = 20.0
+	hp = max_hp
+	atk = 10.0
 	$Control.global_position = global_position
 	if diagonal_laser == true:
 		anim_sprite.rotation_degrees = 45
 		$laser_container.rotation_degrees = 45
 	
+	markers = [marker_down, marker_up, marker_left, marker_right]
 	spawn_lasers()
 
 func _process(delta):
-	if hp == 0:
+	if hp <= 0:
 		die()
+		if !cleared_lasers:
+			despawn_lasers()
 		return
 	display_hp = hp	
 
@@ -48,24 +43,8 @@ func _physics_process(delta):
 	pass
 
 
-func take_damage(damage):
-	if hp - damage > 0:
-		hp -= damage
-		anim_sprite.self_modulate = Color(1, 0, 0)
-		await get_tree().create_timer(0.2).timeout
-		anim_sprite.self_modulate = Color(1, 1, 1)
-	else:
-		hp = 0
-		
-func die():
-	anim_sprite.visible = false
-	
-	queue_free()
-
-
 func spawn_lasers():
-	var markers = [marker_down, marker_up, marker_left, marker_right]
-	
+	cleared_lasers = false
 	for mark in markers:
 		var laser = laser_path.instantiate()
 		
@@ -73,10 +52,16 @@ func spawn_lasers():
 		laser.target_position = laser_range * mark.position.normalized()
 		laser.casting_particle.rotation = mark.position.normalized().angle()
 
-#func shoot_bullet():
-#	var bullet = bullet_path.instantiate()
-#
-#	get_parent().add_child(bullet)
-#	bullet.global_position = global_position
-#	bullet.direction = marker.global_position - bullet.global_position
-#	bullet.rotation = turret_aim.rotation
+func despawn_lasers():
+	cleared_lasers = true
+	for mark in markers:
+		var laser = mark.get_child(0)
+		
+		laser.queue_free()
+		
+func respawn():
+	hp = max_hp
+	anim_sprite.visible = true
+	display_hp.visible = true
+	hitbox.set_deferred("disabled", false)
+	spawn_lasers()

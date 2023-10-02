@@ -1,9 +1,10 @@
 extends Control
 
+@onready var max_hp: float = 999.0
 
 @onready var hp = $Label_HP:
 	set(value):
-		hp.text = "HP: " + str(value)
+		hp.text = "HP: %.0f/%.0f" % [value, max_hp]
 
 @onready var energy = $Label_Energy:
 	set(value):

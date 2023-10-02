@@ -17,12 +17,15 @@ var a_friction: float = 500
 var recoil_direction: Vector2 = Vector2.ZERO
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-var hp: float = 1000.0
+var max_hp: float = 50.0
+var hp: float = 20.0
 var atk: float = 10.0
-var max_energy: int = 100
-var energy: int = max_energy
+var max_energy: float = 100
+var energy: float = max_energy
 var max_ammo: int = 8
 var ammo: int = max_ammo
+
+@export var respawn_point: Vector2 = Vector2.ZERO
 
 # projectile info
 var projectile_speed: float = 750
@@ -37,6 +40,9 @@ var stop_energy_regen: bool = false
 var is_firing := false
 @onready var fire_rate_CD = $Timer_FireRateCD
 @onready var reload_timer = $Timer_Reload
+@onready var respawn_CD = $Timer_Respawn
+# for PlayerDead.gd
+var just_respawned: bool = false
 
 @onready var anim_sprite = $AnimatedSprite2D
 @onready var jump_particles = $GPUParticles2D_Jump
@@ -59,15 +65,8 @@ func _ready():
 func _process(delta):
 	bullet_aim.look_at(get_global_mouse_position())
 	if hp <= 0:
-		# disable all inputs
-		
-		# IT IS MUCH PREFERABLE TO HAVE A DEAD STATE BRUV
-		x_movement = 0
-		y_movement = 0
-		velocity.x = 0
 		fire_input = false
-		anim_sprite.modulate = Color(1, 0 ,0)
-		die()
+		anim_sprite.self_modulate = Color(1, 0 ,0)
 		return
 		
 	x_movement = Input.get_axis("move_left", "move_right")
@@ -93,7 +92,7 @@ func _on_timer_energy_start_cd_timeout():
 	stop_energy_regen = false
 
 func _on_timer_energy_regen_cd_timeout():
-	energy += 10
+	energy += 5
 
 func _on_timer_is_firing_timeout():
 	is_firing = false
@@ -125,9 +124,7 @@ func take_damage(damage):
 	else:
 		hp = 0
 
-func die():
-	pass
-	
+
 func flip_player():
 	if get_global_mouse_position().x < global_position.x:
 		anim_sprite.scale.x = 1
@@ -155,3 +152,7 @@ func fire():
 
 func _on_timer_reload_timeout():
 	ammo = max_ammo
+
+func _on_timer_respawn_timeout():
+	just_respawned = true
+	anim_sprite.self_modulate = Color(1, 1, 1)

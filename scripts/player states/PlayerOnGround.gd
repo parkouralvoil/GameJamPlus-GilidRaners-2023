@@ -25,7 +25,7 @@ func Update(_delta: float):
 
 
 func Physics_Update(_delta: float):
-	if player and player.hp > 0:
+	if player:
 		ground_movement(_delta)
 		change_animation()
 		jump()
@@ -36,6 +36,9 @@ func Physics_Update(_delta: float):
 	if player.fire_input and fire_rate_CD.is_stopped() and player.ammo > 0:
 		Transitioned.emit(self, "PlayerFire")
 		#player.fire()
+		
+	if player.hp <= 0:
+		Transitioned.emit(self, "PlayerDead")
 
 # the price to pay for not using rigidbody2d (aka my own physics code for acceleration)
 func ground_movement(input_delta):

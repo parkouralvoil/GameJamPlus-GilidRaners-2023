@@ -1,6 +1,10 @@
-[gd_resource type="SpriteFrames" load_steps=22 format=3 uid="uid://c2vx75vuqrqi0"]
+[gd_resource type="SpriteFrames" load_steps=23 format=3 uid="uid://c2vx75vuqrqi0"]
 
 [ext_resource type="Texture2D" uid="uid://dmaxqf16gyors" path="res://temporary_assets/BaseCharacterTemplate.png" id="1_4ovx2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_02o00"]
+atlas = ExtResource("1_4ovx2")
+region = Rect2(64, 576, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kuaxw"]
 atlas = ExtResource("1_4ovx2")
@@ -84,6 +88,14 @@ region = Rect2(704, 512, 64, 64)
 
 [resource]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_02o00")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_kuaxw")

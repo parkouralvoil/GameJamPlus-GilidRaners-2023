@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://k3e86wyibwv8"]
+[gd_scene load_steps=12 format=3 uid="uid://k3e86wyibwv8"]
 
 [ext_resource type="Script" path="res://entities/player.gd" id="1_uppic"]
 [ext_resource type="SpriteFrames" uid="uid://c2vx75vuqrqi0" path="res://resources/basic_anims.tres" id="2_wr3fr"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/player states/PlayerOnGround.gd" id="4_53up4"]
 [ext_resource type="Script" path="res://scripts/player states/PlayerInAir.gd" id="5_enbi2"]
 [ext_resource type="Script" path="res://scripts/player states/PlayerFire.gd" id="6_er8oo"]
+[ext_resource type="Script" path="res://scripts/player states/PlayerDead.gd" id="7_haxam"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l4650"]
 size = Vector2(16, 26)
@@ -38,7 +39,7 @@ script = ExtResource("1_uppic")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("2_wr3fr")
-animation = &"idle"
+animation = &"dead"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
@@ -52,7 +53,7 @@ one_shot = true
 one_shot = true
 
 [node name="Timer_EnergyRegenCD" type="Timer" parent="."]
-wait_time = 0.2
+wait_time = 0.1
 
 [node name="Timer_IsFiring" type="Timer" parent="."]
 wait_time = 0.12
@@ -64,6 +65,10 @@ one_shot = true
 
 [node name="Timer_Reload" type="Timer" parent="."]
 wait_time = 2.0
+one_shot = true
+
+[node name="Timer_Respawn" type="Timer" parent="."]
+wait_time = 2.5
 one_shot = true
 
 [node name="GPUParticles2D_Jump" type="GPUParticles2D" parent="."]
@@ -92,7 +97,11 @@ script = ExtResource("5_enbi2")
 [node name="PlayerFire" type="Node" parent="State Machine"]
 script = ExtResource("6_er8oo")
 
+[node name="PlayerDead" type="Node" parent="State Machine"]
+script = ExtResource("7_haxam")
+
 [connection signal="timeout" from="Timer_EnergyStartCD" to="." method="_on_timer_energy_start_cd_timeout"]
 [connection signal="timeout" from="Timer_EnergyRegenCD" to="." method="_on_timer_energy_regen_cd_timeout"]
 [connection signal="timeout" from="Timer_IsFiring" to="." method="_on_timer_is_firing_timeout"]
 [connection signal="timeout" from="Timer_Reload" to="." method="_on_timer_reload_timeout"]
+[connection signal="timeout" from="Timer_Respawn" to="." method="_on_timer_respawn_timeout"]

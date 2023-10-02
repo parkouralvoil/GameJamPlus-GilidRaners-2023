@@ -1,13 +1,15 @@
-[gd_scene load_steps=11 format=3 uid="uid://bs87ye7h58650"]
+[gd_scene load_steps=13 format=3 uid="uid://bs87ye7h58650"]
 
 [ext_resource type="Texture2D" uid="uid://c385fg3k50q3y" path="res://temporary_assets/DungeonTileSetV1.0.png" id="1_axmb5"]
 [ext_resource type="Script" path="res://levels/test_level.gd" id="1_qxluh"]
+[ext_resource type="PackedScene" uid="uid://joqjjfdkp46b" path="res://levels/decor/campfire.tscn" id="2_fchgg"]
 [ext_resource type="PackedScene" uid="uid://k3e86wyibwv8" path="res://entities/player.tscn" id="2_he5gv"]
 [ext_resource type="PackedScene" uid="uid://daul7ev5657p5" path="res://levels/level_camera.tscn" id="3_xnb0x"]
 [ext_resource type="Script" path="res://levels/level_camera.gd" id="4_tut35"]
 [ext_resource type="PackedScene" uid="uid://cwtuskfpjx053" path="res://ui/player_hud.tscn" id="6_ufsul"]
-[ext_resource type="PackedScene" uid="uid://bf1s3l40wbjjl" path="res://entities/enemy_turrets/enemy_laser.tscn" id="8_u806n"]
-[ext_resource type="PackedScene" uid="uid://drqyrkt6rv3xv" path="res://entities/enemy_turrets/enemy_wisp.tscn" id="8_y8ulk"]
+[ext_resource type="PackedScene" uid="uid://bx1ojieysbx4j" path="res://entities/enemy_turrets/enemy_ranged.tscn" id="8_lfpbt"]
+[ext_resource type="Script" path="res://levels/respawn_points.gd" id="10_avvi6"]
+[ext_resource type="Script" path="res://levels/rooms/room.gd" id="11_3fy5x"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jtok7"]
 texture = ExtResource("1_axmb5")
@@ -318,28 +320,33 @@ layer_0/tile_data = PackedInt32Array(524289, 196608, 0, 589825, 196608, 0, 65536
 
 [node name="player" parent="." instance=ExtResource("2_he5gv")]
 position = Vector2(1148, 432)
+respawn_point = Vector2(1148, 432)
 
 [node name="level_camera" parent="player" node_paths=PackedStringArray("tilemap") instance=ExtResource("3_xnb0x")]
 zoom = Vector2(1.5, 1.5)
 script = ExtResource("4_tut35")
 tilemap = NodePath("../../ground")
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="respawn_points" type="Node2D" parent="."]
+script = ExtResource("10_avvi6")
 
-[node name="enemy_wisp" parent="Node2D" instance=ExtResource("8_y8ulk")]
-position = Vector2(890, 1297)
+[node name="campfire" parent="respawn_points" instance=ExtResource("2_fchgg")]
+position = Vector2(693, 453)
 
-[node name="enemy_wisp2" parent="Node2D" instance=ExtResource("8_y8ulk")]
-position = Vector2(1710, 1302)
+[node name="campfire2" parent="respawn_points" instance=ExtResource("2_fchgg")]
+position = Vector2(1023, 451)
 
-[node name="enemy_laser" parent="Node2D" instance=ExtResource("8_u806n")]
-position = Vector2(748, 1740)
+[node name="campfire3" parent="respawn_points" instance=ExtResource("2_fchgg")]
+position = Vector2(455, 387)
 
-[node name="enemy_laser2" parent="Node2D" instance=ExtResource("8_u806n")]
-position = Vector2(751, 1601)
+[node name="campfire4" parent="respawn_points" instance=ExtResource("2_fchgg")]
+position = Vector2(910, 224)
 
-[node name="enemy_laser3" parent="Node2D" instance=ExtResource("8_u806n")]
-position = Vector2(1848, 1409)
+[node name="campfire5" parent="respawn_points" instance=ExtResource("2_fchgg")]
+position = Vector2(902, 449)
 
-[node name="enemy_laser4" parent="Node2D" instance=ExtResource("8_u806n")]
-position = Vector2(1845, 1286)
+[node name="room1" type="Node2D" parent="."]
+script = ExtResource("11_3fy5x")
+
+[node name="enemy_ranged" parent="room1" instance=ExtResource("8_lfpbt")]
+position = Vector2(839, 327)

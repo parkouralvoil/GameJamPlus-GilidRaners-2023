@@ -3,7 +3,12 @@ extends Node2D
 @onready var player = $player
 @onready var hud = $CanvasLayer/player_hud
 
-var hp: int:
+var max_hp: float:
+	set(value):
+		max_hp = value
+		hud.max_hp = max_hp
+
+var hp: float:
 	set(value):
 		hp = value
 		hud.hp = hp
@@ -30,6 +35,7 @@ func _process(delta):
 	set_hud_info()
 	
 func set_hud_info():
+	max_hp = player.max_hp
 	hp = player.hp
 	energy = player.energy
 	ammo = player.ammo
