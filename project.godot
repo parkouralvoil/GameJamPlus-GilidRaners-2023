@@ -89,4 +89,5 @@ interact={
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
-environment/defaults/default_clear_color=Color(0.12549, 0.223529, 0.388235, 1)
+environment/defaults/default_clear_color=Color(0.0862745, 0.160784, 0.188235, 1)
+2d/snap/snap_2d_vertices_to_pixel=true

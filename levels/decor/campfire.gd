@@ -3,6 +3,8 @@ extends Area2D
 @onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var press_e_label: Label = $Label
 
+@export var first_campfire: bool = false
+
 var player: Player = null
 var activated: bool = false
 
@@ -13,9 +15,8 @@ func _process(delta):
 		if !activated:
 			press_e_label.visible = true
 			if Input.is_action_just_pressed("interact"):
+				campfire_lit()
 				player.respawn_point = global_position
-				activated = true
-				Campfire_Activated.emit(self)
 	
 	if activated and anim_sprite.animation != "activated":
 		anim_sprite.play("activated")
@@ -34,3 +35,7 @@ func _on_body_exited(body):
 
 func deactivate_campfire():
 	activated = false
+
+func campfire_lit():
+	activated = true
+	Campfire_Activated.emit(self)

@@ -17,8 +17,8 @@ var a_friction: float = 500
 var recoil_direction: Vector2 = Vector2.ZERO
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-var max_hp: float = 50.0
-var hp: float = 20.0
+var max_hp: float = 100.0
+var hp: float = max_hp
 var atk: float = 10.0
 var max_energy: float = 100
 var energy: float = max_energy
@@ -52,6 +52,8 @@ var just_respawned: bool = false
 
 @onready var state_machine = $"State Machine"
 
+signal PlayerRespawned
+
 # input logic (when i add input buffers for jumping or cooldowns)
 var x_movement: float
 var y_movement: float
@@ -59,7 +61,7 @@ var y_movement: float
 var fire_input: bool = false
 
 func _ready():
-	print(state_machine.states)
+	#print(state_machine.states)
 	pass
 	
 func _process(delta):
@@ -155,4 +157,5 @@ func _on_timer_reload_timeout():
 
 func _on_timer_respawn_timeout():
 	just_respawned = true
+	emit_signal("PlayerRespawned")
 	anim_sprite.self_modulate = Color(1, 1, 1)

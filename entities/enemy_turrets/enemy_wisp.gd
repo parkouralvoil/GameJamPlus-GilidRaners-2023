@@ -16,6 +16,8 @@ func _ready():
 	atk = 25.0
 	$Control.global_position = global_position
 	explosion_line.points[1] = Vector2.ZERO
+	
+	$delayed_aoe.visible = true
 
 func _process(delta):
 	if hp <= 0:

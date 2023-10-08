@@ -113,11 +113,11 @@ animation = &"off"
 
 [node name="Label" type="Label" parent="."]
 visible = false
-offset_left = -35.0
+offset_left = -63.0
 offset_top = -54.0
-offset_right = 83.0
+offset_right = 64.0
 offset_bottom = -28.0
-text = "Press E to light."
+text = "Press E to set spawnpoint."
 label_settings = SubResource("LabelSettings_p6a2b")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
