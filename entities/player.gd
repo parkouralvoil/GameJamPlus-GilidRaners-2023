@@ -140,17 +140,6 @@ func fire():
 	
 	shoot_bullet()
 	flip_player()
-# GENERAL TODO:
-
-# Sept 10
-# > give player less airtime from shooting
-# > let player cancel "is_firing" by jumping/air jumping 
-# > player can respawn
-
-# game design issue
-# i can just take cover lol
-# solution: long ranged enemies, wallhack, aoe circular attack, like ReverseStory
-
 
 func _on_timer_reload_timeout():
 	ammo = max_ammo

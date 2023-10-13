@@ -48,7 +48,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bkdyh"]
-size = Vector2(1200, 1200)
+size = Vector2(640, 640)
 
 [sub_resource type="LabelSettings" id="LabelSettings_aqcy7"]
 font_size = 13
@@ -72,11 +72,11 @@ animation = &"fire"
 position = Vector2(16, 0)
 
 [node name="Timer_Reload" type="Timer" parent="."]
-wait_time = 2.5
+wait_time = 1.5
 one_shot = true
 
 [node name="Timer_FireRateCD" type="Timer" parent="."]
-wait_time = 0.3
+wait_time = 0.5
 one_shot = true
 
 [node name="Area2D_PlayerNearby" type="Area2D" parent="."]

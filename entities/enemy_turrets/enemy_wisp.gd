@@ -66,4 +66,6 @@ func _on_timer_line_timeout():
 
 func respawn():
 	hp = max_hp
-	
+	anim_sprite.visible = true
+	display_hp.visible = true
+	hitbox.set_deferred("disabled", false)

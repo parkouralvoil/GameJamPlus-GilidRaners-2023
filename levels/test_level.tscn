@@ -312,12 +312,6 @@ sources/0 = SubResource("TileSetAtlasSource_jtok7")
 [node name="test_level" type="Node2D"]
 script = ExtResource("1_qxluh")
 
-[node name="level_camera" parent="." node_paths=PackedStringArray("tilemap") instance=ExtResource("3_xnb0x")]
-position = Vector2(607, 398)
-zoom = Vector2(1.5, 1.5)
-script = ExtResource("4_tut35")
-tilemap = NodePath("../ground")
-
 [node name="ground" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_ki500")
 format = 2
@@ -406,8 +400,13 @@ position = Vector2(329, 452)
 position = Vector2(1747, 4)
 
 [node name="player" parent="." instance=ExtResource("2_he5gv")]
-position = Vector2(77, 96)
+position = Vector2(78, 99)
 respawn_point = Vector2(1148, 432)
+
+[node name="level_camera" parent="player" node_paths=PackedStringArray("tilemap") instance=ExtResource("3_xnb0x")]
+zoom = Vector2(1, 1)
+script = ExtResource("4_tut35")
+tilemap = NodePath("../../ground")
 
 [node name="Label_endoflvl" type="Label" parent="."]
 offset_left = 1982.0

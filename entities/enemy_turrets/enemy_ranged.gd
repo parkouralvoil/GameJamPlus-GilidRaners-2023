@@ -19,7 +19,7 @@ var angle_to: float = 100
 @export var initial_rotation: float = 0
 
 # projectile info:
-var max_ammo: int = 3
+var max_ammo: int = 2
 var ammo: int = max_ammo
 var projectile_speed: float = 300.0
 var rotation_speed: float = 3.4
@@ -103,7 +103,7 @@ func _on_timer_fire_rate_cd_timeout():
 
 func _on_timer_reload_timeout():
 	ammo = max_ammo
-
+	
 func respawn():
 	hp = max_hp
 	anim_sprite.visible = true

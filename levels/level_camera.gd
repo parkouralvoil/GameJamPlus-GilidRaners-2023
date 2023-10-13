@@ -14,6 +14,6 @@ func _ready():
 #	limit_top = 0 + tile_size
 #	limit_bottom = world_size_in_pixels.y + tile_size
 
-func _process(delta):
-	if player != null:
-		position = player.position
+#func _process(delta):
+#	if player != null:
+#		position = player.position

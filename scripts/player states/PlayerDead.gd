@@ -15,14 +15,12 @@ func Enter():
 	respawn_CD.start()
 	
 func Exit():
-	player.hp = player.max_hp
+	pass
 
 
 func Update(_delta: float):
 	if player.just_respawned:
-		player.global_position = player.respawn_point
-		Transitioned.emit(self, "PlayerInAir")
-		player.just_respawned = false
+		player_respawn()
 
 func Physics_Update(_delta: float):
 	if player:
@@ -55,3 +53,9 @@ func ground_movement(input_delta):
 func change_animation():
 	if anim_sprite.animation != "dead":
 		anim_sprite.play("dead")
+	
+func player_respawn():
+	player.global_position = player.respawn_point
+	Transitioned.emit(self, "PlayerInAir")
+	player.just_respawned = false
+	player.hp = player.max_hp

@@ -34,7 +34,7 @@ var reload_time: float:
 
 func _ready():
 	player.PlayerRespawned.connect(room_respawn)
-	camera.player = player
+	#camera.player = player
 	set_hud_info()
 	
 	# sets the first respawn point

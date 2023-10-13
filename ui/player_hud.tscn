@@ -3,49 +3,45 @@
 [ext_resource type="Script" path="res://ui/player_hud.gd" id="1_jvnbh"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ydmsw"]
-font_size = 20
+font_size = 15
 
 [node name="player_hud" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 script = ExtResource("1_jvnbh")
 
 [node name="Label_HP" type="Label" parent="."]
 layout_mode = 0
-offset_left = 64.0
-offset_top = 64.0
-offset_right = 247.0
-offset_bottom = 116.0
+offset_left = 17.0
+offset_top = 17.0
+offset_right = 90.0
+offset_bottom = 48.0
 text = "HP: 100"
 label_settings = SubResource("LabelSettings_ydmsw")
 
 [node name="Label_Energy" type="Label" parent="."]
 layout_mode = 0
-offset_left = 64.0
-offset_top = 104.0
-offset_right = 247.0
-offset_bottom = 156.0
+offset_left = 17.0
+offset_top = 47.0
+offset_right = 102.0
+offset_bottom = 74.0
 text = "Energy: 80"
 label_settings = SubResource("LabelSettings_ydmsw")
 
 [node name="Label_Ammo" type="Label" parent="."]
 layout_mode = 0
-offset_left = 64.0
-offset_top = 144.0
-offset_right = 247.0
-offset_bottom = 196.0
+offset_left = 17.0
+offset_top = 77.0
+offset_right = 90.0
+offset_bottom = 104.0
 text = "Ammo: 6"
 label_settings = SubResource("LabelSettings_ydmsw")
 
 [node name="Label_Reload" type="Label" parent="."]
 layout_mode = 0
-offset_left = 63.0
-offset_top = 184.0
-offset_right = 246.0
-offset_bottom = 236.0
+offset_left = 17.0
+offset_top = 107.0
+offset_right = 103.0
+offset_bottom = 134.0
 text = "Reloading:"
 label_settings = SubResource("LabelSettings_ydmsw")
