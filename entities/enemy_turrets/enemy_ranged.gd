@@ -19,16 +19,15 @@ var angle_to: float = 100
 @export var initial_rotation: float = 0
 
 # projectile info:
-var max_ammo: int = 2
+var max_ammo: int = 1
 var ammo: int = max_ammo
-var projectile_speed: float = 300.0
+var projectile_speed: float = 350.0
 var rotation_speed: float = 3.4
 
 func _ready():
 	max_hp = 30.0
 	hp = max_hp
 	atk = 5.0
-	anim_sprite.rotation_degrees = initial_rotation
 
 func _process(delta):
 	if hp <= 0:
@@ -40,7 +39,6 @@ func _process(delta):
 	display_hp = hp
 	
 	player_vision()
-	turret_aim.rotation = anim_sprite.rotation
 	
 	if target != null and player_in_sight:
 		#turret_aim.look_at(target.global_position)
@@ -66,14 +64,15 @@ func _physics_process(delta):
 
 func rotate_char(input_delta):
 	var direction := target.global_position - global_position
-	angle_to = anim_sprite.transform.x.angle_to(direction)
-	anim_sprite.rotate(sign(angle_to) * min(input_delta * rotation_speed, abs(angle_to)))
+	angle_to = turret_aim.transform.x.angle_to(direction)
+	turret_aim.rotate(sign(angle_to) * min(input_delta * rotation_speed, abs(angle_to)))
 
 func shoot_bullet():
 	var bullet = bullet_path.instantiate()
 	
 	get_parent().add_child(bullet)
 	bullet.global_position = global_position
+	bullet.sprite.self_modulate = Color(1, 0, 0, 1)
 	bullet.direction = marker.global_position - bullet.global_position
 	bullet.rotation = turret_aim.rotation
 	bullet.projectile_speed = projectile_speed

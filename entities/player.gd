@@ -17,7 +17,7 @@ var a_friction: float = 500
 var recoil_direction: Vector2 = Vector2.ZERO
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-var max_hp: float = 100.0
+var max_hp: float = 80.0
 var hp: float = max_hp
 var atk: float = 10.0
 var max_energy: float = 100
@@ -104,7 +104,6 @@ func shoot_bullet():
 	
 	bullet.lifespan = projectile_lifespan
 	get_parent().add_child(bullet)
-	bullet.sprite.self_modulate = Color(1, 0.647059, 0, 1)
 	bullet.global_position = bullet_position.global_position
 	bullet.direction = get_global_mouse_position() - bullet.global_position
 	bullet.rotation = bullet_aim.rotation

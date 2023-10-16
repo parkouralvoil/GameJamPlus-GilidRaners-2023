@@ -7,13 +7,14 @@ extends Enemy
 @onready var reload_CD: Timer = $Timer_Reload
 @onready var reload_wait_time: float = 3.0
 @onready var explosion_line_lifetime: Timer = $Timer_Line
+@onready var rotater: Node2D = $Rotator
 
 var ready_to_fire: bool = true
 
 func _ready():
 	max_hp = 30.0
 	hp = max_hp
-	atk = 25.0
+	atk = 10.0
 	$Control.global_position = global_position
 	explosion_line.points[1] = Vector2.ZERO
 	
@@ -29,6 +30,9 @@ func _physics_process(delta):
 	if hp <= 0:
 		return
 	if target != null and ready_to_fire and target.hp > 0:
+		rotater.look_at(target.global_position)
+		$CollisionShape2D.rotation = rotater.rotation
+		
 		show_line()
 		fire_explosion()
 

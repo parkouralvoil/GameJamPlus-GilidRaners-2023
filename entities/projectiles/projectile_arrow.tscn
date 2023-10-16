@@ -1,13 +1,13 @@
 [gd_scene load_steps=5 format=3 uid="uid://c5mnfussuwtot"]
 
 [ext_resource type="Script" path="res://entities/projectiles/projectile_arrow.gd" id="1_bk0qx"]
-[ext_resource type="Texture2D" uid="uid://cd05f0x011c73" path="res://temporary_assets/Arrows.png" id="2_iuq1l"]
+[ext_resource type="Texture2D" uid="uid://lqe2ufitxomu" path="res://SPRITES/Ballpen_Projectile/Ballpen.png" id="2_d42l7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hqfqn"]
-size = Vector2(24, 8)
+size = Vector2(28.75, 3.75)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nb8at"]
-radius = 7.0
+radius = 5.0
 
 [node name="projectile_arrow" type="CharacterBody2D"]
 scale = Vector2(0.8, 0.8)
@@ -15,11 +15,13 @@ collision_layer = 8
 script = ExtResource("1_bk0qx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_iuq1l")
-region_enabled = true
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("2_d42l7")
 region_rect = Rect2(4, 13, 24, 7)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.624998, 0.625)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_hqfqn")
 
 [node name="Timer_Range_Lifespan" type="Timer" parent="."]
@@ -39,7 +41,7 @@ collision_layer = 0
 collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(8, 0)
+position = Vector2(11.25, 1.25)
 shape = SubResource("CircleShape2D_nb8at")
 
 [connection signal="timeout" from="Timer_Range_Lifespan" to="." method="_on_timer_lifespan_timeout"]

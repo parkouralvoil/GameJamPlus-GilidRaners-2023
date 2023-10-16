@@ -1,38 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://bx1ojieysbx4j"]
+[gd_scene load_steps=7 format=3 uid="uid://bx1ojieysbx4j"]
 
 [ext_resource type="Script" path="res://entities/enemy_turrets/enemy_ranged.gd" id="1_42bwg"]
-[ext_resource type="Texture2D" uid="uid://bo821tp3rcbb2" path="res://temporary_assets/enemy_sprites/crossbow spriteframe.png" id="2_kqjn0"]
+[ext_resource type="Texture2D" uid="uid://f3m4lwnn27d0" path="res://SPRITES/QuizPaperEnemy/Failed_Quiz.png" id="2_6aebg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ag5nj"]
-size = Vector2(34, 38)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lc1ya"]
-atlas = ExtResource("2_kqjn0")
-region = Rect2(64, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_d7mg5"]
-atlas = ExtResource("2_kqjn0")
-region = Rect2(128, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_36pfi"]
-atlas = ExtResource("2_kqjn0")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pj7di"]
-atlas = ExtResource("2_kqjn0")
-region = Rect2(0, 0, 64, 64)
+size = Vector2(44, 46)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2gmdq"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_lc1ya")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_d7mg5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_36pfi")
+"texture": ExtResource("2_6aebg")
 }],
 "loop": false,
 "name": &"fire",
@@ -40,7 +18,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_pj7di")
+"texture": ExtResource("2_6aebg")
 }],
 "loop": false,
 "name": &"idle",
@@ -48,7 +26,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bkdyh"]
-size = Vector2(640, 640)
+size = Vector2(640, 497)
 
 [sub_resource type="LabelSettings" id="LabelSettings_aqcy7"]
 font_size = 13
@@ -58,13 +36,15 @@ collision_layer = 4
 script = ExtResource("1_42bwg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 0)
+position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_ag5nj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -1)
+rotation = -0.20944
+scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_2gmdq")
-animation = &"fire"
+animation = &"idle"
 
 [node name="Node2D_Aim" type="Node2D" parent="."]
 
@@ -72,7 +52,7 @@ animation = &"fire"
 position = Vector2(16, 0)
 
 [node name="Timer_Reload" type="Timer" parent="."]
-wait_time = 1.5
+wait_time = 1.25
 one_shot = true
 
 [node name="Timer_FireRateCD" type="Timer" parent="."]
@@ -84,7 +64,6 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_PlayerNearby"]
-position = Vector2(4, 1)
 shape = SubResource("RectangleShape2D_bkdyh")
 debug_color = Color(0, 0.729412, 0.854902, 0.0588235)
 

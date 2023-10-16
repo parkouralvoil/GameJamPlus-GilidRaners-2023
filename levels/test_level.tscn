@@ -384,7 +384,7 @@ position = Vector2(1950, -653)
 position = Vector2(2079, -652)
 
 [node name="enemy_wisp" parent="rooms/room3" instance=ExtResource("11_6aimy")]
-position = Vector2(2014, -784)
+position = Vector2(370, 309)
 
 [node name="respawn_points" type="Node2D" parent="."]
 script = ExtResource("10_avvi6")

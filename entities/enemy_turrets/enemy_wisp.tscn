@@ -1,18 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://drqyrkt6rv3xv"]
+[gd_scene load_steps=8 format=3 uid="uid://drqyrkt6rv3xv"]
 
 [ext_resource type="Script" path="res://entities/enemy_turrets/enemy_wisp.gd" id="1_ltqhk"]
-[ext_resource type="Texture2D" uid="uid://c3qu7q6jv6w1g" path="res://temporary_assets/enemy_sprites/mana wisp.png" id="2_21mbm"]
+[ext_resource type="Texture2D" uid="uid://fp0hes7uktw6" path="res://SPRITES/HandEnemy/hand_FIRE.png" id="2_cumx1"]
 [ext_resource type="PackedScene" uid="uid://brcmthhoohsbe" path="res://entities/projectiles/delayed_aoe.tscn" id="3_rui0l"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7c2dw"]
-atlas = ExtResource("2_21mbm")
-region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_eqwra"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7c2dw")
+"texture": ExtResource("2_cumx1")
 }],
 "loop": true,
 "name": &"default",
@@ -20,7 +16,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8ipe4"]
-size = Vector2(28, 36)
+size = Vector2(46, 33)
 
 [sub_resource type="LabelSettings" id="LabelSettings_benym"]
 font_size = 13
@@ -33,8 +29,18 @@ collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_ltqhk")
 
+[node name="Rotator" type="Node2D" parent="."]
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Rotator"]
+scale = Vector2(-1, 1)
+remote_path = NodePath("../../AnimatedSprite2D")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 1, 0.0705882, 1)
+rotation = 3.14159
+scale = Vector2(1, -1)
 sprite_frames = SubResource("SpriteFrames_eqwra")
+frame_progress = 0.484537
 
 [node name="delayed_aoe" parent="." instance=ExtResource("3_rui0l")]
 visible = false
@@ -45,7 +51,7 @@ width = 2.0
 default_color = Color(1, 1, 1, 0.647059)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -4)
+position = Vector2(-1, -1)
 shape = SubResource("RectangleShape2D_8ipe4")
 
 [node name="Control" type="Control" parent="."]

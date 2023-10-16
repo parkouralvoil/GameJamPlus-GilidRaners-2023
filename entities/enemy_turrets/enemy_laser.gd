@@ -22,7 +22,7 @@ var cleared_lasers: bool = false
 func _ready():
 	max_hp = 20.0
 	hp = max_hp
-	atk = 10.0
+	atk = 2.0
 	$Control.global_position = global_position
 	if diagonal_laser == true:
 		anim_sprite.rotation_degrees = 45
