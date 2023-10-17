@@ -88,3 +88,5 @@ label_settings = SubResource("LabelSettings_aqcy7")
 
 [connection signal="timeout" from="Timer_Reload" to="." method="_on_timer_reload_timeout"]
 [connection signal="timeout" from="Timer_FireRateCD" to="." method="_on_timer_fire_rate_cd_timeout"]
+[connection signal="body_entered" from="Area2D_PlayerNearby" to="." method="_on_area_2d_player_nearby_body_entered"]
+[connection signal="body_exited" from="Area2D_PlayerNearby" to="." method="_on_area_2d_player_nearby_body_exited"]

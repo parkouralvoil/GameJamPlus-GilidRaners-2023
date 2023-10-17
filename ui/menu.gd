@@ -1,6 +1,6 @@
 extends Control
 
-var path_ge1 = load("res://levels/subjects/GE_1.tscn")
+var enlistment = load("res://ui/enlistment.tscn")
 
 func _on_play_pressed():
-	SceneManager.begin_game()
+	get_tree().change_scene_to_packed(enlistment)

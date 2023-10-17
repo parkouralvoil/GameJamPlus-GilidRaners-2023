@@ -33,6 +33,8 @@ func _physics_process(delta):
 		
 		if timer_deactive_hitbox.is_stopped():
 			timer_deactive_hitbox.start()
+		return
+
 
 func _on_timer_lifespan_timeout():
 	queue_free()
@@ -54,3 +56,8 @@ func _on_timer_deactivate_hitbox_timeout():
 
 func _on_timer_collision_lifespan_timeout():
 	timer_range_lifespan.paused = false
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	if !from_enemy and direction != Vector2.ZERO:
+		queue_free()

@@ -18,6 +18,7 @@ var recoil_direction: Vector2 = Vector2.ZERO
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 var max_hp: float = 80.0
+var respawn_hp: float = 60.0
 var hp: float = max_hp
 var atk: float = 10.0
 var max_energy: float = 100
@@ -67,10 +68,7 @@ func _ready():
 	
 func _process(delta):
 	if SceneManager.menu_open: 
-		x_movement = 0
-		y_movement = 0
-		fire_input = false
-		
+		disable_controls()
 		return
 	
 	bullet_aim.look_at(get_global_mouse_position())
@@ -80,7 +78,10 @@ func _process(delta):
 		return
 		
 	x_movement = Input.get_axis("move_left", "move_right")
-	y_movement = Input.get_axis("move_up", "move_down")
+	if Input.is_action_just_pressed("move_up"):
+		y_movement = 1
+	else:
+		y_movement = 0
 	
 	fire_input = Input.is_action_pressed("shoot")
 	
@@ -151,7 +152,17 @@ func fire():
 func _on_timer_reload_timeout():
 	ammo = max_ammo
 
-func _on_timer_respawn_timeout():
+#func _on_timer_respawn_timeout():
+#	just_respawned = true
+#	emit_signal("PlayerRespawned")
+#	anim_sprite.self_modulate = Color(1, 1, 1)
+
+func respawn_player():
 	just_respawned = true
 	emit_signal("PlayerRespawned")
 	anim_sprite.self_modulate = Color(1, 1, 1)
+	
+func disable_controls():
+	x_movement = 0
+	y_movement = 0
+	fire_input = false

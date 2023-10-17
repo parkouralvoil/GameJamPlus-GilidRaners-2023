@@ -55,7 +55,7 @@ func ground_movement(input_delta):
 			player.velocity.x = 0
 
 func jump():	
-	if Input.is_action_just_pressed("move_up") and jump_CD.is_stopped():
+	if player.y_movement == 1 and jump_CD.is_stopped():
 		player.velocity.y = player.g_jump_speed
 		jump_CD.start()
 				

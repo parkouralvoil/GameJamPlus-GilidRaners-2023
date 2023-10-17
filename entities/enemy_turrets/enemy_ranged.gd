@@ -81,15 +81,13 @@ func shoot_bullet():
 	bullet.from_enemy = true
 
 func player_vision():
-	if get_node("/root/test_level/player") in hitbox_playerNearby.get_overlapping_bodies():
-		target = get_node("/root/test_level/player")
+	if target != null:
 		RC_player.target_position = target.global_position - global_position
 		if RC_player.get_collider() == target:
 			player_in_sight = true
 		else:
 			player_in_sight = false
 	else:
-		target = null
 		player_in_sight = false
 
 func _on_timer_fire_rate_cd_timeout():
@@ -108,3 +106,13 @@ func respawn():
 	anim_sprite.visible = true
 	display_hp.visible = true
 	hitbox.set_deferred("disabled", false)
+
+
+func _on_area_2d_player_nearby_body_entered(body):
+	if body is Player:
+		target = body
+
+
+func _on_area_2d_player_nearby_body_exited(body):
+	if body is Player:
+		target = null

@@ -1,9 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://dtso2g01wcq7v"]
+[gd_scene load_steps=12 format=3 uid="uid://dtso2g01wcq7v"]
 
 [ext_resource type="Script" path="res://levels/subjects/level_script.gd" id="1_ou3nt"]
 [ext_resource type="TileSet" uid="uid://uewiiqo77xfu" path="res://resources/test_tileset.tres" id="1_vqjsh"]
 [ext_resource type="PackedScene" uid="uid://cwtuskfpjx053" path="res://ui/player_hud.tscn" id="2_06t58"]
 [ext_resource type="PackedScene" uid="uid://k3e86wyibwv8" path="res://entities/player.tscn" id="3_gmm74"]
+[ext_resource type="PackedScene" uid="uid://daul7ev5657p5" path="res://levels/level_camera.tscn" id="5_msl0t"]
+[ext_resource type="Script" path="res://levels/level_camera.gd" id="6_m1wc1"]
+[ext_resource type="PackedScene" uid="uid://chrai2dqf84l6" path="res://ui/gameover.tscn" id="7_hrlfq"]
+[ext_resource type="Script" path="res://levels/rooms/room.gd" id="8_iau5d"]
+[ext_resource type="PackedScene" uid="uid://cd71br7rhtq2l" path="res://levels/decor/door.tscn" id="9_vqdyi"]
+[ext_resource type="PackedScene" uid="uid://bx1ojieysbx4j" path="res://entities/enemy_turrets/enemy_ranged.tscn" id="10_voc4m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nah80"]
 
@@ -23,6 +29,10 @@ layer_0/tile_data = PackedInt32Array(524289, 196608, 0, 589825, 196608, 0, 65536
 position = Vector2(78, 99)
 respawn_point = Vector2(1148, 432)
 
+[node name="level_camera" parent="player" instance=ExtResource("5_msl0t")]
+zoom = Vector2(1, 1)
+script = ExtResource("6_m1wc1")
+
 [node name="Label_endoflvl" type="Label" parent="."]
 offset_left = 156.0
 offset_top = 59.0
@@ -37,3 +47,16 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LvlFinish"]
 position = Vector2(159, 114)
 shape = SubResource("RectangleShape2D_nah80")
+
+[node name="Gameover" parent="." instance=ExtResource("7_hrlfq")]
+
+[node name="rooms" type="Node2D" parent="."]
+
+[node name="room1" type="Node2D" parent="rooms"]
+script = ExtResource("8_iau5d")
+
+[node name="door" parent="rooms/room1" instance=ExtResource("9_vqdyi")]
+position = Vector2(403, 410)
+
+[node name="enemy_ranged" parent="rooms/room1" instance=ExtResource("10_voc4m")]
+position = Vector2(165, 287)

@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://bs87ye7h58650"]
+[gd_scene load_steps=15 format=3 uid="uid://bs87ye7h58650"]
 
 [ext_resource type="Script" path="res://levels/test_level.gd" id="1_qxluh"]
 [ext_resource type="TileSet" uid="uid://uewiiqo77xfu" path="res://resources/test_tileset.tres" id="2_ag8sy"]
 [ext_resource type="PackedScene" uid="uid://joqjjfdkp46b" path="res://levels/decor/campfire.tscn" id="2_fchgg"]
 [ext_resource type="PackedScene" uid="uid://k3e86wyibwv8" path="res://entities/player.tscn" id="2_he5gv"]
+[ext_resource type="Texture2D" uid="uid://bdtdquuh7ylch" path="res://temporary_assets/acad-oval-2-scaled.jpg" id="2_l3u6w"]
 [ext_resource type="PackedScene" uid="uid://daul7ev5657p5" path="res://levels/level_camera.tscn" id="3_xnb0x"]
 [ext_resource type="Script" path="res://levels/level_camera.gd" id="4_tut35"]
 [ext_resource type="PackedScene" uid="uid://cwtuskfpjx053" path="res://ui/player_hud.tscn" id="6_ufsul"]
@@ -16,6 +17,13 @@
 
 [node name="test_level" type="Node2D"]
 script = ExtResource("1_qxluh")
+
+[node name="very cursed" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0.337255, 0.337255, 0.337255, 1)
+position = Vector2(819, 219)
+scale = Vector2(2.00547, 1.95841)
+texture = ExtResource("2_l3u6w")
 
 [node name="ground" type="TileMap" parent="."]
 tile_set = ExtResource("2_ag8sy")

@@ -58,7 +58,7 @@ func air_movement(input_delta):
 			player.velocity.x = 0
 
 func air_jump():	
-	if Input.is_action_just_pressed("move_up") and jump_CD.is_stopped() and player.energy >= 15:
+	if player.y_movement == 1 and jump_CD.is_stopped() and player.energy >= 15:
 		player.velocity.y = player.a_jump_speed
 		if player.x_movement == 0:
 			player.velocity = Vector2(player.velocity.x * 0.2, player.a_jump_speed)

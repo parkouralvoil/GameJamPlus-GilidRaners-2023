@@ -21,7 +21,6 @@ region_rect = Rect2(4, 13, 24, 7)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.624998, 0.625)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_hqfqn")
 
 [node name="Timer_Range_Lifespan" type="Timer" parent="."]
@@ -44,7 +43,10 @@ collision_mask = 6
 position = Vector2(11.25, 1.25)
 shape = SubResource("CircleShape2D_nb8at")
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
 [connection signal="timeout" from="Timer_Range_Lifespan" to="." method="_on_timer_lifespan_timeout"]
 [connection signal="timeout" from="Timer_Collision_Lifespan" to="." method="_on_timer_collision_lifespan_timeout"]
 [connection signal="timeout" from="Timer_DeactivateHitbox" to="." method="_on_timer_deactivate_hitbox_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

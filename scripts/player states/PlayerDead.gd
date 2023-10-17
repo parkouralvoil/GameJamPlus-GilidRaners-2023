@@ -12,7 +12,7 @@ func Enter():
 	player.stop_energy_regen = true
 	reload_CD.stop()
 	player.hp = 0
-	respawn_CD.start()
+#	respawn_CD.start()
 	
 func Exit():
 	pass
@@ -58,4 +58,4 @@ func player_respawn():
 	player.global_position = player.respawn_point
 	Transitioned.emit(self, "PlayerInAir")
 	player.just_respawned = false
-	player.hp = player.max_hp
+	player.hp = player.respawn_hp

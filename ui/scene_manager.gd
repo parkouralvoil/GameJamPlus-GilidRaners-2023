@@ -12,7 +12,7 @@ var path_ge2: Resource= load("res://levels/subjects/GE_2.tscn")
 
 # Transition Lvl
 var path_transition_AB: Resource = load("res://levels/subjects/transitionAB.tscn")
-# var path_transition_BA = load("res://levels/subjects/transitionBA.tscn")
+var path_transition_BA = load("res://levels/subjects/transitionAB.tscn") # CHANGE THIS
 
 var menu: Resource = load("res://ui/menu.tscn")
 
@@ -29,13 +29,13 @@ var menu_open: bool = false
 # get_tree().change_scene_to_packed(path_major1)
 
 func _ready():
-	#for testing
-	level_array = [path_ge1, path_major1, path_major2]
-	#end of test code
+	level_array = []
 	control.hide()
 
 func begin_game():
 	level = 0
+	insert_transition_lvls()
+	print(level_array)
 	if level < level_array.size():
 		menu_open = false
 		get_tree().change_scene_to_packed(level_array[level])
@@ -52,7 +52,15 @@ func go_next_level():
 		# probs best to put here the "go to game finished scene"
 
 func insert_transition_lvls():
-	pass # modifies level array to have transition lvl
+	var i: int = 0
+	while i <= 3:
+		if level_array[i] == path_major1 or level_array[i] == path_ge1:
+			if level_array[i+1] == path_major2 or level_array[i+1] == path_ge2:
+				level_array.insert(i+2, path_transition_AB)
+		elif level_array[i+1] == path_major1 or level_array[i+1] == path_ge1:
+			if level_array[i] == path_major2 or level_array[i] == path_ge2:
+				level_array.insert(i+2, path_transition_BA)
+		i += 3
 
 
 func _on_button_pressed():

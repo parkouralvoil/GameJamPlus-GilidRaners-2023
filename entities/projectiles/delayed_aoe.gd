@@ -8,7 +8,7 @@ extends Area2D
 var start_aoe: bool = false
 var target: Player = null
 
-var damage: float = 25.0
+var damage: float = 10.0
 
 func _ready():
 	pass
