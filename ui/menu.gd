@@ -1,5 +1,6 @@
 extends Control
 
+var path_ge1 = load("res://levels/subjects/GE_1.tscn")
 
 func _on_play_pressed():
-	get_tree().change_scene_to_file("res://levels/test_level.tscn")
+	SceneManager.begin_game()

@@ -16,6 +16,10 @@ config/features=PackedStringArray("4.1", "GL Compatibility")
 run/max_fps=60
 config/icon="res://icon.svg"
 
+[autoload]
+
+SceneManager="*res://ui/scene_manager.tscn"
+
 [display]
 
 window/size/viewport_width=640

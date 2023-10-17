@@ -62,9 +62,17 @@ var fire_input: bool = false
 
 func _ready():
 	#print(state_machine.states)
+	respawn_point = global_position
 	pass
 	
 func _process(delta):
+	if SceneManager.menu_open: 
+		x_movement = 0
+		y_movement = 0
+		fire_input = false
+		
+		return
+	
 	bullet_aim.look_at(get_global_mouse_position())
 	if hp <= 0:
 		fire_input = false
