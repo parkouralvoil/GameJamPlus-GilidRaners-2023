@@ -5,6 +5,7 @@ class_name PlayerInAir
 	# above assumes this state is child of State Machine, child of player node
 @onready var anim_sprite: AnimatedSprite2D = player.get_node("AnimatedSprite2D")
 @onready var jump_CD: Timer = player.get_node("Timer_JumpCD")
+@onready var dash_CD: Timer = player.get_node("Timer_DashCD")
 @onready var energy_start_CD: Timer = player.get_node("Timer_EnergyStartCD")
 @onready var energy_regen_CD: Timer = player.get_node("Timer_EnergyRegenCD")
 @onready var jump_particles: GPUParticles2D = player.get_node("GPUParticles2D_Jump")
@@ -29,6 +30,7 @@ func Physics_Update(_delta: float):
 		air_movement(_delta)
 		change_animation()
 		air_jump()
+		air_dash()
 	else: return
 	
 	if player.is_on_floor():
@@ -45,7 +47,9 @@ func Physics_Update(_delta: float):
 		
 # the price to pay for not using rigidbody2d (aka my own physics code for acceleration)
 func air_movement(input_delta):
-	if player.x_movement == 1:
+	if not jump_CD.is_stopped():
+		pass
+	elif player.x_movement == 1:
 		player.velocity.x = min(player.velocity.x + player.g_accel * input_delta, player.g_speed)
 	elif player.x_movement == -1:
 		player.velocity.x = max(player.velocity.x - player.g_accel * input_delta, -player.g_speed)
@@ -69,20 +73,29 @@ func air_movement(input_delta):
 #			player.velocity.x = 0
 
 func air_jump():	
-	if player.y_movement == 1 and jump_CD.is_stopped() and player.energy >= 15:
+	if player.y_movement == 1 and jump_CD.is_stopped() and player.energy >= 5:
 		player.velocity = Vector2(player.velocity.x, player.a_jump_speed)
-#		if player.x_movement == 0:
-#			player.velocity = Vector2(player.velocity.x, player.a_jump_speed)
-#		else:
-#			player.velocity = Vector2(player.x_movement * player.a_speed, player.a_jump_speed * 0.8)
-			
 		jump_particles.emitting = true
 		jump_CD.start()
 		energy_start_CD.start()
 		energy_regen_CD.stop()
 		player.stop_energy_regen = true
-		player.energy -= 20
-				
+		player.energy -= 10
+#		if player.x_movement == 0:
+#			player.velocity = Vector2(player.velocity.x, player.a_jump_speed)
+#		else:
+#			player.velocity = Vector2(player.x_movement * player.a_speed, player.a_jump_speed * 0.8)
+			
+func air_dash():	
+	if 	player.dash == 1 and player.energy >= 5 and dash_CD.is_stopped():
+		player.velocity = Vector2(player.velocity.x + (player.d_speed * player.x_movement), player.velocity.y)
+		jump_particles.emitting = true
+		dash_CD.start()
+	
+		player.stop_energy_regen = true
+		player.energy -= 5
+	elif not dash_CD.is_stopped():
+		player.velocity = Vector2(player.velocity.x + (player.d_speed * player.x_movement), player.velocity.y)
 func change_animation():
 	if player.velocity.y > 0.1 and anim_sprite.animation != "falling":
 		anim_sprite.play("falling")

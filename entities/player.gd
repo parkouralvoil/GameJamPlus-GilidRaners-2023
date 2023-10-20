@@ -17,6 +17,10 @@ var a_friction: float = 500
 var recoil_direction: Vector2 = Vector2.ZERO
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+# d for dash variables
+var d_speed: float = 200
+
+
 var max_hp: float = 80.0
 var respawn_hp: float = 60.0
 var hp: float = max_hp
@@ -58,6 +62,7 @@ signal PlayerRespawned
 # input logic (when i add input buffers for jumping or cooldowns)
 var x_movement: float
 var y_movement: float
+var dash: float
 
 var fire_input: bool = false
 
@@ -82,6 +87,11 @@ func _process(delta):
 		y_movement = 1
 	else:
 		y_movement = 0
+	
+	if Input.is_action_just_pressed("shift_button"):
+		dash = 1
+	else:
+		dash = 0
 	
 	fire_input = Input.is_action_pressed("shoot")
 	
@@ -167,3 +177,8 @@ func disable_controls():
 	x_movement = 0
 	y_movement = 0
 	fire_input = false
+
+
+func _on_timer_dash_cd_timeout():
+	
+	pass # Replace with function body.

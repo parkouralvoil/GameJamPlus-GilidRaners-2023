@@ -49,6 +49,10 @@ shape = SubResource("RectangleShape2D_l4650")
 wait_time = 0.15
 one_shot = true
 
+[node name="Timer_DashCD" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
 [node name="Timer_EnergyStartCD" type="Timer" parent="."]
 one_shot = true
 
@@ -100,6 +104,7 @@ script = ExtResource("6_er8oo")
 [node name="PlayerDead" type="Node" parent="State Machine"]
 script = ExtResource("7_haxam")
 
+[connection signal="timeout" from="Timer_DashCD" to="." method="_on_timer_dash_cd_timeout"]
 [connection signal="timeout" from="Timer_EnergyStartCD" to="." method="_on_timer_energy_start_cd_timeout"]
 [connection signal="timeout" from="Timer_EnergyRegenCD" to="." method="_on_timer_energy_regen_cd_timeout"]
 [connection signal="timeout" from="Timer_IsFiring" to="." method="_on_timer_is_firing_timeout"]
