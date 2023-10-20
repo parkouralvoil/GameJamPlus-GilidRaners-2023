@@ -13,7 +13,8 @@ class_name PlayerOnGround
 func Enter():
 	anim_sprite.play("idle")
 	energy_start_CD.stop()
-	player.stop_energy_regen = false
+#	player.stop_energy_regen = false
+	player.energy = player.max_energy
 
 	
 func Exit():

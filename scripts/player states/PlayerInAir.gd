@@ -46,24 +46,35 @@ func Physics_Update(_delta: float):
 # the price to pay for not using rigidbody2d (aka my own physics code for acceleration)
 func air_movement(input_delta):
 	if player.x_movement == 1:
-		player.velocity.x = min(player.velocity.x + player.a_accel * input_delta, player.a_speed)
+		player.velocity.x = min(player.velocity.x + player.g_accel * input_delta, player.g_speed)
 	elif player.x_movement == -1:
-		player.velocity.x = max(player.velocity.x - player.a_accel * input_delta, -player.a_speed)
+		player.velocity.x = max(player.velocity.x - player.g_accel * input_delta, -player.g_speed)
 	else: # no input
 		if player.velocity.x > 0.1:
-			player.velocity.x = max(player.velocity.x - player.a_friction * input_delta, 0)
+			player.velocity.x = max(player.velocity.x - player.g_friction * input_delta, 0)
 		elif player.velocity.x < -0.1:
-			player.velocity.x = min(player.velocity.x + player.a_friction * input_delta, 0)
+			player.velocity.x = min(player.velocity.x + player.g_friction * input_delta, 0)
 		else:
 			player.velocity.x = 0
+#	if player.x_movement == 1:
+#		player.velocity.x = min(player.velocity.x + player.a_accel * input_delta, player.a_speed)
+#	elif player.x_movement == -1:
+#		player.velocity.x = max(player.velocity.x - player.a_accel * input_delta, -player.a_speed)
+#	else: # no input
+#		if player.velocity.x > 0.1:
+#			player.velocity.x = max(player.velocity.x - player.a_friction * input_delta, 0)
+#		elif player.velocity.x < -0.1:
+#			player.velocity.x = min(player.velocity.x + player.a_friction * input_delta, 0)
+#		else:
+#			player.velocity.x = 0
 
 func air_jump():	
 	if player.y_movement == 1 and jump_CD.is_stopped() and player.energy >= 15:
-		player.velocity.y = player.a_jump_speed
-		if player.x_movement == 0:
-			player.velocity = Vector2(player.velocity.x * 0.2, player.a_jump_speed)
-		else:
-			player.velocity = Vector2(player.x_movement * player.a_speed, player.a_jump_speed * 0.8)
+		player.velocity = Vector2(player.velocity.x, player.a_jump_speed)
+#		if player.x_movement == 0:
+#			player.velocity = Vector2(player.velocity.x, player.a_jump_speed)
+#		else:
+#			player.velocity = Vector2(player.x_movement * player.a_speed, player.a_jump_speed * 0.8)
 			
 		jump_particles.emitting = true
 		jump_CD.start()

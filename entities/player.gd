@@ -21,7 +21,7 @@ var max_hp: float = 80.0
 var respawn_hp: float = 60.0
 var hp: float = max_hp
 var atk: float = 10.0
-var max_energy: float = 100
+var max_energy: float = 20
 var energy: float = max_energy
 var max_ammo: int = 8
 var ammo: int = max_ammo
@@ -103,7 +103,8 @@ func _on_timer_energy_start_cd_timeout():
 	stop_energy_regen = false
 
 func _on_timer_energy_regen_cd_timeout():
-	energy += 5
+	pass
+	#energy += 5
 
 func _on_timer_is_firing_timeout():
 	is_firing = false
