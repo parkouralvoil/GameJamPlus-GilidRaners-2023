@@ -29,7 +29,9 @@ var max_energy: float = 20
 var energy: float = max_energy
 var max_ammo: int = 8
 var ammo: int = max_ammo
-
+var inventory: int = ballpenBundle
+var invul: bool = false
+var unliAmmo: bool = false
 @export var respawn_point: Vector2 = Vector2.ZERO
 
 # projectile info
@@ -42,6 +44,8 @@ var stop_energy_regen: bool = false
 
 @onready var energy_start_CD = $Timer_EnergyStartCD
 @onready var energy_regen_CD = $Timer_EnergyRegenCD
+@onready var invulTime = $Timer_Invul
+@onready var ammoTime = $Timer_UnliAmmo
 @onready var dashLeft = $Left_DoubleTap
 @onready var dashRight = $Right_DoubleTap
 @onready var timer_is_firing = $Timer_IsFiring
@@ -59,6 +63,8 @@ var just_respawned: bool = false
 @onready var bullet_position = $Node2D_Aim/Marker2D
 
 @onready var state_machine = $"State Machine"
+
+enum {none,ballpenBundle,coffee,kwekkwek,kodigo}
 
 signal PlayerRespawned
 
@@ -91,6 +97,8 @@ func _process(delta):
 	else:
 		y_movement = 0
 	
+	if Input.is_action_just_pressed("interact"):
+		useItem()
 	fire_input = Input.is_action_pressed("shoot")
 	
 	if !is_firing and reload_timer.is_stopped() and ammo < max_ammo:
@@ -134,12 +142,15 @@ func shoot_bullet():
 	bullet.damage = atk
 	recoil_direction = -bullet.direction.normalized()
 	
-	ammo -= 1
+	if unliAmmo == false:
+		ammo -= 1
 	if !reload_timer.is_stopped():
 		reload_timer.stop()
 
 func take_damage(damage):
-	if hp - damage > 0:
+	if invul:
+		pass
+	elif hp - damage > 0:
 		anim_sprite.self_modulate = Color(1, 0, 0)
 		await get_tree().create_timer(0.2).timeout
 		anim_sprite.self_modulate = Color(1, 1, 1)
@@ -175,6 +186,33 @@ func respawn_player():
 	emit_signal("PlayerRespawned")
 	anim_sprite.self_modulate = Color(1, 1, 1)
 	
+	
+func useItem():
+	if inventory == ballpenBundle:
+		UnliAmmo()
+	elif inventory == kwekkwek:
+		healConsummable()
+	elif inventory == kodigo:
+		useInvul()
+		print("amogu")
+		
+	inventory = none
+	pass
+func healConsummable():
+	if hp + 20 > max_hp:
+		hp = max_hp
+	else:
+		hp = hp + 20
+		
+func UnliAmmo():
+	unliAmmo = true
+	ammo = max_ammo
+	ammoTime.start()
+	pass
+	
+func useInvul():
+	invul = true
+	invulTime.start()
 func disable_controls():
 	x_movement = 0
 	y_movement = 0
@@ -193,4 +231,16 @@ func _on_left_double_tap_timeout():
 
 func _on_right_double_tap_timeout():
 	dashRight.stop()
+	pass # Replace with function body.
+
+
+func _on_timer_unli_ammo_timeout():
+	unliAmmo = false
+	ammoTime.stop()
+	pass # Replace with function body.
+
+
+func _on_timer_invul_timeout():
+	invul = false
+	invulTime.stop()
 	pass # Replace with function body.
