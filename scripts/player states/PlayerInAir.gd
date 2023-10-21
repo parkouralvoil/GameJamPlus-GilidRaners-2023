@@ -70,9 +70,9 @@ func air_movement(input_delta):
 	if not jump_CD.is_stopped():
 		pass
 	elif player.x_movement == 1:
-		player.velocity.x = min(player.velocity.x + player.g_accel * input_delta, player.g_speed)
+		player.velocity.x = min(player.velocity.x + player.g_accel * input_delta, player.g_speed + player.speedModifier)
 	elif player.x_movement == -1:
-		player.velocity.x = max(player.velocity.x - player.g_accel * input_delta, -player.g_speed)
+		player.velocity.x = max(player.velocity.x - player.g_accel * input_delta, -player.g_speed + player.speedModifier)
 	else: # no input
 		if player.velocity.x > 0.1:
 			player.velocity.x = max(player.velocity.x - player.g_friction * input_delta, 0)

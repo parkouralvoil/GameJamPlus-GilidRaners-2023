@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ckclup8ry60xq"]
+[gd_scene load_steps=13 format=3 uid="uid://ckclup8ry60xq"]
 
 [ext_resource type="Script" path="res://levels/test_level.gd" id="1_4tvpp"]
 [ext_resource type="Texture2D" uid="uid://bdtdquuh7ylch" path="res://temporary_assets/acad-oval-2-scaled.jpg" id="2_m5h8x"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://levels/level_camera.gd" id="9_5v2pc"]
 [ext_resource type="PackedScene" uid="uid://bx1ojieysbx4j" path="res://entities/enemy_turrets/enemy_ranged.tscn" id="10_lcciq"]
 [ext_resource type="PackedScene" uid="uid://drqyrkt6rv3xv" path="res://entities/enemy_turrets/enemy_wisp.tscn" id="11_l5c2g"]
+[ext_resource type="PackedScene" uid="uid://cqvvkr8u8uw2o" path="res://entities/powerup.tscn" id="12_p38r0"]
 
 [node name="test_level" type="Node2D"]
 script = ExtResource("1_4tvpp")
@@ -41,7 +42,7 @@ script = ExtResource("5_kv883")
 position = Vector2(914, 207)
 
 [node name="player" parent="." instance=ExtResource("7_m867v")]
-position = Vector2(-86, -82)
+position = Vector2(-84, -52)
 respawn_point = Vector2(1148, 432)
 
 [node name="level_camera" parent="player" node_paths=PackedStringArray("tilemap") instance=ExtResource("8_fmfao")]
@@ -123,3 +124,6 @@ position = Vector2(-211, -117)
 
 [node name="enemy_wisp8" parent="enemies" instance=ExtResource("11_l5c2g")]
 position = Vector2(-512, -215)
+
+[node name="kodigo" parent="enemies" instance=ExtResource("12_p38r0")]
+position = Vector2(-46, -42)

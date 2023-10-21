@@ -53,6 +53,10 @@ one_shot = true
 wait_time = 5.0
 one_shot = true
 
+[node name="Timer_Coffee" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
 [node name="Timer_UnliAmmo" type="Timer" parent="."]
 wait_time = 10.0
 one_shot = true
@@ -119,6 +123,8 @@ script = ExtResource("6_er8oo")
 script = ExtResource("7_haxam")
 
 [connection signal="timeout" from="Timer_Invul" to="." method="_on_timer_invul_timeout"]
+[connection signal="timeout" from="Timer_Coffee" to="." method="_on_timer_invul_timeout"]
+[connection signal="timeout" from="Timer_Coffee" to="." method="_on_timer_coffee_timeout"]
 [connection signal="timeout" from="Timer_UnliAmmo" to="." method="_on_timer_unli_ammo_timeout"]
 [connection signal="timeout" from="Timer_DashCD" to="." method="_on_timer_dash_cd_timeout"]
 [connection signal="timeout" from="Timer_EnergyStartCD" to="." method="_on_timer_energy_start_cd_timeout"]
