@@ -18,7 +18,7 @@ var recoil_direction: Vector2 = Vector2.ZERO
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 # d for dash variables
-var d_speed: float = 200
+var d_speed: float = 500
 
 
 var max_hp: float = 80.0
@@ -39,8 +39,11 @@ var projectile_lifespan: float = 0.55
 var stop_energy_regen: bool = false
 
 @onready var jump_CD = $Timer_JumpCD
+
 @onready var energy_start_CD = $Timer_EnergyStartCD
 @onready var energy_regen_CD = $Timer_EnergyRegenCD
+@onready var dashLeft = $Left_DoubleTap
+@onready var dashRight = $Right_DoubleTap
 @onready var timer_is_firing = $Timer_IsFiring
 var is_firing := false
 @onready var fire_rate_CD = $Timer_FireRateCD
@@ -88,11 +91,6 @@ func _process(delta):
 	else:
 		y_movement = 0
 	
-	if Input.is_action_just_pressed("shift_button"):
-		dash = 1
-	else:
-		dash = 0
-	
 	fire_input = Input.is_action_pressed("shoot")
 	
 	if !is_firing and reload_timer.is_stopped() and ammo < max_ammo:
@@ -115,6 +113,10 @@ func _on_timer_energy_start_cd_timeout():
 func _on_timer_energy_regen_cd_timeout():
 	pass
 	#energy += 5
+
+
+	
+	
 
 func _on_timer_is_firing_timeout():
 	is_firing = false
@@ -180,5 +182,15 @@ func disable_controls():
 
 
 func _on_timer_dash_cd_timeout():
-	
+	dash =0
+	pass # Replace with function body.
+
+
+func _on_left_double_tap_timeout():
+	dashLeft.stop()
+	pass # Replace with function body.
+
+
+func _on_right_double_tap_timeout():
+	dashRight.stop()
 	pass # Replace with function body.

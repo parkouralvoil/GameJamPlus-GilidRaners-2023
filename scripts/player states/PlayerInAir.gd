@@ -6,6 +6,8 @@ class_name PlayerInAir
 @onready var anim_sprite: AnimatedSprite2D = player.get_node("AnimatedSprite2D")
 @onready var jump_CD: Timer = player.get_node("Timer_JumpCD")
 @onready var dash_CD: Timer = player.get_node("Timer_DashCD")
+@onready var dashLeft: Timer =player.get_node("Left_DoubleTap")
+@onready var dashRight: Timer =player.get_node("Right_DoubleTap")
 @onready var energy_start_CD: Timer = player.get_node("Timer_EnergyStartCD")
 @onready var energy_regen_CD: Timer = player.get_node("Timer_EnergyRegenCD")
 @onready var jump_particles: GPUParticles2D = player.get_node("GPUParticles2D_Jump")
@@ -31,6 +33,7 @@ func Physics_Update(_delta: float):
 		change_animation()
 		air_jump()
 		air_dash()
+		DoubleTapDash()
 	else: return
 	
 	if player.is_on_floor():
@@ -46,6 +49,23 @@ func Physics_Update(_delta: float):
 		Transitioned.emit(self, "PlayerDead")
 		
 # the price to pay for not using rigidbody2d (aka my own physics code for acceleration)
+func DoubleTapDash():
+	if Input.is_action_just_pressed("move_left"):
+		if dashLeft.is_stopped():
+			dashLeft.start()
+			dashRight.stop()
+		else:
+			player.dash = -1
+			dashLeft.stop()
+	elif Input.is_action_just_pressed("move_right"):
+		if dashRight.is_stopped():
+			dashRight.start()
+			dashLeft.stop()
+		else:
+			player.dash = 1
+			dashRight.stop()
+	pass
+
 func air_movement(input_delta):
 	if not jump_CD.is_stopped():
 		pass
@@ -87,15 +107,15 @@ func air_jump():
 #			player.velocity = Vector2(player.x_movement * player.a_speed, player.a_jump_speed * 0.8)
 			
 func air_dash():	
-	if 	player.dash == 1 and player.energy >= 5 and dash_CD.is_stopped():
-		player.velocity = Vector2(player.velocity.x + (player.d_speed * player.x_movement), player.velocity.y)
+	if 	player.dash != 0 and player.energy >= 5 and dash_CD.is_stopped():
+		player.velocity = Vector2(player.velocity.x + (player.d_speed * player.dash), 0)
 		jump_particles.emitting = true
 		dash_CD.start()
-	
 		player.stop_energy_regen = true
 		player.energy -= 5
+		player.dash = 0
 	elif not dash_CD.is_stopped():
-		player.velocity = Vector2(player.velocity.x + (player.d_speed * player.x_movement), player.velocity.y)
+		player.velocity = Vector2(player.velocity.x + (player.d_speed * player.x_movement), 0)
 func change_animation():
 	if player.velocity.y > 0.1 and anim_sprite.animation != "falling":
 		anim_sprite.play("falling")
