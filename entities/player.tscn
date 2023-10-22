@@ -127,8 +127,8 @@ script = ExtResource("7_haxam")
 script = ExtResource("8_pi7k4")
 
 [connection signal="timeout" from="Timer_Invul" to="." method="_on_timer_invul_timeout"]
-[connection signal="timeout" from="Timer_Coffee" to="." method="_on_timer_invul_timeout"]
 [connection signal="timeout" from="Timer_Coffee" to="." method="_on_timer_coffee_timeout"]
+[connection signal="timeout" from="Timer_Coffee" to="." method="_on_timer_invul_timeout"]
 [connection signal="timeout" from="Timer_UnliAmmo" to="." method="_on_timer_unli_ammo_timeout"]
 [connection signal="timeout" from="Timer_DashCD" to="." method="_on_timer_dash_cd_timeout"]
 [connection signal="timeout" from="Timer_EnergyStartCD" to="." method="_on_timer_energy_start_cd_timeout"]
