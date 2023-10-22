@@ -36,30 +36,34 @@ func Physics_Update(_delta: float):
 		change_animation()
 		jump()
 		DoubleTapDash()
-		dash()
+		
 	if !player.is_on_floor():
 		Transitioned.emit(self, "PlayerInAir")
 
 	if player.fire_input and fire_rate_CD.is_stopped() and player.ammo > 0:
 		Transitioned.emit(self, "PlayerFire")
 		#player.fire()
+	
+	if player.dash != 0 and dash_CD.is_stopped():
+		Transitioned.emit(self, "PlayerDash")
 		
 	if player.hp <= 0:
 		Transitioned.emit(self, "PlayerDead")
 
 # the price to pay for not using rigidbody2d (aka my own physics code for acceleration)
 func ground_movement(input_delta):
-	if player.x_movement == 1:
-		player.velocity.x = min(player.velocity.x + player.g_accel * input_delta, player.g_speed + player.speedModifier)
-	elif player.x_movement == -1:
-		player.velocity.x = max(player.velocity.x - player.g_accel * input_delta, -player.g_speed -player.speedModifier)
-	else: # no input
-		if player.velocity.x > 0.1:
-			player.velocity.x = max(player.velocity.x - player.g_friction * input_delta, 0)
-		elif player.velocity.x < -0.1:
-			player.velocity.x = min(player.velocity.x + player.g_friction * input_delta, 0)
-		else:
-			player.velocity.x = 0
+	if dash_CD.is_stopped():
+		if player.x_movement == 1:
+			player.velocity.x = min(player.velocity.x + player.g_accel * input_delta, player.g_speed + player.speedModifier)
+		elif player.x_movement == -1:
+			player.velocity.x = max(player.velocity.x - player.g_accel * input_delta, -player.g_speed - player.speedModifier)
+		else: # no input
+			if player.velocity.x > 0.1:
+				player.velocity.x = max(player.velocity.x - player.g_friction * input_delta, 0)
+			elif player.velocity.x < -0.1:
+				player.velocity.x = min(player.velocity.x + player.g_friction * input_delta, 0)
+			else:
+				player.velocity.x = 0
 
 func DoubleTapDash():
 	if Input.is_action_just_pressed("move_left"):
@@ -82,20 +86,13 @@ func DoubleTapDash():
 	elif Input.is_action_just_released("move_right") and dashRight.is_stopped():
 		dashRight.start()
 		dashLeft.stop()
-	pass
 
 func jump():	
-	if player.y_movement == 1 and jump_CD.is_stopped():
+	if player.y_movement == 1 and jump_CD.is_stopped() and dash_CD.is_stopped():
 		player.velocity.y = player.g_jump_speed
 		jump_CD.start()
-				
-func dash():
-	if player.dash != 0 and player.energy >= 5 and dash_CD.is_stopped():
-		player.velocity.x = player.d_speed * player.dash * 4
-		dash_CD.start()
-		jump_particles.emitting = true
-		pass
-		
+
+
 func change_animation():
 	if abs(player.velocity.x) <= 0.1 and anim_sprite.animation != "idle":
 		anim_sprite.play("idle")

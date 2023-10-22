@@ -34,7 +34,7 @@ func _ready():
 
 func begin_game():
 	level = 0
-	insert_transition_lvls()
+#	insert_transition_lvls()
 	print(level_array)
 	if level < level_array.size():
 		menu_open = false
@@ -51,16 +51,16 @@ func go_next_level():
 		get_tree().change_scene_to_packed(menu)
 		# probs best to put here the "go to game finished scene"
 
-func insert_transition_lvls():
-	var i: int = 0
-	while i <= 3:
-		if level_array[i] == path_major1 or level_array[i] == path_ge1:
-			if level_array[i+1] == path_major2 or level_array[i+1] == path_ge2:
-				level_array.insert(i+2, path_transition_AB)
-		elif level_array[i+1] == path_major1 or level_array[i+1] == path_ge1:
-			if level_array[i] == path_major2 or level_array[i] == path_ge2:
-				level_array.insert(i+2, path_transition_BA)
-		i += 3
+#func insert_transition_lvls():
+#	var i: int = 0
+#	while i <= 3:
+#		if level_array[i] == path_major1 or level_array[i] == path_ge1:
+#			if level_array[i+1] == path_major2 or level_array[i+1] == path_ge2:
+#				level_array.insert(i+2, path_transition_AB)
+#		elif level_array[i+1] == path_major1 or level_array[i+1] == path_ge1:
+#			if level_array[i] == path_major2 or level_array[i] == path_ge2:
+#				level_array.insert(i+2, path_transition_BA)
+#		i += 3
 
 
 func _on_button_pressed():
