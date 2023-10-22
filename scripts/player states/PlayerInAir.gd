@@ -32,7 +32,7 @@ func Physics_Update(_delta: float):
 		air_movement(_delta)
 		change_animation()
 		air_jump()
-		air_dash()
+#		air_dash()
 		DoubleTapDash()
 	else: return
 	
@@ -44,6 +44,9 @@ func Physics_Update(_delta: float):
 	if player.fire_input and fire_rate_CD.is_stopped() and player.ammo > 0:
 		Transitioned.emit(self, "PlayerFire")
 		#player.fire()
+	if player.dash != 0 and dash_CD.is_stopped() and player.energy >= 5:
+		player.energy -= 5
+		Transitioned.emit(self, "PlayerDash")
 	
 	if player.hp <= 0:
 		Transitioned.emit(self, "PlayerDead")
@@ -64,15 +67,14 @@ func DoubleTapDash():
 		else:
 			player.dash = 1
 			dashRight.stop()
-	pass
 
 func air_movement(input_delta):
 	if not jump_CD.is_stopped():
-		pass
+		return
 	elif player.x_movement == 1:
 		player.velocity.x = min(player.velocity.x + player.g_accel * input_delta, player.g_speed + player.speedModifier)
 	elif player.x_movement == -1:
-		player.velocity.x = max(player.velocity.x - player.g_accel * input_delta, -player.g_speed + player.speedModifier)
+		player.velocity.x = max(player.velocity.x - player.g_accel * input_delta, -player.g_speed - player.speedModifier)
 	else: # no input
 		if player.velocity.x > 0.1:
 			player.velocity.x = max(player.velocity.x - player.g_friction * input_delta, 0)
@@ -93,7 +95,7 @@ func air_movement(input_delta):
 #			player.velocity.x = 0
 
 func air_jump():	
-	if player.y_movement == 1 and jump_CD.is_stopped() and player.energy >= 5:
+	if player.y_movement == 1 and jump_CD.is_stopped() and player.energy >= 5 and dash_CD.is_stopped():
 		player.velocity = Vector2(player.velocity.x, player.a_jump_speed)
 		jump_particles.emitting = true
 		jump_CD.start()
@@ -106,16 +108,17 @@ func air_jump():
 #		else:
 #			player.velocity = Vector2(player.x_movement * player.a_speed, player.a_jump_speed * 0.8)
 			
-func air_dash():	
-	if 	player.dash != 0 and player.energy >= 5 and dash_CD.is_stopped():
-		player.velocity = Vector2(player.velocity.x + (player.d_speed * player.dash), 0)
-		jump_particles.emitting = true
-		dash_CD.start()
-		player.stop_energy_regen = true
-		player.energy -= 5
-		player.dash = 0
-	elif not dash_CD.is_stopped():
-		player.velocity = Vector2(player.velocity.x + (player.d_speed * player.x_movement), 0)
+#func air_dash():	
+#	if 	player.dash != 0 and player.energy >= 5 and dash_CD.is_stopped():
+#		player.velocity = Vector2(player.velocity.x + (player.d_speed * player.dash), 0)
+#		jump_particles.emitting = true
+#		dash_CD.start()
+#		player.stop_energy_regen = true
+#		player.energy -= 5
+#		player.dash = 0
+#	elif not dash_CD.is_stopped():
+#		player.velocity = Vector2(player.velocity.x + (player.d_speed * player.x_movement), 0)
+
 func change_animation():
 	if player.velocity.y > 0.1 and anim_sprite.animation != "falling":
 		anim_sprite.play("falling")

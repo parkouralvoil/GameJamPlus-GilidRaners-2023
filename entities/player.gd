@@ -18,7 +18,8 @@ var recoil_direction: Vector2 = Vector2.ZERO
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 # d for dash variables
-var d_speed: float = 500
+var d_speed: float = 800
+var d_accel: float = 10000
 var speedModifier = 0
 
 var max_hp: float = 80.0
@@ -199,7 +200,7 @@ func healConsummable():
 		hp = max_hp
 	else:
 		hp = hp + 20
-		
+
 func UnliAmmo():
 	unliAmmo = true
 	ammo = max_ammo
@@ -208,16 +209,20 @@ func UnliAmmo():
 func drinkCoffee():
 	speedModifier += 200
 	coffeeTime.start()
+	
 func useInvul():
 	invul = true
 	invulTime.start()
 	
 func getKodigo():
 	inventory = kodigo
+	
 func getHealth():
 	inventory = kwekkwek
+	
 func getCoffee():
 	inventory = coffee
+	
 func getMinigun():
 	inventory = ballpenBundle
 	
@@ -230,33 +235,27 @@ func disable_controls():
 
 	
 func _on_timer_dash_cd_timeout():
-	dash =0
-	pass # Replace with function body.
+	dash = 0
 
 
 func _on_left_double_tap_timeout():
 	dashLeft.stop()
-	pass # Replace with function body.
 
 
 func _on_right_double_tap_timeout():
 	dashRight.stop()
-	pass # Replace with function body.
 
 
 func _on_timer_unli_ammo_timeout():
 	unliAmmo = false
 	ammoTime.stop()
-	pass # Replace with function body.
 
 
 func _on_timer_invul_timeout():
 	invul = false
 	invulTime.stop()
-	pass # Replace with function body.
 
 
 func _on_timer_coffee_timeout():
 	speedModifier -= 200
 	coffeeTime.stop()
-	pass # Replace with function body.

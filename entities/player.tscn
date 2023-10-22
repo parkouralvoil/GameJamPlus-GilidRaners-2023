@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://k3e86wyibwv8"]
+[gd_scene load_steps=13 format=3 uid="uid://k3e86wyibwv8"]
 
 [ext_resource type="Script" path="res://entities/player.gd" id="1_uppic"]
 [ext_resource type="SpriteFrames" uid="uid://c2vx75vuqrqi0" path="res://resources/basic_anims.tres" id="2_wr3fr"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/player states/PlayerInAir.gd" id="5_enbi2"]
 [ext_resource type="Script" path="res://scripts/player states/PlayerFire.gd" id="6_er8oo"]
 [ext_resource type="Script" path="res://scripts/player states/PlayerDead.gd" id="7_haxam"]
+[ext_resource type="Script" path="res://scripts/player states/PlayerDash.gd" id="8_pi7k4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l4650"]
 size = Vector2(16, 26)
@@ -62,7 +63,7 @@ wait_time = 10.0
 one_shot = true
 
 [node name="Timer_DashCD" type="Timer" parent="."]
-wait_time = 0.2
+wait_time = 0.15
 one_shot = true
 
 [node name="Timer_EnergyStartCD" type="Timer" parent="."]
@@ -121,6 +122,9 @@ script = ExtResource("6_er8oo")
 
 [node name="PlayerDead" type="Node" parent="State Machine"]
 script = ExtResource("7_haxam")
+
+[node name="PlayerDash" type="Node" parent="State Machine"]
+script = ExtResource("8_pi7k4")
 
 [connection signal="timeout" from="Timer_Invul" to="." method="_on_timer_invul_timeout"]
 [connection signal="timeout" from="Timer_Coffee" to="." method="_on_timer_invul_timeout"]
