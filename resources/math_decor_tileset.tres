@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=11 format=3 uid="uid://dikkkqwjfwte7"]
+[gd_resource type="TileSet" load_steps=11 format=3 uid="uid://cticwbi1drxjt"]
 
 [ext_resource type="Texture2D" uid="uid://w5qwx1ee4yng" path="res://SPRITES/Math building/pipes.png" id="1_tiy7p"]
 [ext_resource type="Texture2D" uid="uid://d4i5knj8pfiei" path="res://SPRITES/Math building/pattern.png" id="2_wowl4"]

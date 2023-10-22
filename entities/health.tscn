@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cqnms27pevlor"]
 
-[ext_resource type="Texture2D" uid="uid://8lgjaytudte8" path="res://icon.svg" id="1_av5t6"]
+[ext_resource type="Texture2D" uid="uid://bu2gbc6um1y50" path="res://SPRITES/powerups/KwekKwek_1.png" id="1_inex1"]
 [ext_resource type="Script" path="res://entities/health.gd" id="2_ymjsy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nhn3j"]
@@ -9,7 +9,7 @@ size = Vector2(120, 120)
 [node name="health" type="Sprite2D"]
 position = Vector2(366, 154)
 scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_av5t6")
+texture = ExtResource("1_inex1")
 script = ExtResource("2_ymjsy")
 
 [node name="Area2D" type="Area2D" parent="."]
