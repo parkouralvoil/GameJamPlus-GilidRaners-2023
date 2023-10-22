@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://daoo34xkqoi76"]
+[gd_scene load_steps=6 format=3 uid="uid://daoo34xkqoi76"]
 
 [ext_resource type="Script" path="res://ui/menu.gd" id="1_6uaf6"]
 [ext_resource type="Theme" uid="uid://yfilg2o18ag5" path="res://temporary_assets/transition/subtitle_text_theme.tres" id="2_n1bxf"]
 [ext_resource type="Texture2D" uid="uid://bpitfvaxxks0y" path="res://SPRITES/MenuUI/TitleScreen.png" id="2_syoat"]
+[ext_resource type="AudioStream" uid="uid://db34xf4bh5yhf" path="res://resources/music/samp_lofi.wav" id="4_82l1q"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_at2w8"]
 font_size = 25
@@ -82,6 +83,10 @@ position = Vector2(319.889, 178.687)
 scale = Vector2(0.222299, 0.220139)
 texture = ExtResource("2_syoat")
 metadata/_edit_lock_ = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_82l1q")
+autoplay = true
 
 [connection signal="pressed" from="MarginContainer2/VBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]

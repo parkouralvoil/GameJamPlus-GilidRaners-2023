@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://rj8arc73s7oc"]
+[gd_scene load_steps=20 format=3 uid="uid://rj8arc73s7oc"]
 
 [ext_resource type="Script" path="res://levels/test_level.gd" id="1_5c0v5"]
 [ext_resource type="TileSet" uid="uid://cticwbi1drxjt" path="res://resources/math_decor_tileset.tres" id="3_pfuhm"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://cqnms27pevlor" path="res://entities/health.tscn" id="15_fhlbh"]
 [ext_resource type="PackedScene" uid="uid://chrai2dqf84l6" path="res://ui/gameover.tscn" id="16_eij76"]
 [ext_resource type="PackedScene" uid="uid://b83lxp16rplq3" path="res://entities/kodigo.tscn" id="16_gk7dq"]
+[ext_resource type="AudioStream" uid="uid://ym8q6m2pv44g" path="res://resources/music/KOBALT_Lvl_2_Theme.wav" id="17_er08m"]
 [ext_resource type="PackedScene" uid="uid://ckxer07sr7dyo" path="res://entities/ballpenBundle.tscn" id="17_f45k8"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_oyj25"]
@@ -190,3 +191,7 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LvlFinish"]
 position = Vector2(2, -4)
 shape = SubResource("CircleShape2D_kx68o")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("17_er08m")
+autoplay = true
