@@ -31,6 +31,11 @@ var reload_time: float:
 	set(value):
 		reload_time = value
 		hud.reload_time = reload_time
+		
+var powerup: String:
+	set(value):
+		powerup = value
+		hud.powerup = powerup
 
 func _ready():
 	player.PlayerRespawned.connect(room_respawn)
@@ -60,6 +65,18 @@ func set_hud_info():
 		hud.reload_time.visible = true
 	else:
 		hud.reload_time.visible = false
+	#enum Powerup {none = 0, ballpenBundle = 1, coffee = 2, kwekkwek = 3, kodigo = 4}
+	match player.inventory:
+		player.Powerup.none:
+			powerup = "None"
+		player.Powerup.ballpenBundle:
+			powerup = "Unli ballpens!"
+		player.Powerup.coffee:
+			powerup = "Speedboost Coffee"
+		player.Powerup.kwekkwek:
+			powerup = "Healing Kwekkwek"
+		player.Powerup.kodigo:
+			powerup = "Invulnerability Kodego"
 
 func room_respawn():
 	for child in rooms.get_children():

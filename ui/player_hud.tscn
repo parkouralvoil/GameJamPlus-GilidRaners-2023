@@ -45,3 +45,12 @@ offset_right = 103.0
 offset_bottom = 134.0
 text = "Reloading:"
 label_settings = SubResource("LabelSettings_ydmsw")
+
+[node name="Label_Powerup" type="Label" parent="."]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 139.0
+offset_right = 103.0
+offset_bottom = 166.0
+text = "Power up: "
+label_settings = SubResource("LabelSettings_ydmsw")

@@ -17,3 +17,7 @@ extends Control
 @onready var reload_time = $Label_Reload:
 	set(value):
 		reload_time.text = "Reloading: %.1f" % value
+
+@onready var powerup = $Label_Powerup:
+	set(value):
+		powerup.text = "Power up: %s" % value

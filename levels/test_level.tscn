@@ -1,12 +1,14 @@
-[gd_scene load_steps=18 format=3 uid="uid://bs87ye7h58650"]
+[gd_scene load_steps=20 format=3 uid="uid://bs87ye7h58650"]
 
 [ext_resource type="Script" path="res://levels/test_level.gd" id="1_qxluh"]
 [ext_resource type="TileSet" uid="uid://uewiiqo77xfu" path="res://resources/test_tileset.tres" id="2_ag8sy"]
 [ext_resource type="PackedScene" uid="uid://joqjjfdkp46b" path="res://levels/decor/campfire.tscn" id="2_fchgg"]
 [ext_resource type="PackedScene" uid="uid://k3e86wyibwv8" path="res://entities/player.tscn" id="2_he5gv"]
 [ext_resource type="Texture2D" uid="uid://bdtdquuh7ylch" path="res://temporary_assets/acad-oval-2-scaled.jpg" id="2_l3u6w"]
+[ext_resource type="TileSet" uid="uid://dcfyfphtpp132" path="res://resources/math_floor_tileset.tres" id="3_np21i"]
 [ext_resource type="PackedScene" uid="uid://daul7ev5657p5" path="res://levels/level_camera.tscn" id="3_xnb0x"]
 [ext_resource type="Script" path="res://levels/level_camera.gd" id="4_tut35"]
+[ext_resource type="TileSet" uid="uid://dikkkqwjfwte7" path="res://resources/math_decor_tileset.tres" id="4_vqcog"]
 [ext_resource type="PackedScene" uid="uid://cwtuskfpjx053" path="res://ui/player_hud.tscn" id="6_ufsul"]
 [ext_resource type="PackedScene" uid="uid://bx1ojieysbx4j" path="res://entities/enemy_turrets/enemy_ranged.tscn" id="8_lfpbt"]
 [ext_resource type="PackedScene" uid="uid://bf1s3l40wbjjl" path="res://entities/enemy_turrets/enemy_laser.tscn" id="10_1mtls"]
@@ -27,6 +29,15 @@ modulate = Color(0.337255, 0.337255, 0.337255, 1)
 position = Vector2(819, 219)
 scale = Vector2(2.00547, 1.95841)
 texture = ExtResource("2_l3u6w")
+
+[node name="platform" type="TileMap" parent="."]
+tile_set = ExtResource("3_np21i")
+format = 2
+layer_0/tile_data = PackedInt32Array(589815, 196609, 5, 655350, 196609, 5, 655349, 196609, 5, 720884, 196609, 5, 786419, 196609, 5, 786418, 196609, 5, 786417, 196609, 5, 720882, 196609, 5, 655347, 196609, 5, 589812, 196609, 5, 589813, 196609, 5, 524278, 196609, 5, 524279, 196609, 5, 655351, 196609, 5, 720887, 196609, 5, 786422, 196609, 5, 851958, 196609, 5, 851957, 196609, 5, 851956, 196609, 5, 851955, 196609, 5, 851954, 196609, 5)
+
+[node name="decor" type="TileMap" parent="."]
+tile_set = ExtResource("4_vqcog")
+format = 2
 
 [node name="ground" type="TileMap" parent="."]
 tile_set = ExtResource("2_ag8sy")

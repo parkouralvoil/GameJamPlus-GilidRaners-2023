@@ -30,7 +30,7 @@ var max_energy: float = 20
 var energy: float = max_energy
 var max_ammo: int = 8
 var ammo: int = max_ammo
-var inventory: int = none
+var inventory: int = Powerup.none
 var invul: bool = false
 var unliAmmo: bool = false
 @export var respawn_point: Vector2 = Vector2.ZERO
@@ -66,7 +66,8 @@ var just_respawned: bool = false
 
 @onready var state_machine = $"State Machine"
 
-enum {none,ballpenBundle,coffee,kwekkwek,kodigo}
+enum Powerup {none = 0, ballpenBundle = 1, coffee = 2, kwekkwek = 3, kodigo = 4}
+# 0, 1, 2, 3, 4
 
 signal PlayerRespawned
 
@@ -184,15 +185,15 @@ func respawn_player():
 	
 	
 func useItem():
-	if inventory == ballpenBundle:
+	if inventory == Powerup.ballpenBundle:
 		UnliAmmo()
-	elif inventory == kwekkwek:
+	elif inventory == Powerup.kwekkwek:
 		healConsummable()
-	elif inventory == kodigo:
+	elif inventory == Powerup.kodigo:
 		useInvul()
-	elif inventory == coffee:
+	elif inventory == Powerup.coffee:
 		drinkCoffee()
-	inventory = none
+	inventory = Powerup.none
 	
 	
 func healConsummable():
@@ -215,16 +216,16 @@ func useInvul():
 	invulTime.start()
 	
 func getKodigo():
-	inventory = kodigo
+	inventory = Powerup.kodigo
 	
 func getHealth():
-	inventory = kwekkwek
+	inventory = Powerup.kwekkwek
 	
 func getCoffee():
-	inventory = coffee
+	inventory = Powerup.coffee
 	
 func getMinigun():
-	inventory = ballpenBundle
+	inventory = Powerup.ballpenBundle
 	
 	
 func disable_controls():
