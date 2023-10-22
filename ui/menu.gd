@@ -9,6 +9,7 @@ var second_lvl: Resource = load("res://levels/Lvl 2.tscn")
 @onready var easter_egg = $MarginContainer2/VBoxContainer/Options/RichTextLabel
 
 func _ready():
+	SceneManager.level = 0
 	easter_egg.visible = false
 	SceneManager.menu_open = false
 	

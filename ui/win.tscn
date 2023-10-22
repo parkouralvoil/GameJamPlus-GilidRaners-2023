@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://b0c2uyodj5a3d"]
+[gd_scene load_steps=3 format=3 uid="uid://b0c2uyodj5a3d"]
 
 [ext_resource type="Texture2D" uid="uid://1muatx7d2tyk" path="res://SPRITES/Win.png" id="1_olbls"]
+[ext_resource type="Script" path="res://ui/gameover.gd" id="1_vd806"]
 
-[node name="Gameover" type="CanvasLayer"]
+[node name="Win" type="CanvasLayer"]
+script = ExtResource("1_vd806")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(320.167, 180)
@@ -37,3 +39,5 @@ offset_bottom = 151.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Return to menu"
+
+[connection signal="pressed" from="Control/Button" to="." method="_on_button_pressed"]
