@@ -3,7 +3,7 @@ extends Node2D
 @onready var player: Player = $player
 # @onready var camera: Camera2D = $level_camera
 @onready var hud: Control = $CanvasLayer/player_hud
-@onready var rooms: Node2D = $rooms
+# @onready var rooms: Node2D = $rooms
 @onready var respawn_points: Node2D = $respawn_points
 
 
@@ -48,16 +48,16 @@ var buff_duration: float:
 		hud.buff_duration = buff_duration
 
 func _ready():
-	player.PlayerRespawned.connect(room_respawn)
+	# player.PlayerRespawned.connect(room_respawn)
 	#camera.player = player
 	set_hud_info()
 	
 	# sets the first respawn point
-	for child in respawn_points.get_children():
-		if child.first_campfire:
-			player.respawn_point = child.global_position
-			child.campfire_lit()
-			break
+#	for child in respawn_points.get_children():
+#		if child.first_campfire:
+#			player.respawn_point = child.global_position
+#			child.campfire_lit()
+#			break
 
 func _process(delta):
 	set_hud_info()
@@ -103,10 +103,3 @@ func set_hud_info():
 			hud.current_buff.visible = true
 		else:
 			hud.current_buff.visible = false
-			
-
-func room_respawn():
-	for child in rooms.get_children():
-		if child is Room and !child.room_cleared:
-			child.respawn_enemies()
-	print("doing this")

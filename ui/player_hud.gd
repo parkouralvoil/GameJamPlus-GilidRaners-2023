@@ -21,7 +21,7 @@ var buff_duration: float = 999.0
 
 @onready var powerup = $Label_Powerup:
 	set(value):
-		powerup.text = "Stored power up: %s" % value
+		powerup.text = "%s" % value
 
 @onready var current_buff = $Label_CurrentBuff:
 	set(value):

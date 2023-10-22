@@ -10,6 +10,14 @@ layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_jvnbh")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 16.0
+offset_right = 166.0
+offset_bottom = 121.0
+color = Color(0.129412, 0.129412, 0.129412, 0.631373)
+
 [node name="Label_HP" type="Label" parent="."]
 layout_mode = 0
 offset_left = 17.0
@@ -22,44 +30,44 @@ label_settings = SubResource("LabelSettings_ydmsw")
 [node name="Label_Energy" type="Label" parent="."]
 layout_mode = 0
 offset_left = 17.0
-offset_top = 47.0
+offset_top = 33.0
 offset_right = 102.0
-offset_bottom = 74.0
+offset_bottom = 60.0
 text = "Energy: 80"
 label_settings = SubResource("LabelSettings_ydmsw")
 
 [node name="Label_Ammo" type="Label" parent="."]
 layout_mode = 0
-offset_left = 17.0
-offset_top = 77.0
-offset_right = 90.0
-offset_bottom = 104.0
+offset_left = 16.0
+offset_top = 50.0
+offset_right = 89.0
+offset_bottom = 77.0
 text = "Ammo: 6"
 label_settings = SubResource("LabelSettings_ydmsw")
 
 [node name="Label_Powerup" type="Label" parent="."]
 layout_mode = 0
 offset_left = 17.0
-offset_top = 107.0
+offset_top = 67.0
 offset_right = 103.0
-offset_bottom = 134.0
+offset_bottom = 94.0
 text = "Power up: "
 label_settings = SubResource("LabelSettings_ydmsw")
 
 [node name="Label_Reload" type="Label" parent="."]
 layout_mode = 0
 offset_left = 17.0
-offset_top = 137.0
+offset_top = 84.0
 offset_right = 103.0
-offset_bottom = 164.0
+offset_bottom = 111.0
 text = "Reloading:"
 label_settings = SubResource("LabelSettings_ydmsw")
 
 [node name="Label_CurrentBuff" type="Label" parent="."]
 layout_mode = 0
 offset_left = 17.0
-offset_top = 171.0
+offset_top = 101.0
 offset_right = 103.0
-offset_bottom = 198.0
+offset_bottom = 128.0
 text = "Buff used"
 label_settings = SubResource("LabelSettings_ydmsw")

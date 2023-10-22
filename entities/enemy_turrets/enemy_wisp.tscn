@@ -37,7 +37,7 @@ scale = Vector2(-1, 1)
 remote_path = NodePath("../../AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-rotation = 1.5708
+rotation = 1.57079
 scale = Vector2(1, -1)
 sprite_frames = SubResource("SpriteFrames_eqwra")
 frame_progress = 0.484537
