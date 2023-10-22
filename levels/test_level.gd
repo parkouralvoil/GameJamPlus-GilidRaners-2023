@@ -5,6 +5,9 @@ extends Node2D
 @onready var hud: Control = $CanvasLayer/player_hud
 # @onready var rooms: Node2D = $rooms
 # @onready var respawn_points: Node2D = $respawn_points
+@onready var lvl_finish: Area2D = $LvlFinish
+@onready var game_over: CanvasLayer = $Gameover
+@onready var game_over_button: Button = $Gameover/Control/Button
 
 
 var max_hp: float:
@@ -50,6 +53,8 @@ var buff_duration: float:
 func _ready():
 	# player.PlayerRespawned.connect(room_respawn)
 	#camera.player = player
+	lvl_finish.connect("body_entered", _on_lvl_finish_body_entered)
+	game_over_button.connect("pressed", _on_press_game_over_button)
 	set_hud_info()
 	
 	# sets the first respawn point
@@ -60,6 +65,10 @@ func _ready():
 #			break
 
 func _process(delta):
+	if player.hp <= 0 and !game_over.visible:
+		game_over.show()
+	elif player.hp > 0 and game_over.visible:
+		game_over.hide()
 	set_hud_info()
 	
 func set_hud_info():
@@ -103,3 +112,10 @@ func set_hud_info():
 			hud.current_buff.visible = true
 		else:
 			hud.current_buff.visible = false
+
+func _on_lvl_finish_body_entered(body):
+	if body is Player:
+		SceneManager.go_next_level()
+
+func _on_press_game_over_button():
+	SceneManager.go_next_level()

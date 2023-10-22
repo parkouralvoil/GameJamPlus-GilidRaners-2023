@@ -16,6 +16,9 @@ var path_transition_BA = load("res://levels/subjects/transitionAB.tscn") # CHANG
 
 var menu: Resource = load("res://ui/menu.tscn")
 
+var first_lvl: Resource = load("res://levels/Lvl 1.tscn")
+var second_lvl: Resource = load("res://levels/Lvl 2.tscn")
+
 @onready var control: Control = $Control
 #@onready var background: ColorRect = $Control/ColorRect
 #@onready var label: Label = $Control/Label
@@ -29,7 +32,7 @@ var menu_open: bool = false
 # get_tree().change_scene_to_packed(path_major1)
 
 func _ready():
-	level_array = []
+	level_array = [first_lvl, second_lvl]
 	control.hide()
 
 func begin_game():
