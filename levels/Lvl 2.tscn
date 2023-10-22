@@ -58,7 +58,7 @@ layer_0/tile_data = PackedInt32Array(-3145741, 1, 6, -3145740, 1, 6, -3145739, 1
 [node name="Node" type="Node" parent="."]
 
 [node name="player" parent="." instance=ExtResource("9_rkm0q")]
-position = Vector2(-187, -880)
+position = Vector2(-182, -882)
 respawn_point = Vector2(1148, 432)
 
 [node name="level_camera" parent="player" node_paths=PackedStringArray("tilemap") instance=ExtResource("10_mg23r")]

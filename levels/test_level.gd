@@ -115,7 +115,7 @@ func set_hud_info():
 
 func _on_lvl_finish_body_entered(body):
 	if body is Player:
-		SceneManager.go_next_level()
+		SceneManager.go_transition()
 
 func _on_press_game_over_button():
-	SceneManager.go_next_level()
+	SceneManager.go_main_menu()

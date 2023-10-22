@@ -17,7 +17,7 @@ var player_in_sight: bool = false
 func _ready():
 	max_hp = 30.0
 	hp = max_hp
-	atk = 10.0
+	atk = 40.0
 	$Control.global_position = global_position
 	explosion_line.points[1] = Vector2.ZERO
 	

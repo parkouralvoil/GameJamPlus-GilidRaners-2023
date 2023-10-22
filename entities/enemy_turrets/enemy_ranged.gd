@@ -36,7 +36,7 @@ func _ready():
 	hostile_mouth.hide()
 	max_hp = 30.0
 	hp = max_hp
-	atk = 5.0
+	atk = 10.0
 
 func _process(delta):
 	if hp <= 0:
