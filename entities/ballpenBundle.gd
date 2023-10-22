@@ -6,5 +6,5 @@ func _on_area_2d_body_entered(body):
 	if body is Player and active_hitbox:
 		var player = body
 		if player.inventory == 0:
-			player.getKodigo()
+			player.getMinigun()
 			queue_free()

@@ -1,16 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://cqvvkr8u8uw2o"]
+[gd_scene load_steps=4 format=3 uid="uid://ckxer07sr7dyo"]
 
-[ext_resource type="Texture2D" uid="uid://8lgjaytudte8" path="res://icon.svg" id="1_n0pvy"]
-[ext_resource type="Script" path="res://entities/powerup.gd" id="2_a7lts"]
+[ext_resource type="Texture2D" uid="uid://8lgjaytudte8" path="res://icon.svg" id="1_8xce6"]
+[ext_resource type="Script" path="res://entities/ballpenBundle.gd" id="2_5wvt1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nhn3j"]
 size = Vector2(120, 120)
 
-[node name="kodigo" type="Sprite2D"]
+[node name="ballpenbundle" type="Sprite2D"]
 position = Vector2(366, 154)
 scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_n0pvy")
-script = ExtResource("2_a7lts")
+texture = ExtResource("1_8xce6")
+script = ExtResource("2_5wvt1")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0

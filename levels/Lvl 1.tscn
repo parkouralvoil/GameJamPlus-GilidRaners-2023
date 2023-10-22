@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://rj8arc73s7oc"]
+[gd_scene load_steps=13 format=3 uid="uid://rj8arc73s7oc"]
 
 [ext_resource type="Script" path="res://levels/test_level.gd" id="1_q8vi7"]
 [ext_resource type="Texture2D" uid="uid://bdtdquuh7ylch" path="res://temporary_assets/acad-oval-2-scaled.jpg" id="2_2l0nu"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://drqyrkt6rv3xv" path="res://entities/enemy_turrets/enemy_wisp.tscn" id="9_bmslb"]
 [ext_resource type="Script" path="res://levels/respawn_points.gd" id="10_kvjb5"]
 [ext_resource type="PackedScene" uid="uid://joqjjfdkp46b" path="res://levels/decor/campfire.tscn" id="11_s3svj"]
+[ext_resource type="PackedScene" uid="uid://cqnms27pevlor" path="res://entities/health.tscn" id="12_g1ied"]
 [ext_resource type="PackedScene" uid="uid://k3e86wyibwv8" path="res://entities/player.tscn" id="12_ilnyr"]
 [ext_resource type="PackedScene" uid="uid://daul7ev5657p5" path="res://levels/level_camera.tscn" id="13_nuuan"]
 [ext_resource type="Script" path="res://levels/level_camera.gd" id="14_y7rv0"]
@@ -146,3 +147,6 @@ position = Vector2(930, -616)
 
 [node name="enemy_ranged18" parent="." instance=ExtResource("7_ycumf")]
 position = Vector2(1166, -607)
+
+[node name="health" parent="." instance=ExtResource("12_g1ied")]
+position = Vector2(-46, -810)
