@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dibiwb7d1f353"
-path="res://.godot/imported/rainbow floor flipped.png-fa940e6112bb55c88f05cc2fae868482.ctex"
+uid="uid://ddbo85pycqjwq"
+path="res://.godot/imported/rainbow floor v2.png-cccb6e6a87c67ca2aa7912d8c63dacbc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SPRITES/Math building/rainbow floor flipped.png"
-dest_files=["res://.godot/imported/rainbow floor flipped.png-fa940e6112bb55c88f05cc2fae868482.ctex"]
+source_file="res://SPRITES/Math building/rainbow floor v2.png"
+dest_files=["res://.godot/imported/rainbow floor v2.png-cccb6e6a87c67ca2aa7912d8c63dacbc.ctex"]
 
 [params]
 
