@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://daoo34xkqoi76"]
+[gd_scene load_steps=5 format=3 uid="uid://daoo34xkqoi76"]
 
 [ext_resource type="Script" path="res://ui/menu.gd" id="1_6uaf6"]
+[ext_resource type="Theme" uid="uid://yfilg2o18ag5" path="res://temporary_assets/transition/subtitle_text_theme.tres" id="2_n1bxf"]
 [ext_resource type="Texture2D" uid="uid://bpitfvaxxks0y" path="res://SPRITES/MenuUI/TitleScreen.png" id="2_syoat"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_at2w8"]
@@ -23,6 +24,36 @@ offset_right = 458.0
 offset_bottom = 103.0
 text = "UPD LIFE SIMULATOR"
 label_settings = SubResource("LabelSettings_at2w8")
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(120, 30)
+layout_mode = 2
+offset_left = 32.0
+offset_top = 256.0
+offset_right = 212.0
+offset_bottom = 287.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
+layout_mode = 2
+
+[node name="Options" type="Button" parent="MarginContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Play "
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer2/VBoxContainer/Options"]
+z_index = 1
+layout_mode = 0
+offset_left = 177.0
+offset_top = -5.0
+offset_right = 427.0
+offset_bottom = 45.0
+theme = ExtResource("2_n1bxf")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 12
+text = "Just like class, you can no longer change things once its started."
+fit_content = true
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(120, 30)
@@ -52,4 +83,5 @@ scale = Vector2(0.222299, 0.220139)
 texture = ExtResource("2_syoat")
 metadata/_edit_lock_ = true
 
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
