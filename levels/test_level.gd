@@ -37,6 +37,16 @@ var powerup: String:
 		powerup = value
 		hud.powerup = powerup
 
+var current_buff: String:
+	set(value):
+		current_buff = value
+		hud.current_buff = current_buff
+		
+var buff_duration: float:
+	set(value):
+		buff_duration = value
+		hud.buff_duration = buff_duration
+
 func _ready():
 	player.PlayerRespawned.connect(room_respawn)
 	#camera.player = player
@@ -74,9 +84,26 @@ func set_hud_info():
 		player.Powerup.coffee:
 			powerup = "Speedboost Coffee"
 		player.Powerup.kwekkwek:
-			powerup = "Healing Kwekkwek"
+			powerup = "Healing Kwek kwek"
 		player.Powerup.kodigo:
 			powerup = "Invulnerability Kodego"
+	
+	if $player != null:
+		if $player/Timer_Coffee.time_left > 0.1:
+			current_buff = "SPEED BOOST"
+			buff_duration = $player/Timer_Coffee.time_left
+			hud.current_buff.visible = true
+		elif $player/Timer_UnliAmmo.time_left > 0.1:
+			current_buff = "UNLI AMMO"
+			buff_duration = $player/Timer_UnliAmmo.time_left
+			hud.current_buff.visible = true
+		elif $player/Timer_Invul.time_left > 0.1:
+			current_buff = "INVULNERABLE"
+			buff_duration = $player/Timer_Invul.time_left
+			hud.current_buff.visible = true
+		else:
+			hud.current_buff.visible = false
+			
 
 func room_respawn():
 	for child in rooms.get_children():

@@ -54,6 +54,10 @@ default_color = Color(1, 1, 1, 0.647059)
 position = Vector2(-1, -1)
 shape = SubResource("RectangleShape2D_8ipe4")
 
+[node name="RayCast2D_Player" type="RayCast2D" parent="."]
+target_position = Vector2(0, 0)
+collision_mask = 3
+
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0

@@ -9,7 +9,10 @@ extends Enemy
 @onready var explosion_line_lifetime: Timer = $Timer_Line
 @onready var rotater: Node2D = $Rotator
 
+@onready var RC_player: RayCast2D = $RayCast2D_Player
+
 var ready_to_fire: bool = true
+var player_in_sight: bool = false
 
 func _ready():
 	max_hp = 30.0
@@ -29,7 +32,10 @@ func _process(delta):
 func _physics_process(delta):
 	if hp <= 0:
 		return
-	if target != null and ready_to_fire and target.hp > 0:
+		
+	player_vision()
+	
+	if target != null and ready_to_fire and target.hp > 0 and player_in_sight:
 		rotater.look_at(target.global_position)
 		$CollisionShape2D.rotation = rotater.rotation
 		
@@ -48,6 +54,16 @@ func show_line():
 	explosion_line.points[1] = target.global_position - global_position
 	if explosion_line_lifetime.is_stopped():
 		explosion_line_lifetime.start()
+
+func player_vision():
+	if target != null:
+		RC_player.target_position = target.global_position - global_position
+		if RC_player.get_collider() == target:
+			player_in_sight = true
+		else:
+			player_in_sight = false
+	else:
+		player_in_sight = false
 
 func _on_area_2d_player_nearby_body_entered(body):
 	if body is Player:

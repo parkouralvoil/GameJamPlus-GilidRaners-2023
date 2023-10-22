@@ -1,6 +1,7 @@
 extends Control
 
-@onready var max_hp: float = 999.0
+var max_hp: float = 999.0
+var buff_duration: float = 999.0
 
 @onready var hp = $Label_HP:
 	set(value):
@@ -21,3 +22,7 @@ extends Control
 @onready var powerup = $Label_Powerup:
 	set(value):
 		powerup.text = "Power up: %s" % value
+
+@onready var current_buff = $Label_CurrentBuff:
+	set(value):
+		current_buff.text = "%s for %.1f" % [value, buff_duration]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bs87ye7h58650"]
+[gd_scene load_steps=21 format=3 uid="uid://bs87ye7h58650"]
 
 [ext_resource type="Script" path="res://levels/test_level.gd" id="1_qxluh"]
 [ext_resource type="TileSet" uid="uid://uewiiqo77xfu" path="res://resources/test_tileset.tres" id="2_ag8sy"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bx1ojieysbx4j" path="res://entities/enemy_turrets/enemy_ranged.tscn" id="8_lfpbt"]
 [ext_resource type="PackedScene" uid="uid://bf1s3l40wbjjl" path="res://entities/enemy_turrets/enemy_laser.tscn" id="10_1mtls"]
 [ext_resource type="Script" path="res://levels/respawn_points.gd" id="10_avvi6"]
+[ext_resource type="PackedScene" uid="uid://drqyrkt6rv3xv" path="res://entities/enemy_turrets/enemy_wisp.tscn" id="10_j5jk2"]
 [ext_resource type="Script" path="res://levels/rooms/room.gd" id="11_3fy5x"]
 [ext_resource type="PackedScene" uid="uid://cd71br7rhtq2l" path="res://levels/decor/door.tscn" id="11_gsd20"]
 [ext_resource type="PackedScene" uid="uid://b83lxp16rplq3" path="res://entities/kodigo.tscn" id="14_5e0ld"]
@@ -58,6 +59,9 @@ position = Vector2(1057, 413)
 
 [node name="enemy_ranged" parent="rooms/room1" instance=ExtResource("8_lfpbt")]
 position = Vector2(705, 293)
+
+[node name="enemy_wisp" parent="rooms/room1" instance=ExtResource("10_j5jk2")]
+position = Vector2(716, 345)
 
 [node name="room2" type="Node2D" parent="rooms"]
 script = ExtResource("11_3fy5x")
