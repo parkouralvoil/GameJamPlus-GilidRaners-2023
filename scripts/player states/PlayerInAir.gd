@@ -95,7 +95,7 @@ func air_movement(input_delta):
 #			player.velocity.x = 0
 
 func air_jump():	
-	if player.y_movement == 1 and jump_CD.is_stopped() and player.energy >= 5 and dash_CD.is_stopped():
+	if player.y_movement == 1 and jump_CD.is_stopped() and player.energy >= 10 and dash_CD.is_stopped():
 		player.velocity = Vector2(player.velocity.x, player.a_jump_speed)
 		jump_particles.emitting = true
 		jump_CD.start()
