@@ -18,14 +18,12 @@ func _process(delta):
 		sprite_bluecircle.visible = true
 		sprite_redcircle.visible = true
 		anim_player.play("explode")
-		print("GET OVER HERE boogaloo")
 
 func explode():
 	if target != null:
 		target.take_damage(damage)
 	start_aoe = false
 	explosion_anim_sprite.play("explosion")
-	print("GET OVER HERE")
 	sprite_bluecircle.visible = false
 	sprite_redcircle.visible = false
 

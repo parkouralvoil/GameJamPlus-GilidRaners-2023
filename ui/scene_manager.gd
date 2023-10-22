@@ -3,16 +3,16 @@ extends CanvasLayer
 # this is the thing that loads games
 
 # Building A
-var path_major1: Resource = load("res://levels/subjects/major_1.tscn")
-var path_ge1: Resource = load("res://levels/subjects/GE_1.tscn")
-
-# Building B
-var path_major2: Resource = load("res://levels/subjects/major_2.tscn")
-var path_ge2: Resource= load("res://levels/subjects/GE_2.tscn")
-
-# Transition Lvl
-var path_transition_AB: Resource = load("res://levels/subjects/transitionAB.tscn")
-var path_transition_BA = load("res://levels/subjects/transitionAB.tscn") # CHANGE THIS
+#var path_major1: Resource = load("res://levels/subjects/major_1.tscn")
+#var path_ge1: Resource = load("res://levels/subjects/GE_1.tscn")
+#
+## Building B
+#var path_major2: Resource = load("res://levels/subjects/major_2.tscn")
+#var path_ge2: Resource= load("res://levels/subjects/GE_2.tscn")
+#
+## Transition Lvl
+#var path_transition_AB: Resource = load("res://levels/subjects/transitionAB.tscn")
+#var path_transition_BA = load("res://levels/subjects/transitionAB.tscn") # CHANGE THIS
 
 var menu: Resource = load("res://ui/menu.tscn")
 
