@@ -21,7 +21,7 @@ func _ready():
 	$Control.global_position = global_position
 	explosion_line.points[1] = Vector2.ZERO
 	
-	$delayed_aoe.visible = false
+	explosion.hide()
 
 func _process(delta):
 	if hp <= 0:
@@ -45,6 +45,7 @@ func _physics_process(delta):
 func fire_explosion():
 	explosion.global_position = target.global_position
 	explosion.start_aoe = true
+	explosion.show()
 	if reload_CD.is_stopped():
 		var rng = RandomNumberGenerator.new()
 		reload_CD.start(rng.randf_range(reload_wait_time, reload_wait_time + 2))

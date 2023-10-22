@@ -89,6 +89,7 @@ _data = {
 }
 
 [node name="delayed_aoe" type="Area2D"]
+scale = Vector2(0.15, 0.15)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_eqgal")
@@ -104,7 +105,6 @@ texture = ExtResource("2_1fkwf")
 [node name="Sprite2D_RedCircle" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.466667)
 position = Vector2(-2, -2)
-scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_nicmw")
 
 [node name="AnimatedSprite2D_Explosion" type="AnimatedSprite2D" parent="."]
@@ -112,6 +112,8 @@ z_index = 1
 scale = Vector2(7, 7)
 sprite_frames = SubResource("SpriteFrames_psd8b")
 animation = &"explosion"
+frame = 6
+frame_progress = 1.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

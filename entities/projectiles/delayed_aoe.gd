@@ -11,23 +11,23 @@ var target: Player = null
 var damage: float = 10.0
 
 func _ready():
-	sprite_bluecircle.hide()
-	sprite_redcircle.hide()
 	pass
 
 func _process(delta):
 	if start_aoe and !anim_player.is_playing():
-		sprite_bluecircle.show()
-		sprite_redcircle.show()
+		sprite_bluecircle.visible = true
+		sprite_redcircle.visible = true
 		anim_player.play("explode")
+		print("GET OVER HERE boogaloo")
 
 func explode():
 	if target != null:
 		target.take_damage(damage)
 	start_aoe = false
 	explosion_anim_sprite.play("explosion")
-	sprite_bluecircle.hide()
-	sprite_redcircle.hide()
+	print("GET OVER HERE")
+	sprite_bluecircle.visible = false
+	sprite_redcircle.visible = false
 
 func _on_body_entered(body):
 	if body is Player:
