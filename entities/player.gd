@@ -22,8 +22,8 @@ var d_speed: float = 800
 var d_accel: float = 10000
 var speedModifier = 0
 
-var max_hp: float = 80.0
-var respawn_hp: float = 60.0
+var max_hp: float = 100.0
+var respawn_hp: float = max_hp
 var hp: float = max_hp
 var atk: float = 10.0
 var max_energy: float = 20

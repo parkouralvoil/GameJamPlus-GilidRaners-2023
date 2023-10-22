@@ -18,7 +18,7 @@ var is_casting: bool = true
 var laser_size: float = 7.0
 var cast_point: Vector2 = target_position
 
-var damage: float = 2.0
+var damage: float = 6.0
 var target: Player = null
 
 func _ready():

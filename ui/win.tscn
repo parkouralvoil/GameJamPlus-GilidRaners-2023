@@ -1,13 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://chrai2dqf84l6"]
+[gd_scene load_steps=2 format=3 uid="uid://b0c2uyodj5a3d"]
 
-[ext_resource type="Texture2D" uid="uid://dje8j1puqbofv" path="res://SPRITES/FailScreen.png" id="1_qmr48"]
+[ext_resource type="Texture2D" uid="uid://1muatx7d2tyk" path="res://SPRITES/Win.png" id="1_olbls"]
 
 [node name="Gameover" type="CanvasLayer"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(320.167, 180)
 scale = Vector2(0.222107, 0.222222)
-texture = ExtResource("1_qmr48")
+texture = ExtResource("1_olbls")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3

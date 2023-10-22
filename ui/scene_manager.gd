@@ -19,6 +19,10 @@ var menu: Resource = load("res://ui/menu.tscn")
 var first_lvl: Resource = load("res://levels/Lvl 1.tscn")
 var second_lvl: Resource = load("res://levels/Lvl 2.tscn")
 
+var transition_screen: Resource = load("res://levels/subjects/transition_vn_screen.tscn")
+
+var winning_screen: Resource = load("res://ui/win.tscn")
+
 @onready var control: Control = $Control
 #@onready var background: ColorRect = $Control/ColorRect
 #@onready var label: Label = $Control/Label
@@ -42,16 +46,23 @@ func begin_game():
 	if level < level_array.size():
 		menu_open = false
 		get_tree().change_scene_to_packed(level_array[level])
-		level += 1
+	
+func go_transition():
+	menu_open = true
+	get_tree().change_scene_to_packed(transition_screen)
+
+func go_main_menu():
+	menu_open = true
+	get_tree().change_scene_to_packed(menu)
 
 func go_next_level():
+	level += 1
 	if level < level_array.size():
-		menu_open = true
-		anim_player.play("fade_in")
-		await anim_player.animation_finished
+		get_tree().change_scene_to_packed(level_array[level])
+		menu_open = false
 	else:
 		menu_open = true
-		get_tree().change_scene_to_packed(menu)
+		get_tree().change_scene_to_packed(winning_screen)
 		# probs best to put here the "go to game finished scene"
 
 #func insert_transition_lvls():
@@ -64,11 +75,3 @@ func go_next_level():
 #			if level_array[i] == path_major2 or level_array[i] == path_ge2:
 #				level_array.insert(i+2, path_transition_BA)
 #		i += 3
-
-
-func _on_button_pressed():
-	get_tree().change_scene_to_packed(level_array[level])
-	level += 1;
-	anim_player.play("fade_out")
-	await anim_player.animation_finished
-	menu_open = false

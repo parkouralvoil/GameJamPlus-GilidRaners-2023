@@ -84,9 +84,19 @@ scale = Vector2(0.222299, 0.220139)
 texture = ExtResource("2_syoat")
 metadata/_edit_lock_ = true
 
+
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_82l1q")
 autoplay = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 290.0
+offset_right = 129.0
+offset_bottom = 330.0
+color = Color(0.996094, 0.988281, 0.953125, 1)
+
 
 [connection signal="pressed" from="MarginContainer2/VBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
