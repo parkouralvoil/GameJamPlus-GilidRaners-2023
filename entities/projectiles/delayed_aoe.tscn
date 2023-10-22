@@ -148,18 +148,19 @@ collision_mask = 2
 script = ExtResource("1_eqgal")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.5, 0.5)
 shape = SubResource("CircleShape2D_c5b8v")
 
 [node name="Sprite2D_BlueCircle" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.741176)
 position = Vector2(-2, -2)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_1fkwf")
 
 [node name="Sprite2D_RedCircle" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.466667)
 position = Vector2(-2, -2)
-scale = Vector2(0.022448, 0.0224479)
+scale = Vector2(0.011, 0.011)
 texture = ExtResource("3_nicmw")
 
 [node name="AnimatedSprite2D_Explosion" type="AnimatedSprite2D" parent="."]

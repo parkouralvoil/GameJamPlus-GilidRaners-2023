@@ -17,6 +17,10 @@ var a_friction: float = 500
 var recoil_direction: Vector2 = Vector2.ZERO
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+# d for dash variables
+var d_speed: float = 500
+var speedModifier = 0
+
 var max_hp: float = 80.0
 var respawn_hp: float = 60.0
 var hp: float = max_hp
@@ -25,7 +29,9 @@ var max_energy: float = 20
 var energy: float = max_energy
 var max_ammo: int = 8
 var ammo: int = max_ammo
-
+var inventory: int = coffee
+var invul: bool = false
+var unliAmmo: bool = false
 @export var respawn_point: Vector2 = Vector2.ZERO
 
 # projectile info
@@ -35,8 +41,14 @@ var projectile_lifespan: float = 0.55
 var stop_energy_regen: bool = false
 
 @onready var jump_CD = $Timer_JumpCD
+
 @onready var energy_start_CD = $Timer_EnergyStartCD
 @onready var energy_regen_CD = $Timer_EnergyRegenCD
+@onready var invulTime = $Timer_Invul
+@onready var ammoTime = $Timer_UnliAmmo
+@onready var coffeeTime = $Timer_Coffee
+@onready var dashLeft = $Left_DoubleTap
+@onready var dashRight = $Right_DoubleTap
 @onready var timer_is_firing = $Timer_IsFiring
 var is_firing := false
 @onready var fire_rate_CD = $Timer_FireRateCD
@@ -53,11 +65,14 @@ var just_respawned: bool = false
 
 @onready var state_machine = $"State Machine"
 
+enum {none,ballpenBundle,coffee,kwekkwek,kodigo}
+
 signal PlayerRespawned
 
 # input logic (when i add input buffers for jumping or cooldowns)
 var x_movement: float
 var y_movement: float
+var dash: float
 
 var fire_input: bool = false
 
@@ -83,6 +98,8 @@ func _process(delta):
 	else:
 		y_movement = 0
 	
+	if Input.is_action_just_pressed("interact"):
+		useItem()
 	fire_input = Input.is_action_pressed("shoot")
 	
 	if !is_firing and reload_timer.is_stopped() and ammo < max_ammo:
@@ -97,7 +114,6 @@ func _physics_process(delta):
 		energy == max_energy
 	
 	move_and_slide()
-
 
 func _on_timer_energy_start_cd_timeout():
 	stop_energy_regen = false
@@ -118,16 +134,18 @@ func shoot_bullet():
 	bullet.direction = get_global_mouse_position() - bullet.global_position
 	bullet.rotation = bullet_aim.rotation
 	bullet.projectile_speed = projectile_speed
-	
 	bullet.damage = atk
 	recoil_direction = -bullet.direction.normalized()
 	
-	ammo -= 1
+	if unliAmmo == false:
+		ammo -= 1
 	if !reload_timer.is_stopped():
 		reload_timer.stop()
 
 func take_damage(damage):
-	if hp - damage > 0:
+	if invul:
+		pass
+	elif hp - damage > 0:
 		anim_sprite.self_modulate = Color(1, 0, 0)
 		await get_tree().create_timer(0.2).timeout
 		anim_sprite.self_modulate = Color(1, 1, 1)
@@ -163,7 +181,83 @@ func respawn_player():
 	emit_signal("PlayerRespawned")
 	anim_sprite.self_modulate = Color(1, 1, 1)
 	
+	
+func useItem():
+	if inventory == ballpenBundle:
+		UnliAmmo()
+	elif inventory == kwekkwek:
+		healConsummable()
+	elif inventory == kodigo:
+		useInvul()
+	elif inventory == coffee:
+		drinkCoffee()
+		print("amoamo")
+	inventory = none
+	
+	
+func healConsummable():
+	if hp + 20 > max_hp:
+		hp = max_hp
+	else:
+		hp = hp + 20
+		
+func UnliAmmo():
+	unliAmmo = true
+	ammo = max_ammo
+	ammoTime.start()
+	
+func drinkCoffee():
+	speedModifier += 200
+	coffeeTime.start()
+func useInvul():
+	invul = true
+	invulTime.start()
+	
+func getKodigo():
+	inventory = kodigo
+func getHealth():
+	inventory = kwekkwek
+func getCoffee():
+	inventory = coffee
+func getMinigun():
+	inventory = ballpenBundle
+	
+	
 func disable_controls():
 	x_movement = 0
 	y_movement = 0
 	fire_input = false
+
+
+	
+func _on_timer_dash_cd_timeout():
+	dash =0
+	pass # Replace with function body.
+
+
+func _on_left_double_tap_timeout():
+	dashLeft.stop()
+	pass # Replace with function body.
+
+
+func _on_right_double_tap_timeout():
+	dashRight.stop()
+	pass # Replace with function body.
+
+
+func _on_timer_unli_ammo_timeout():
+	unliAmmo = false
+	ammoTime.stop()
+	pass # Replace with function body.
+
+
+func _on_timer_invul_timeout():
+	invul = false
+	invulTime.stop()
+	pass # Replace with function body.
+
+
+func _on_timer_coffee_timeout():
+	speedModifier -= 200
+	coffeeTime.stop()
+	pass # Replace with function body.
