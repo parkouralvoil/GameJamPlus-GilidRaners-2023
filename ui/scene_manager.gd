@@ -21,6 +21,8 @@ var second_lvl: Resource = load("res://levels/Lvl 2.tscn")
 
 var transition_screen: Resource = load("res://levels/subjects/transition_vn_screen.tscn")
 
+var winning_screen: Resource = load("res://ui/win.tscn")
+
 @onready var control: Control = $Control
 #@onready var background: ColorRect = $Control/ColorRect
 #@onready var label: Label = $Control/Label
@@ -60,7 +62,7 @@ func go_next_level():
 		menu_open = false
 	else:
 		menu_open = true
-		get_tree().change_scene_to_packed(menu)
+		get_tree().change_scene_to_packed(winning_screen)
 		# probs best to put here the "go to game finished scene"
 
 #func insert_transition_lvls():
