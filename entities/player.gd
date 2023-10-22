@@ -158,9 +158,9 @@ func take_damage(damage):
 
 func flip_player():
 	if get_global_mouse_position().x < global_position.x:
-		anim_sprite.scale.x = 1
-	else:
 		anim_sprite.scale.x = -1
+	else:
+		anim_sprite.scale.x = 1
 		
 func fire():
 	is_firing = true

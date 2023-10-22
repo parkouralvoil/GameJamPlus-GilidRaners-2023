@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var player: Player = $player
-@onready var camera: Camera2D = $level_camera
+# @onready var camera: Camera2D = $level_camera
 @onready var hud: Control = $CanvasLayer/player_hud
 @onready var rooms: Node2D = $rooms
 @onready var respawn_points: Node2D = $respawn_points

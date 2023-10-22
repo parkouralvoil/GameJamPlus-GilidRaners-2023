@@ -10,7 +10,7 @@ class_name PlayerDash
 @onready var jump_particles: GPUParticles2D = player.get_node("GPUParticles2D_Jump")
 	
 func Enter():
-	anim_sprite.play("walk")
+	anim_sprite.play("dash")
 	
 	player.velocity = Vector2(200 * player.dash, 0) # to set direction and initial speed
 	dash_CD.start()

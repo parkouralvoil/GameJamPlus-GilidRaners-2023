@@ -7,9 +7,17 @@ var bullet_path = load("res://entities/projectiles/projectile_arrow.tscn")
 
 @onready var fire_rate_CD: Timer = $Timer_FireRateCD
 @onready var reload_CD: Timer = $Timer_Reload
+@onready var anim_player: AnimationPlayer = $AnimationPlayer
 
 @onready var RC_player: RayCast2D = $RayCast2D_Player
 @onready var hitbox_playerNearby: Area2D = $Area2D_PlayerNearby
+
+@onready var body: Sprite2D = $body
+@onready var neutral_eye: Sprite2D = $body/eye
+@onready var neutral_mouth: Sprite2D = $body/mouth
+@onready var hostile_mouth: Sprite2D = $body/fire
+
+@onready var iris: Marker2D = $body/eye/Marker2D
 
 var player_in_sight: bool = false
 var burst_started: bool = false
@@ -25,6 +33,7 @@ var projectile_speed: float = 350.0
 var rotation_speed: float = 3.4
 
 func _ready():
+	hostile_mouth.hide()
 	max_hp = 30.0
 	hp = max_hp
 	atk = 5.0
@@ -35,11 +44,12 @@ func _process(delta):
 		fire_rate_CD.stop()
 		reload_CD.stop()
 		ammo = max_ammo
+		body.hide()
 		return
 	display_hp = hp
 	
 	player_vision()
-	
+
 	if target != null and player_in_sight:
 		#turret_aim.look_at(target.global_position)
 		rotate_char(delta)
@@ -47,16 +57,25 @@ func _process(delta):
 		if fire_rate_CD.is_stopped() and ammo > 0 and abs(angle_to) < 0.3: 
 			if target.hp > 0:
 				fire_rate_CD.start() # shoot bullet is located here
+				if !anim_player.is_playing():
+					anim_player.play("fire")
 		elif ammo <= 0 and reload_CD.is_stopped():
 			if !fire_rate_CD.is_stopped(): 
 				fire_rate_CD.stop()
 			reload_CD.start()
-
 	else:
-		anim_sprite.play("idle")
 		if !fire_rate_CD.is_stopped(): 
 			fire_rate_CD.stop()
+		
+	iris_movement()
 	
+func iris_movement():
+	if target != null and player_in_sight:
+		var direction = Vector2.ZERO.direction_to(target.global_position - global_position)
+		var distance = (target.global_position - global_position).length()
+		iris.position = Vector2(-5.5, -10) + direction * min(distance, 2)
+	else:
+		iris.position = Vector2(-5.5, -10)
 
 func _physics_process(delta):
 	pass
@@ -89,13 +108,21 @@ func player_vision():
 			player_in_sight = false
 	else:
 		player_in_sight = false
+	
+func take_damage(damage):
+	if hp - damage > 0:
+		hp -= damage
+		anim_sprite.modulate = Color(1, 0, 0)
+		body.modulate = Color(1, 0, 0)
+		await get_tree().create_timer(0.2).timeout
+		anim_sprite.modulate = Color(1, 1, 1)
+		body.modulate = Color(1, 1, 1)
+	else:
+		hp = 0
 
 func _on_timer_fire_rate_cd_timeout():
 	ammo -= 1
-	shoot_bullet()
 	#print((angle_to), anim_sprite.rotation_degrees)
-	if !anim_sprite.is_playing():
-		anim_sprite.play("fire")
 
 
 func _on_timer_reload_timeout():

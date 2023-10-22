@@ -1,14 +1,14 @@
 [gd_scene load_steps=8 format=3 uid="uid://drqyrkt6rv3xv"]
 
 [ext_resource type="Script" path="res://entities/enemy_turrets/enemy_wisp.gd" id="1_ltqhk"]
-[ext_resource type="Texture2D" uid="uid://fp0hes7uktw6" path="res://SPRITES/HandEnemy/hand_FIRE.png" id="2_cumx1"]
+[ext_resource type="Texture2D" uid="uid://q2ibsvmfnoyi" path="res://SPRITES/New_enemy_sprites/Sudden Recitation/Enemy_SuddenRecitationEnemy_64x64.png.png" id="2_3mbw8"]
 [ext_resource type="PackedScene" uid="uid://brcmthhoohsbe" path="res://entities/projectiles/delayed_aoe.tscn" id="3_rui0l"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_eqwra"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_cumx1")
+"texture": ExtResource("2_3mbw8")
 }],
 "loop": true,
 "name": &"default",
@@ -32,12 +32,12 @@ script = ExtResource("1_ltqhk")
 [node name="Rotator" type="Node2D" parent="."]
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Rotator"]
+rotation = -1.5708
 scale = Vector2(-1, 1)
 remote_path = NodePath("../../AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-modulate = Color(1, 1, 0.0705882, 1)
-rotation = 3.14159
+rotation = 1.5708
 scale = Vector2(1, -1)
 sprite_frames = SubResource("SpriteFrames_eqwra")
 frame_progress = 0.484537

@@ -8,10 +8,11 @@ class_name PlayerDead
 @onready var respawn_CD: Timer = player.get_node("Timer_Respawn")
 	
 func Enter():
-	anim_sprite.play("idle")
+	anim_sprite.play("dead")
 	player.stop_energy_regen = true
 	reload_CD.stop()
 	player.hp = 0
+	anim_sprite.self_modulate = Color(1, 1, 1)
 #	respawn_CD.start()
 	
 func Exit():
@@ -24,7 +25,7 @@ func Update(_delta: float):
 
 func Physics_Update(_delta: float):
 	if player:
-		change_animation()
+		pass
 	else: return
 	
 	if player.is_on_floor():
@@ -50,9 +51,6 @@ func ground_movement(input_delta):
 	else:
 		player.velocity.x = 0
 
-func change_animation():
-	if anim_sprite.animation != "dead":
-		anim_sprite.play("dead")
 	
 func player_respawn():
 	player.global_position = player.respawn_point

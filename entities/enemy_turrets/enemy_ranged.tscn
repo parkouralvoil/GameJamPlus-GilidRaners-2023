@@ -1,25 +1,23 @@
-[gd_scene load_steps=7 format=3 uid="uid://bx1ojieysbx4j"]
+[gd_scene load_steps=13 format=3 uid="uid://bx1ojieysbx4j"]
 
 [ext_resource type="Script" path="res://entities/enemy_turrets/enemy_ranged.gd" id="1_42bwg"]
-[ext_resource type="Texture2D" uid="uid://f3m4lwnn27d0" path="res://SPRITES/QuizPaperEnemy/Failed_Quiz.png" id="2_6aebg"]
+[ext_resource type="Texture2D" uid="uid://gcajrb68a3pj" path="res://SPRITES/New_enemy_sprites/Quiz Enemy/Enemy_QuizEnemy_Base_64x64.png" id="2_daagv"]
+[ext_resource type="Texture2D" uid="uid://i7uyxr3xonps" path="res://SPRITES/New_enemy_sprites/Quiz Enemy/Enemy_QuizEnemy_Eyes_64x64.png" id="3_tucyf"]
+[ext_resource type="Texture2D" uid="uid://d0fkr3tpglhtx" path="res://SPRITES/New_enemy_sprites/Quiz Enemy/Enemy_QuizEnemy_Iris_64x64.png" id="4_7aa3k"]
+[ext_resource type="Texture2D" uid="uid://dobvojvoqjtq2" path="res://SPRITES/New_enemy_sprites/Quiz Enemy/Enemy_QuizEnemy_NeutralMouth_64x64.png" id="5_fwew3"]
+[ext_resource type="Texture2D" uid="uid://5uoyet561gst" path="res://SPRITES/New_enemy_sprites/Quiz Enemy/Enemy_QuizEnemy_HostileFace_64x64.png" id="6_j51a4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ag5nj"]
-size = Vector2(44, 46)
+size = Vector2(34, 45)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2gmdq"]
 animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_6aebg")
-}],
+"frames": [],
 "loop": false,
 "name": &"fire",
 "speed": 20.0
 }, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_6aebg")
-}],
+"frames": [],
 "loop": false,
 "name": &"idle",
 "speed": 5.0
@@ -31,20 +29,97 @@ size = Vector2(640, 497)
 [sub_resource type="LabelSettings" id="LabelSettings_aqcy7"]
 font_size = 13
 
+[sub_resource type="Animation" id="Animation_h3tel"]
+resource_name = "fire"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body/eye:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("body/mouth:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("body/fire:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"shoot_bullet"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ahj4m"]
+_data = {
+"fire": SubResource("Animation_h3tel")
+}
+
 [node name="enemy_ranged" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("1_42bwg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -1)
+position = Vector2(1, -2.5)
 shape = SubResource("RectangleShape2D_ag5nj")
+
+[node name="body" type="Sprite2D" parent="."]
+texture = ExtResource("2_daagv")
+
+[node name="eye" type="Sprite2D" parent="body"]
+texture = ExtResource("3_tucyf")
+
+[node name="Marker2D" type="Marker2D" parent="body/eye"]
+position = Vector2(-5.5, -10)
+
+[node name="iris" type="Sprite2D" parent="body/eye/Marker2D"]
+texture = ExtResource("4_7aa3k")
+offset = Vector2(5.5, 10)
+
+[node name="mouth" type="Sprite2D" parent="body"]
+texture = ExtResource("5_fwew3")
+
+[node name="fire" type="Sprite2D" parent="body"]
+visible = false
+texture = ExtResource("6_j51a4")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -1)
-rotation = -0.20944
-scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_2gmdq")
-animation = &"idle"
+animation = &"fire"
 
 [node name="Node2D_Aim" type="Node2D" parent="."]
 
@@ -85,6 +160,11 @@ offset_right = 27.0
 offset_bottom = 46.0
 text = "40/40"
 label_settings = SubResource("LabelSettings_aqcy7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ahj4m")
+}
 
 [connection signal="timeout" from="Timer_Reload" to="." method="_on_timer_reload_timeout"]
 [connection signal="timeout" from="Timer_FireRateCD" to="." method="_on_timer_fire_rate_cd_timeout"]

@@ -1,54 +1,95 @@
-[gd_scene load_steps=8 format=3 uid="uid://bf1s3l40wbjjl"]
+[gd_scene load_steps=11 format=3 uid="uid://bf1s3l40wbjjl"]
 
 [ext_resource type="Script" path="res://entities/enemy_turrets/enemy_laser.gd" id="1_f6uyk"]
-[ext_resource type="Texture2D" uid="uid://bblg0d50jbo3m" path="res://temporary_assets/enemy_sprites/laser crystal.png" id="2_mj23k"]
+[ext_resource type="Texture2D" uid="uid://cb1bt076t1a6x" path="res://SPRITES/New_enemy_sprites/Project Enemy/ProjectBody1.png" id="2_uum00"]
+[ext_resource type="Texture2D" uid="uid://bbhappx64oiwm" path="res://SPRITES/New_enemy_sprites/Project Enemy/ProjectEye1.png" id="3_v3k75"]
+[ext_resource type="Texture2D" uid="uid://ceybokm7ndon3" path="res://SPRITES/New_enemy_sprites/Project Enemy/Enemy_ProjectEnemy_Attack_64x64.png" id="4_u4bae"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ag5nj"]
-size = Vector2(26, 26)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_talrf"]
-atlas = ExtResource("2_mj23k")
-region = Rect2(0, 0, 64, 64)
+size = Vector2(50, 29)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2gmdq"]
 animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_talrf")
-}],
+"frames": [],
 "loop": false,
 "name": &"idle",
 "speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bkdyh"]
-size = Vector2(500, 500)
+size = Vector2(658, 638)
 
 [sub_resource type="LabelSettings" id="LabelSettings_aqcy7"]
 font_size = 13
+
+[sub_resource type="Animation" id="Animation_daibi"]
+resource_name = "fire"
+length = 3.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body/hostile:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("body/Marker2D/iris:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_147ma"]
+_data = {
+"fire": SubResource("Animation_daibi")
+}
 
 [node name="enemy_laser" type="CharacterBody2D"]
 position = Vector2(0, 1)
 collision_layer = 4
 script = ExtResource("1_f6uyk")
 
+[node name="body" type="Sprite2D" parent="."]
+texture = ExtResource("2_uum00")
+
+[node name="Marker2D" type="Marker2D" parent="body"]
+
+[node name="iris" type="Sprite2D" parent="body/Marker2D"]
+texture = ExtResource("3_v3k75")
+
+[node name="hostile" type="Sprite2D" parent="body"]
+visible = false
+texture = ExtResource("4_u4bae")
+
 [node name="laser_container" type="Node2D" parent="."]
+z_index = -1
 position = Vector2(0, -1)
 
 [node name="Marker2D_down" type="Marker2D" parent="laser_container"]
-position = Vector2(0, 8)
+position = Vector2(-1, -1)
 
 [node name="Marker2D_up" type="Marker2D" parent="laser_container"]
-position = Vector2(0, -8)
+position = Vector2(-1, -24)
 
 [node name="Marker2D_left" type="Marker2D" parent="laser_container"]
-position = Vector2(-8, 0)
+position = Vector2(-23, -12)
 
 [node name="Marker2D_right" type="Marker2D" parent="laser_container"]
-position = Vector2(8, 0)
+position = Vector2(23, -12)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -1)
+position = Vector2(0, -11.5)
 shape = SubResource("RectangleShape2D_ag5nj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -61,7 +102,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_PlayerNearby"]
-position = Vector2(4, 1)
+position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_bkdyh")
 debug_color = Color(0.392157, 0.886275, 1, 0.0901961)
 
@@ -79,3 +120,11 @@ offset_right = 27.0
 offset_bottom = 40.0
 text = "40/40"
 label_settings = SubResource("LabelSettings_aqcy7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_147ma")
+}
+
+[connection signal="body_entered" from="Area2D_PlayerNearby" to="." method="_on_area_2d_player_nearby_body_entered"]
+[connection signal="body_exited" from="Area2D_PlayerNearby" to="." method="_on_area_2d_player_nearby_body_exited"]
