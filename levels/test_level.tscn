@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bs87ye7h58650"]
+[gd_scene load_steps=18 format=3 uid="uid://bs87ye7h58650"]
 
 [ext_resource type="Script" path="res://levels/test_level.gd" id="1_qxluh"]
 [ext_resource type="TileSet" uid="uid://uewiiqo77xfu" path="res://resources/test_tileset.tres" id="2_ag8sy"]
@@ -12,8 +12,11 @@
 [ext_resource type="PackedScene" uid="uid://bf1s3l40wbjjl" path="res://entities/enemy_turrets/enemy_laser.tscn" id="10_1mtls"]
 [ext_resource type="Script" path="res://levels/respawn_points.gd" id="10_avvi6"]
 [ext_resource type="Script" path="res://levels/rooms/room.gd" id="11_3fy5x"]
-[ext_resource type="PackedScene" uid="uid://drqyrkt6rv3xv" path="res://entities/enemy_turrets/enemy_wisp.tscn" id="11_6aimy"]
 [ext_resource type="PackedScene" uid="uid://cd71br7rhtq2l" path="res://levels/decor/door.tscn" id="11_gsd20"]
+[ext_resource type="PackedScene" uid="uid://b83lxp16rplq3" path="res://entities/kodigo.tscn" id="14_5e0ld"]
+[ext_resource type="PackedScene" uid="uid://cqnms27pevlor" path="res://entities/health.tscn" id="15_2jaih"]
+[ext_resource type="PackedScene" uid="uid://igswfojcw23r" path="res://entities/coffee.tscn" id="16_wt15q"]
+[ext_resource type="PackedScene" uid="uid://ckxer07sr7dyo" path="res://entities/ballpenBundle.tscn" id="17_lsibf"]
 
 [node name="test_level" type="Node2D"]
 script = ExtResource("1_qxluh")
@@ -43,7 +46,7 @@ script = ExtResource("11_3fy5x")
 position = Vector2(1057, 413)
 
 [node name="enemy_ranged" parent="rooms/room1" instance=ExtResource("8_lfpbt")]
-position = Vector2(799, 327)
+position = Vector2(705, 293)
 
 [node name="room2" type="Node2D" parent="rooms"]
 script = ExtResource("11_3fy5x")
@@ -96,9 +99,6 @@ position = Vector2(1950, -653)
 [node name="enemy_laser3" parent="rooms/room3" instance=ExtResource("10_1mtls")]
 position = Vector2(2079, -652)
 
-[node name="enemy_wisp" parent="rooms/room3" instance=ExtResource("11_6aimy")]
-position = Vector2(370, 309)
-
 [node name="respawn_points" type="Node2D" parent="."]
 script = ExtResource("10_avvi6")
 
@@ -112,7 +112,7 @@ position = Vector2(329, 452)
 position = Vector2(1747, 4)
 
 [node name="player" parent="." instance=ExtResource("2_he5gv")]
-position = Vector2(71, -31)
+position = Vector2(85, 428)
 respawn_point = Vector2(1148, 432)
 
 [node name="level_camera" parent="player" node_paths=PackedStringArray("tilemap") instance=ExtResource("3_xnb0x")]
@@ -126,3 +126,15 @@ offset_top = -1144.0
 offset_right = 2168.0
 offset_bottom = -1118.0
 text = "end of level. you win111"
+
+[node name="coffee" parent="." instance=ExtResource("16_wt15q")]
+position = Vector2(186, 438)
+
+[node name="kodigo" parent="." instance=ExtResource("14_5e0ld")]
+position = Vector2(353, 417)
+
+[node name="ballpenbundle" parent="." instance=ExtResource("17_lsibf")]
+position = Vector2(243.624, 441.809)
+
+[node name="health" parent="." instance=ExtResource("15_2jaih")]
+position = Vector2(269, 419)

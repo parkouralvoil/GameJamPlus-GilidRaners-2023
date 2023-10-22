@@ -29,7 +29,7 @@ var max_energy: float = 20
 var energy: float = max_energy
 var max_ammo: int = 8
 var ammo: int = max_ammo
-var inventory: int = coffee
+var inventory: int = none
 var invul: bool = false
 var unliAmmo: bool = false
 @export var respawn_point: Vector2 = Vector2.ZERO
@@ -191,7 +191,6 @@ func useItem():
 		useInvul()
 	elif inventory == coffee:
 		drinkCoffee()
-		print("amoamo")
 	inventory = none
 	
 	
