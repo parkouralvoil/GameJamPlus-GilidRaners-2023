@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://daoo34xkqoi76"]
 
 [ext_resource type="Script" path="res://ui/menu.gd" id="1_6uaf6"]
-[ext_resource type="Texture2D" uid="uid://bdtdquuh7ylch" path="res://temporary_assets/acad-oval-2-scaled.jpg" id="2_lp2d7"]
+[ext_resource type="Texture2D" uid="uid://bpitfvaxxks0y" path="res://SPRITES/MenuUI/TitleScreen.png" id="2_syoat"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_at2w8"]
 font_size = 25
@@ -15,12 +15,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6uaf6")
 
-[node name="very cursed" type="Sprite2D" parent="."]
-modulate = Color(0.337255, 0.337255, 0.337255, 1)
-position = Vector2(321, 174)
-scale = Vector2(0.25, 0.219098)
-texture = ExtResource("2_lp2d7")
-
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
 offset_left = 198.0
@@ -31,16 +25,17 @@ text = "UPD LIFE SIMULATOR"
 label_settings = SubResource("LabelSettings_at2w8")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(120, 30)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -50.0
-offset_top = -33.0
-offset_right = 50.0
-offset_bottom = 33.0
+offset_left = -287.0
+offset_top = 33.0
+offset_right = -167.0
+offset_bottom = 64.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -49,6 +44,12 @@ layout_mode = 2
 
 [node name="Play" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Play (everything is WIP)"
+text = "Play "
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(319.889, 178.687)
+scale = Vector2(0.222299, 0.220139)
+texture = ExtResource("2_syoat")
+metadata/_edit_lock_ = true
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]

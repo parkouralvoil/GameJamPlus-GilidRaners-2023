@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdtdquuh7ylch"
-path="res://.godot/imported/acad-oval-2-scaled.jpg-37eedf93fe846bbd16bf037dccd88818.ctex"
+uid="uid://bpitfvaxxks0y"
+path="res://.godot/imported/TitleScreen.png-b0907857ed4438e15a176021792009a1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://temporary_assets/acad-oval-2-scaled.jpg"
-dest_files=["res://.godot/imported/acad-oval-2-scaled.jpg-37eedf93fe846bbd16bf037dccd88818.ctex"]
+source_file="res://SPRITES/MenuUI/TitleScreen.png"
+dest_files=["res://.godot/imported/TitleScreen.png-b0907857ed4438e15a176021792009a1.ctex"]
 
 [params]
 
