@@ -33,13 +33,18 @@ var ammo: int = max_ammo
 var inventory: int = Powerup.none
 var invul: bool = false
 var unliAmmo: bool = false
+var sensitivity: float = 8.5
+var debounce_time := 0.5 # seconds
+var debounce_timer := 0.0
 @export var respawn_point: Vector2 = Vector2.ZERO
 
 # projectile info
 var projectile_speed: float = 750
 var projectile_lifespan: float = 0.55
+var mouse_position := Vector2()
 
 var stop_energy_regen: bool = false
+var input_source: int = 1 # binary value that is either 0 (controller) or 1 (mouse)
 
 @onready var jump_CD = $Timer_JumpCD
 
@@ -79,11 +84,28 @@ var dash: float
 var fire_input: bool = false
 
 func _ready():
-	#print(state_machine.states)
 	respawn_point = global_position
+	mouse_position = get_viewport().size / 2
 	pass
 	
+# func _input(event):
+# 	if event is InputEventJoypadMotion and abs(event.axis_value) < 0.1 and input_source:
+# 		input_source = 0
+	# 	
+	# if event is InputEventMouseMotion and not input_source:
+	# 	input_source = 1
+
 func _process(delta):
+	if not input_source:
+		var move_y := Input.get_action_strength("cursor_down") - Input.get_action_strength("cursor_up")
+		var move_x := Input.get_action_strength("cursor_right") - Input.get_action_strength("cursor_left")
+		mouse_position.x += move_x * sensitivity
+		mouse_position.y += move_y * sensitivity
+		
+		mouse_position.x = clamp(mouse_position.x, 0, get_viewport().size.x - 1)
+		mouse_position.y = clamp(mouse_position.y, 0, get_viewport().size.y - 1)
+		get_viewport().warp_mouse(mouse_position)
+	
 	if SceneManager.menu_open: 
 		disable_controls()
 		return
