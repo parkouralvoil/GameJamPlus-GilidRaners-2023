@@ -1,134 +1,113 @@
 extends State
 class_name PlayerInAir
 
-@onready var player: CharacterBody2D = get_parent().get_parent()
-	# above assumes this state is child of State Machine, child of player node
-@onready var anim_sprite: AnimatedSprite2D = player.get_node("AnimatedSprite2D")
-@onready var jump_CD: Timer = player.get_node("Timer_JumpCD")
-@onready var dash_CD: Timer = player.get_node("Timer_DashCD")
-@onready var dashLeft: Timer =player.get_node("Left_DoubleTap")
-@onready var dashRight: Timer =player.get_node("Right_DoubleTap")
-@onready var energy_start_CD: Timer = player.get_node("Timer_EnergyStartCD")
-@onready var energy_regen_CD: Timer = player.get_node("Timer_EnergyRegenCD")
-@onready var jump_particles: GPUParticles2D = player.get_node("GPUParticles2D_Jump")
-# each state needs to have their own reference since the @onready is important
+@onready var p: Player = owner
 
-@onready var fire_rate_CD: Timer = player.get_node("Timer_FireRateCD")
 
-func Enter():
-	anim_sprite.play("idle")
+func Enter() -> void:
+	if p.anim_sprite:
+		p.anim_sprite.play("idle")
 
-	
-func Exit():
+
+func Exit() -> void:
 	pass
 
 
-func Update(_delta: float):
+func Update(_delta: float) -> void:
 	pass
 
 
-func Physics_Update(_delta: float):
-	if player:
+func Physics_Update(_delta: float) -> void:
+	if p:
 		air_movement(_delta)
 		change_animation()
 		air_jump()
-#		air_dash()
-		DoubleTapDash()
-	else: return
+		#air_dash()
+		#DoubleTapDash()
+	else: 
+		return
 	
-	if player.is_on_floor():
+	if p.is_on_floor():
 		Transitioned.emit(self, "PlayerOnGround")
 	else:
-		player.velocity.y += player.gravity * _delta
+		p.velocity.y += p.gravity * _delta
 
-	if player.fire_input and fire_rate_CD.is_stopped() and player.ammo > 0:
+	if p.fire_input and p.fire_rate_CD.is_stopped():
 		Transitioned.emit(self, "PlayerFire")
-		#player.fire()
-	if player.dash != 0 and dash_CD.is_stopped() and player.energy >= 5:
-		player.energy -= 5
+		#p.fire()
+	if Input.is_action_just_pressed("shift_button") and p.can_dash:
 		Transitioned.emit(self, "PlayerDash")
 	
-	if player.hp <= 0:
+	if p.hp <= 0:
 		Transitioned.emit(self, "PlayerDead")
 		
 # the price to pay for not using rigidbody2d (aka my own physics code for acceleration)
-func DoubleTapDash():
-	if Input.is_action_just_pressed("move_left"):
-		if dashLeft.is_stopped():
-			dashLeft.start()
-			dashRight.stop()
-		else:
-			player.dash = -1
-			dashLeft.stop()
-	elif Input.is_action_just_pressed("move_right"):
-		if dashRight.is_stopped():
-			dashRight.start()
-			dashLeft.stop()
-		else:
-			player.dash = 1
-			dashRight.stop()
+#func DoubleTapDash():
+	#if Input.is_action_just_pressed("move_left"):
+		#if dashLeft.is_stopped():
+			#dashLeft.start()
+			#dashRight.stop()
+		#else:
+			#p.dash = -1
+			#dashLeft.stop()
+	#elif Input.is_action_just_pressed("move_right"):
+		#if dashRight.is_stopped():
+			#dashRight.start()
+			#dashLeft.stop()
+		#else:
+			#p.dash = 1
+			#dashRight.stop()
 
-func air_movement(input_delta):
-	if not jump_CD.is_stopped():
+func air_movement(input_delta: float) -> void:
+	if not p.jump_CD.is_stopped():
 		return
-	elif player.x_movement == 1:
-		player.velocity.x = min(player.velocity.x + player.g_accel * input_delta, player.g_speed + player.speedModifier)
-	elif player.x_movement == -1:
-		player.velocity.x = max(player.velocity.x - player.g_accel * input_delta, -player.g_speed - player.speedModifier)
+	elif p.x_movement == 1:
+		p.velocity.x = min(p.velocity.x + p.g_accel * input_delta, p.g_speed + p.speedModifier)
+	elif p.x_movement == -1:
+		p.velocity.x = max(p.velocity.x - p.g_accel * input_delta, -p.g_speed - p.speedModifier)
 	else: # no input
-		if player.velocity.x > 0.1:
-			player.velocity.x = max(player.velocity.x - player.g_friction * input_delta, 0)
-		elif player.velocity.x < -0.1:
-			player.velocity.x = min(player.velocity.x + player.g_friction * input_delta, 0)
+		if p.velocity.x > 0.1:
+			p.velocity.x = max(p.velocity.x - p.g_friction * input_delta, 0)
+		elif p.velocity.x < -0.1:
+			p.velocity.x = min(p.velocity.x + p.g_friction * input_delta, 0)
 		else:
-			player.velocity.x = 0
-#	if player.x_movement == 1:
-#		player.velocity.x = min(player.velocity.x + player.a_accel * input_delta, player.a_speed)
-#	elif player.x_movement == -1:
-#		player.velocity.x = max(player.velocity.x - player.a_accel * input_delta, -player.a_speed)
-#	else: # no input
-#		if player.velocity.x > 0.1:
-#			player.velocity.x = max(player.velocity.x - player.a_friction * input_delta, 0)
-#		elif player.velocity.x < -0.1:
-#			player.velocity.x = min(player.velocity.x + player.a_friction * input_delta, 0)
-#		else:
-#			player.velocity.x = 0
+			p.velocity.x = 0
 
-func air_jump():	
-	if player.y_movement == 1 and jump_CD.is_stopped() and player.energy >= 10 and dash_CD.is_stopped():
-		player.velocity = Vector2(player.velocity.x, player.a_jump_speed)
-		jump_particles.emitting = true
-		jump_CD.start()
-		energy_start_CD.start()
-		energy_regen_CD.stop()
-		player.stop_energy_regen = true
-		player.energy -= 10
-#		if player.x_movement == 0:
-#			player.velocity = Vector2(player.velocity.x, player.a_jump_speed)
+
+func air_jump() -> void:
+	if p.y_movement == 1 and p.jump_CD.is_stopped() and p.can_double_jump and p.dash_duration.is_stopped():
+		p.velocity = Vector2(p.velocity.x, p.a_jump_speed)
+		p.jump_particles.emitting = true
+		p.jump_CD.start()
+		p.can_double_jump = false
+#		if p.x_movement == 0:
+#			p.velocity = Vector2(p.velocity.x, p.a_jump_speed)
 #		else:
-#			player.velocity = Vector2(player.x_movement * player.a_speed, player.a_jump_speed * 0.8)
+#			p.velocity = Vector2(p.x_movement * p.a_speed, p.a_jump_speed * 0.8)
 			
 #func air_dash():	
-#	if 	player.dash != 0 and player.energy >= 5 and dash_CD.is_stopped():
-#		player.velocity = Vector2(player.velocity.x + (player.d_speed * player.dash), 0)
+#	if 	p.dash != 0 and p.energy >= 5 and dash_duration.is_stopped():
+#		p.velocity = Vector2(p.velocity.x + (p.d_speed * p.dash), 0)
 #		jump_particles.emitting = true
-#		dash_CD.start()
-#		player.stop_energy_regen = true
-#		player.energy -= 5
-#		player.dash = 0
-#	elif not dash_CD.is_stopped():
-#		player.velocity = Vector2(player.velocity.x + (player.d_speed * player.x_movement), 0)
+#		dash_duration.start()
+#		p.stop_energy_regen = true
+#		p.energy -= 5
+#		p.dash = 0
+#	elif not dash_duration.is_stopped():
+#		p.velocity = Vector2(p.velocity.x + (p.d_speed * p.x_movement), 0)
 
-func change_animation():
-	if player.velocity.y > 0.1 and anim_sprite.animation != "falling":
-		anim_sprite.play("falling")
-	elif player.velocity.y <= -300 and anim_sprite.animation != "jump_high":
-		anim_sprite.play("jump_high")
-	elif -300 < player.velocity.y and player.velocity.y <= -0.1 and anim_sprite.animation != "jump_med":
-		anim_sprite.play("jump_med")
+func change_animation() -> void:
+	if p.velocity.y > 0.1 and p.anim_sprite.animation != "falling":
+		p.anim_sprite.play("falling")
+	elif p.velocity.y <= -300 and p.anim_sprite.animation != "jump_high":
+		p.anim_sprite.play("jump_high")
+	elif -300 < p.velocity.y and p.velocity.y <= -0.1 and p.anim_sprite.animation != "jump_med":
+		p.anim_sprite.play("jump_med")
 		
 	#flip char
-	if player.velocity.x <= -0.1:
-		anim_sprite.scale.x = -1
-	elif player.velocity.x >= 0.1:
-		anim_sprite.scale.x = 1
+	if p.velocity.x <= -0.1:
+		p.anim_sprite.scale.x = -1
+		p.dash_dir = -1
+	elif p.velocity.x >= 0.1:
+		p.anim_sprite.scale.x = 1
+		p.dash_dir = 1

@@ -28,6 +28,7 @@ size = Vector2(1800, 1400)
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_ltqhk")
+max_hp = 5
 
 [node name="Rotator" type="Node2D" parent="."]
 

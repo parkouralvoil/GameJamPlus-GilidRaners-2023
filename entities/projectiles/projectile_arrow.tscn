@@ -27,14 +27,6 @@ shape = SubResource("RectangleShape2D_hqfqn")
 wait_time = 3.0
 one_shot = true
 
-[node name="Timer_Collision_Lifespan" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
-
-[node name="Timer_DeactivateHitbox" type="Timer" parent="."]
-wait_time = 0.05
-one_shot = true
-
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 6
@@ -45,9 +37,9 @@ scale = Vector2(0.75, 0.75)
 shape = SubResource("CircleShape2D_nb8at")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-2.38419e-07, 0)
+scale = Vector2(1.5, 0.5)
 
 [connection signal="timeout" from="Timer_Range_Lifespan" to="." method="_on_timer_lifespan_timeout"]
-[connection signal="timeout" from="Timer_Collision_Lifespan" to="." method="_on_timer_collision_lifespan_timeout"]
-[connection signal="timeout" from="Timer_DeactivateHitbox" to="." method="_on_timer_deactivate_hitbox_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

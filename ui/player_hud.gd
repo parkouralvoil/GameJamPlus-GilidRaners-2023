@@ -1,28 +1,23 @@
-extends Control
+extends CanvasLayer
+class_name PlayerHud
 
-var max_hp: float = 999.0
+@export var p: Player
+
+var max_hp: int = 99
 var buff_duration: float = 999.0
 
-@onready var hp = $Label_HP:
-	set(value):
-		hp.text = "HP: %.0f/%.0f" % [value, max_hp]
+@onready var hp_label: Label = $Control/VBoxContainer/Label_HP
+@onready var powerup_label: Label = $Control/VBoxContainer/Label_Powerup
+@onready var current_buff_label: Label = $Control/VBoxContainer/Label_CurrentBuff
 
-@onready var energy = $Label_Energy:
+@onready var hp: int:
 	set(value):
-		energy.text = "Energy: " + str(value)
+		hp_label.text = "HP: %d/%d" % [value, max_hp]
 
-@onready var ammo = $Label_Ammo:
+@onready var powerup: String:
 	set(value):
-		ammo.text = "Ammo: " + str(value)
+		powerup_label.text = "%s" % value
 
-@onready var reload_time = $Label_Reload:
+@onready var current_buff: String:
 	set(value):
-		reload_time.text = "Reloading: %.1f" % value
-
-@onready var powerup = $Label_Powerup:
-	set(value):
-		powerup.text = "%s" % value
-
-@onready var current_buff = $Label_CurrentBuff:
-	set(value):
-		current_buff.text = "%s for %.1f" % [value, buff_duration]
+		current_buff_label.text = "%s for %.1f" % [value, buff_duration]

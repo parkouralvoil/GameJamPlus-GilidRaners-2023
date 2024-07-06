@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://brcmthhoohsbe"]
+[gd_scene load_steps=12 format=3 uid="uid://brcmthhoohsbe"]
 
 [ext_resource type="Script" path="res://entities/projectiles/delayed_aoe.gd" id="1_eqgal"]
 [ext_resource type="Texture2D" uid="uid://b20w5dnll1xsg" path="res://temporary_assets/blue_circle.png" id="2_1fkwf"]
@@ -20,10 +20,6 @@ region = Rect2(256, 0, 256, 144)
 atlas = ExtResource("4_7o6xc")
 region = Rect2(0, 144, 256, 144)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xd0m3"]
-atlas = ExtResource("4_7o6xc")
-region = Rect2(256, 144, 256, 144)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_psd8b"]
 animations = [{
 "frames": [{
@@ -43,14 +39,11 @@ animations = [{
 "texture": SubResource("AtlasTexture_kffgf")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_xd0m3")
-}, {
-"duration": 1.0,
 "texture": null
 }],
 "loop": false,
 "name": &"explosion",
-"speed": 12.0
+"speed": 20.0
 }]
 
 [sub_resource type="Animation" id="Animation_wruq7"]
@@ -112,7 +105,7 @@ z_index = 1
 scale = Vector2(7, 7)
 sprite_frames = SubResource("SpriteFrames_psd8b")
 animation = &"explosion"
-frame = 6
+frame = 5
 frame_progress = 1.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

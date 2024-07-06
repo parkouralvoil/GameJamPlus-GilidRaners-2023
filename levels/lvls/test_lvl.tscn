@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://in2uaoxcuhjk"]
+
+[ext_resource type="PackedScene" uid="uid://233qawtprsiw" path="res://levels/tilemaps/test_tilemap.tscn" id="1_ih36m"]
+[ext_resource type="PackedScene" uid="uid://bx1ojieysbx4j" path="res://entities/enemy_turrets/enemy_ranged.tscn" id="2_kuj7r"]
+
+[node name="TestLevel" type="Node2D"]
+
+[node name="TestTilemap" parent="." instance=ExtResource("1_ih36m")]
+
+[node name="EnemyHolder" type="Node2D" parent="."]
+
+[node name="enemy_ranged" parent="EnemyHolder" instance=ExtResource("2_kuj7r")]
+position = Vector2(318, 272)

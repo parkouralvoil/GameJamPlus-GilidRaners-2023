@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bf1s3l40wbjjl"]
+[gd_scene load_steps=10 format=3 uid="uid://bf1s3l40wbjjl"]
 
 [ext_resource type="Script" path="res://entities/enemy_turrets/enemy_laser.gd" id="1_f6uyk"]
 [ext_resource type="Texture2D" uid="uid://cb1bt076t1a6x" path="res://SPRITES/New_enemy_sprites/Project Enemy/ProjectBody1.png" id="2_uum00"]
@@ -7,14 +7,6 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ag5nj"]
 size = Vector2(50, 29)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_2gmdq"]
-animations = [{
-"frames": [],
-"loop": false,
-"name": &"idle",
-"speed": 5.0
-}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bkdyh"]
 size = Vector2(658, 638)
@@ -28,7 +20,7 @@ length = 3.9
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("body/hostile:visible")
+tracks/0/path = NodePath("sprite_body/hostile:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -40,7 +32,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("body/Marker2D/iris:visible")
+tracks/1/path = NodePath("sprite_body/Marker2D/iris:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -59,16 +51,17 @@ _data = {
 position = Vector2(0, 1)
 collision_layer = 4
 script = ExtResource("1_f6uyk")
+max_hp = 4
 
-[node name="body" type="Sprite2D" parent="."]
+[node name="sprite_body" type="Sprite2D" parent="."]
 texture = ExtResource("2_uum00")
 
-[node name="Marker2D" type="Marker2D" parent="body"]
+[node name="Marker2D" type="Marker2D" parent="sprite_body"]
 
-[node name="iris" type="Sprite2D" parent="body/Marker2D"]
+[node name="iris" type="Sprite2D" parent="sprite_body/Marker2D"]
 texture = ExtResource("3_v3k75")
 
-[node name="hostile" type="Sprite2D" parent="body"]
+[node name="hostile" type="Sprite2D" parent="sprite_body"]
 visible = false
 texture = ExtResource("4_u4bae")
 
@@ -91,11 +84,6 @@ position = Vector2(23, -12)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -11.5)
 shape = SubResource("RectangleShape2D_ag5nj")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -1)
-sprite_frames = SubResource("SpriteFrames_2gmdq")
-animation = &"idle"
 
 [node name="Area2D_PlayerNearby" type="Area2D" parent="."]
 collision_layer = 0

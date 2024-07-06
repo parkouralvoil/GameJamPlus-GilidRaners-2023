@@ -1,18 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://cqvvkr8u8uw2o"]
+[gd_scene load_steps=4 format=3 uid="uid://b83lxp16rplq3"]
 
-[ext_resource type="Texture2D" uid="uid://8lgjaytudte8" path="res://icon.svg" id="1_n0pvy"]
-[ext_resource type="Script" path="res://entities/powerup.gd" id="2_a7lts"]
+[ext_resource type="Texture2D" uid="uid://prmgflqga6wt" path="res://SPRITES/powerups/Kodigo.png" id="1_llfd7"]
+[ext_resource type="Script" path="res://entities/powerups/kodigo.gd" id="2_kdsee"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nhn3j"]
 size = Vector2(120, 120)
 
 [node name="kodigo" type="Sprite2D"]
 position = Vector2(366, 154)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_n0pvy")
-script = ExtResource("2_a7lts")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_llfd7")
+script = ExtResource("2_kdsee")
 
 [node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(0.5, 0.5)
 collision_layer = 0
 collision_mask = 6
 

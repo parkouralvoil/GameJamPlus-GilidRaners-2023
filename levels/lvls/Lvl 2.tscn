@@ -1,9 +1,9 @@
 [gd_scene load_steps=20 format=3 uid="uid://rj8arc73s7oc"]
 
 [ext_resource type="Script" path="res://levels/test_level.gd" id="1_5c0v5"]
-[ext_resource type="TileSet" uid="uid://cticwbi1drxjt" path="res://resources/math_decor_tileset.tres" id="3_pfuhm"]
-[ext_resource type="TileSet" uid="uid://uewiiqo77xfu" path="res://resources/test_tileset.tres" id="4_drooo"]
-[ext_resource type="TileSet" uid="uid://cprdp3kuq606m" path="res://resources/math_floor_tileset.tres" id="5_yb15g"]
+[ext_resource type="TileSet" uid="uid://cticwbi1drxjt" path="res://resources/tilesets/math_decor_tileset.tres" id="3_pfuhm"]
+[ext_resource type="TileSet" uid="uid://uewiiqo77xfu" path="res://resources/tilesets/test_tileset.tres" id="4_drooo"]
+[ext_resource type="TileSet" uid="uid://cprdp3kuq606m" path="res://resources/tilesets/math_floor_tileset.tres" id="5_yb15g"]
 [ext_resource type="PackedScene" uid="uid://cwtuskfpjx053" path="res://ui/player_hud.tscn" id="6_2ubeq"]
 [ext_resource type="FontFile" uid="uid://bc6tbjnbiqftj" path="res://temporary_assets/transition/aseprite-remix.ttf" id="9_00teg"]
 [ext_resource type="PackedScene" uid="uid://k3e86wyibwv8" path="res://entities/player.tscn" id="9_rkm0q"]
@@ -12,11 +12,11 @@
 [ext_resource type="PackedScene" uid="uid://bx1ojieysbx4j" path="res://entities/enemy_turrets/enemy_ranged.tscn" id="12_rbyum"]
 [ext_resource type="PackedScene" uid="uid://drqyrkt6rv3xv" path="res://entities/enemy_turrets/enemy_wisp.tscn" id="13_uowv5"]
 [ext_resource type="PackedScene" uid="uid://bf1s3l40wbjjl" path="res://entities/enemy_turrets/enemy_laser.tscn" id="14_uj4jp"]
-[ext_resource type="PackedScene" uid="uid://cqnms27pevlor" path="res://entities/health.tscn" id="15_fhlbh"]
+[ext_resource type="PackedScene" uid="uid://cqnms27pevlor" path="res://entities/powerups/health.tscn" id="15_fhlbh"]
 [ext_resource type="PackedScene" uid="uid://chrai2dqf84l6" path="res://ui/gameover.tscn" id="16_eij76"]
-[ext_resource type="PackedScene" uid="uid://b83lxp16rplq3" path="res://entities/kodigo.tscn" id="16_gk7dq"]
+[ext_resource type="PackedScene" uid="uid://b83lxp16rplq3" path="res://entities/powerups/kodigo.tscn" id="16_gk7dq"]
 [ext_resource type="AudioStream" uid="uid://ym8q6m2pv44g" path="res://resources/music/KOBALT_Lvl_2_Theme.wav" id="17_er08m"]
-[ext_resource type="PackedScene" uid="uid://ckxer07sr7dyo" path="res://entities/ballpenBundle.tscn" id="17_f45k8"]
+[ext_resource type="PackedScene" uid="uid://ckxer07sr7dyo" path="res://entities/powerups/ballpenBundle.tscn" id="17_f45k8"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_oyj25"]
 font = ExtResource("9_00teg")
@@ -55,8 +55,6 @@ layer_0/tile_data = PackedInt32Array(-3145741, 1, 6, -3145740, 1, 6, -3145739, 1
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="player_hud" parent="CanvasLayer" instance=ExtResource("6_2ubeq")]
-
-[node name="Node" type="Node" parent="."]
 
 [node name="player" parent="." instance=ExtResource("9_rkm0q")]
 position = Vector2(-182, -882)

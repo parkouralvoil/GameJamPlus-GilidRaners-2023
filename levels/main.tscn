@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://5np362sw5a5t"]
+
+[ext_resource type="Script" path="res://levels/main.gd" id="1_f42i5"]
+[ext_resource type="PackedScene" uid="uid://in2uaoxcuhjk" path="res://levels/lvls/test_lvl.tscn" id="2_jh07k"]
+[ext_resource type="PackedScene" uid="uid://k3e86wyibwv8" path="res://entities/player.tscn" id="2_shwhj"]
+[ext_resource type="PackedScene" uid="uid://cwtuskfpjx053" path="res://ui/player_hud.tscn" id="3_6nyuj"]
+[ext_resource type="PackedScene" uid="uid://daul7ev5657p5" path="res://levels/level_camera.tscn" id="4_43vdt"]
+
+[node name="Main" type="Node2D" node_paths=PackedStringArray("player", "camera", "hud")]
+script = ExtResource("1_f42i5")
+player = NodePath("player")
+camera = NodePath("level_camera")
+hud = NodePath("player_hud")
+
+[node name="TestLevel" parent="." instance=ExtResource("2_jh07k")]
+
+[node name="player" parent="." instance=ExtResource("2_shwhj")]
+position = Vector2(96, 289)
+
+[node name="player_hud" parent="." instance=ExtResource("3_6nyuj")]
+
+[node name="level_camera" parent="." instance=ExtResource("4_43vdt")]

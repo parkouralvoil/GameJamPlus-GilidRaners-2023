@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bx1ojieysbx4j"]
+[gd_scene load_steps=12 format=3 uid="uid://bx1ojieysbx4j"]
 
 [ext_resource type="Script" path="res://entities/enemy_turrets/enemy_ranged.gd" id="1_42bwg"]
 [ext_resource type="Texture2D" uid="uid://gcajrb68a3pj" path="res://SPRITES/New_enemy_sprites/Quiz Enemy/Enemy_QuizEnemy_Base_64x64.png" id="2_daagv"]
@@ -9,19 +9,6 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ag5nj"]
 size = Vector2(34, 45)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_2gmdq"]
-animations = [{
-"frames": [],
-"loop": false,
-"name": &"fire",
-"speed": 20.0
-}, {
-"frames": [],
-"loop": false,
-"name": &"idle",
-"speed": 5.0
-}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bkdyh"]
 size = Vector2(640, 497)
@@ -35,7 +22,7 @@ length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("body/eye:visible")
+tracks/0/path = NodePath("sprite_body/eye:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -47,7 +34,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("body/mouth:visible")
+tracks/1/path = NodePath("sprite_body/mouth:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -59,7 +46,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("body/fire:visible")
+tracks/2/path = NodePath("sprite_body/fire:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -91,47 +78,39 @@ _data = {
 [node name="enemy_ranged" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("1_42bwg")
+max_hp = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -2.5)
 shape = SubResource("RectangleShape2D_ag5nj")
 
-[node name="body" type="Sprite2D" parent="."]
+[node name="sprite_body" type="Sprite2D" parent="."]
 texture = ExtResource("2_daagv")
 
-[node name="eye" type="Sprite2D" parent="body"]
+[node name="eye" type="Sprite2D" parent="sprite_body"]
 texture = ExtResource("3_tucyf")
 
-[node name="Marker2D" type="Marker2D" parent="body/eye"]
+[node name="Marker2D" type="Marker2D" parent="sprite_body/eye"]
 position = Vector2(-5.5, -10)
 
-[node name="iris" type="Sprite2D" parent="body/eye/Marker2D"]
+[node name="iris" type="Sprite2D" parent="sprite_body/eye/Marker2D"]
 texture = ExtResource("4_7aa3k")
 offset = Vector2(5.5, 10)
 
-[node name="mouth" type="Sprite2D" parent="body"]
+[node name="mouth" type="Sprite2D" parent="sprite_body"]
 texture = ExtResource("5_fwew3")
 
-[node name="fire" type="Sprite2D" parent="body"]
+[node name="fire" type="Sprite2D" parent="sprite_body"]
 visible = false
 texture = ExtResource("6_j51a4")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -1)
-sprite_frames = SubResource("SpriteFrames_2gmdq")
-animation = &"fire"
+[node name="TurretAim" type="Node2D" parent="."]
 
-[node name="Node2D_Aim" type="Node2D" parent="."]
-
-[node name="Marker2D" type="Marker2D" parent="Node2D_Aim"]
+[node name="Marker2D" type="Marker2D" parent="TurretAim"]
 position = Vector2(16, 0)
 
-[node name="Timer_Reload" type="Timer" parent="."]
-wait_time = 1.25
-one_shot = true
-
 [node name="Timer_FireRateCD" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 2.0
 one_shot = true
 
 [node name="Area2D_PlayerNearby" type="Area2D" parent="."]
@@ -166,7 +145,6 @@ libraries = {
 "": SubResource("AnimationLibrary_ahj4m")
 }
 
-[connection signal="timeout" from="Timer_Reload" to="." method="_on_timer_reload_timeout"]
 [connection signal="timeout" from="Timer_FireRateCD" to="." method="_on_timer_fire_rate_cd_timeout"]
 [connection signal="body_entered" from="Area2D_PlayerNearby" to="." method="_on_area_2d_player_nearby_body_entered"]
 [connection signal="body_exited" from="Area2D_PlayerNearby" to="." method="_on_area_2d_player_nearby_body_exited"]

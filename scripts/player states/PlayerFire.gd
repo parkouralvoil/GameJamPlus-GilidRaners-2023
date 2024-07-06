@@ -1,66 +1,66 @@
 extends State
 class_name PlayerFire
 
-@onready var player: CharacterBody2D = get_parent().get_parent()
-	# above assumes this state is child of State Machine, child of player node
-@onready var anim_sprite: AnimatedSprite2D = player.get_node("AnimatedSprite2D")
-@onready var fire_rate_CD: Timer = player.get_node("Timer_FireRateCD")
-@onready var timer_is_firing: Timer = player.get_node("Timer_IsFiring")
+@onready var p: Player = owner
+	# above assumes this state is child of State Machine, child of p node
 
-func Enter():
-	player.fire()
+func Enter() -> void:
+	p.fire()
 	
 	apply_recoil()
 
-func Exit():
+func Exit() -> void:
 	pass
 
 
-func Update(_delta: float):
-	if player.fire_input and fire_rate_CD.is_stopped() and player.ammo > 0:
-		player.fire()
+func Update(_delta: float) -> void:
+	if p.fire_input and p.fire_rate_CD.is_stopped():
+		p.fire()
 		apply_recoil()
 
-func Physics_Update(_delta: float):
-	if player:
+func Physics_Update(_delta: float) -> void:
+	if p:
 		halt_recoil(_delta)
 		change_animation()
-	else: return
+	else: 
+		return
 	
-	if !player.is_firing:
-		if player.is_on_floor():
+	if !p.is_firing:
+		if p.is_on_floor():
 			Transitioned.emit(self, "PlayerOnGround")
 		else:
 			Transitioned.emit(self, "PlayerInAir")
 	
-	if player.hp <= 0:
+	if p.hp <= 0:
 		Transitioned.emit(self, "PlayerDead")
-		
-		
-func apply_recoil():
-	if player.is_on_floor():
-		player.velocity = Vector2.ZERO
+
+
+func apply_recoil() -> void:
+	if p.is_on_floor():
+		p.velocity = Vector2.ZERO
 	else:
-		player.velocity = player.recoil_direction.normalized() * 100
+		p.velocity.x = -p.bullet_aim.x * 100
+		p.velocity.y = 40
 
-func halt_recoil(input_delta):
-	# horizontal
-	if player.velocity.x > 0.1:
-		player.velocity.x = max(player.velocity.x - player.g_friction * 0.1 * input_delta, 0)
-	elif player.velocity.x < -0.1:
-		player.velocity.x = min(player.velocity.x + player.g_friction * 0.1 * input_delta, 0)
+
+func halt_recoil(input_delta: float) -> void:
+	## horizontal
+	if p.velocity.x > 0.1:
+		p.velocity.x = max(p.velocity.x - p.g_friction * 0.1 * input_delta, 0)
+	elif p.velocity.x < -0.1:
+		p.velocity.x = min(p.velocity.x + p.g_friction * 0.1 * input_delta, 0)
 #	else:
-#		player.velocity.x = 0
+#		p.velocity.x = 0
 		
-	# vertical
-	if player.velocity.y > -0.1:
-		player.velocity.y = max(player.velocity.y - player.g_friction * 0.1 * input_delta, 0)
-	elif player.velocity.y < 0.1:
-		player.velocity.y = min(player.velocity.y + player.g_friction * 0.1 * input_delta, 0)
+	## vertical
+	if p.velocity.y > -0.1:
+		p.velocity.y = max(p.velocity.y - p.g_friction * 0.1 * input_delta, 0)
+	elif p.velocity.y < 0.1:
+		p.velocity.y = min(p.velocity.y + p.g_friction * 0.1 * input_delta, 0)
 #	else:
-#		player.velocity.y = 0
+#		p.velocity.y = 0
 
 
-func change_animation():
-	if anim_sprite.animation != "shoot":
-		anim_sprite.play("shoot")
+func change_animation() -> void:
+	if p.anim_sprite.animation != "shoot":
+		p.anim_sprite.play("shoot")

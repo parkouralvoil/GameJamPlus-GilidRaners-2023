@@ -1,59 +1,58 @@
 extends State
 class_name PlayerDead
 
-@onready var player: CharacterBody2D = get_parent().get_parent()
-	# above assumes this state is child of State Machine, child of player node
-@onready var anim_sprite: AnimatedSprite2D = player.get_node("AnimatedSprite2D")
-@onready var reload_CD: Timer = player.get_node("Timer_Reload")
-@onready var respawn_CD: Timer = player.get_node("Timer_Respawn")
+@onready var p: Player = owner
 	
-func Enter():
-	anim_sprite.play("dead")
-	player.stop_energy_regen = true
-	reload_CD.stop()
-	player.hp = 0
-	anim_sprite.self_modulate = Color(1, 1, 1)
+func Enter() -> void:
+	if p.anim_sprite:
+		p.anim_sprite.play("dead")
+	p.can_double_jump = false
+	p.hp = 0
+	if p.anim_sprite:
+		p.anim_sprite.self_modulate = Color(1, 1, 1)
 #	respawn_CD.start()
-	
-func Exit():
+
+
+func Exit() -> void:
 	pass
 
 
-func Update(_delta: float):
-	if player.just_respawned:
+func Update(_delta: float) -> void:
+	if p.just_respawned:
 		player_respawn()
 
-func Physics_Update(_delta: float):
-	if player:
+func Physics_Update(_delta: float) -> void:
+	if p:
 		pass
 	else: return
 	
-	if player.is_on_floor():
+	if p.is_on_floor():
 		ground_movement(_delta)
 	else:
-		player.velocity.y += player.gravity * _delta
+		p.velocity.y += p.gravity * _delta
 		air_movement(_delta)
 
-# still need to bring player to halt
-func air_movement(input_delta):
-	if player.velocity.x > 0.1:
-		player.velocity.x = max(player.velocity.x - player.a_friction * input_delta, 0)
-	elif player.velocity.x < -0.1:
-		player.velocity.x = min(player.velocity.x + player.a_friction * input_delta, 0)
+## still need to bring p to halt
+func air_movement(input_delta: float) -> void:
+	if p.velocity.x > 0.1:
+		p.velocity.x = max(p.velocity.x - p.a_friction * input_delta, 0)
+	elif p.velocity.x < -0.1:
+		p.velocity.x = min(p.velocity.x + p.a_friction * input_delta, 0)
 	else:
-		player.velocity.x = 0
-		
-func ground_movement(input_delta):
-	if player.velocity.x > 0.1:
-		player.velocity.x = max(player.velocity.x - player.g_friction * input_delta, 0)
-	elif player.velocity.x < -0.1:
-		player.velocity.x = min(player.velocity.x + player.g_friction * input_delta, 0)
-	else:
-		player.velocity.x = 0
+		p.velocity.x = 0
 
-	
-func player_respawn():
-	player.global_position = player.respawn_point
+
+func ground_movement(input_delta: float) -> void:
+	if p.velocity.x > 0.1:
+		p.velocity.x = max(p.velocity.x - p.g_friction * input_delta, 0)
+	elif p.velocity.x < -0.1:
+		p.velocity.x = min(p.velocity.x + p.g_friction * input_delta, 0)
+	else:
+		p.velocity.x = 0
+
+
+func player_respawn() -> void:
+	p.global_position = p.respawn_point
 	Transitioned.emit(self, "PlayerInAir")
-	player.just_respawned = false
-	player.hp = player.respawn_hp
+	p.just_respawned = false
+	p.hp = p.respawn_hp
