@@ -5,8 +5,6 @@ class_name PlayerOnGround
 
 
 func Enter() -> void:
-	if p.anim_sprite:
-		p.anim_sprite.play("idle")
 	p.can_double_jump = true
 
 
@@ -23,6 +21,7 @@ func Physics_Update(_delta: float) -> void:
 		ground_movement(_delta)
 		change_animation()
 		jump()
+		flip_char()
 		#DoubleTapDash()
 		
 	if !p.is_on_floor():
@@ -84,11 +83,14 @@ func jump() -> void:
 
 func change_animation() -> void:
 	if abs(p.velocity.x) <= 0.1 and p.anim_sprite.animation != "idle":
-		p.anim_sprite.play("idle")
+		if (p.anim_sprite.animation != "shoot" or not p.anim_sprite.is_playing()):
+			p.anim_sprite.play("idle")
 	elif abs(p.velocity.x) > 0.1 and p.anim_sprite.animation != "walk":
+		p.anim_sprite.stop()
 		p.anim_sprite.play("walk")
-	
-	#flip char
+
+
+func flip_char() -> void:
 	if p.x_movement == -1:
 		p.anim_sprite.scale.x = -1
 		p.dash_dir = -1

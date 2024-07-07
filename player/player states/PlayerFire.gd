@@ -6,22 +6,22 @@ class_name PlayerFire
 
 func Enter() -> void:
 	p.fire()
-	
 	apply_recoil()
+	p.anim_sprite.stop()
+	p.anim_sprite.play("shoot")
+
 
 func Exit() -> void:
 	pass
 
 
 func Update(_delta: float) -> void:
-	if p.fire_input and p.fire_rate_CD.is_stopped():
-		p.fire()
-		apply_recoil()
+	pass
+
 
 func Physics_Update(_delta: float) -> void:
 	if p:
 		halt_recoil(_delta)
-		change_animation()
 	else: 
 		return
 	
@@ -59,8 +59,3 @@ func halt_recoil(input_delta: float) -> void:
 		p.velocity.y = min(p.velocity.y + p.g_friction * 0.1 * input_delta, 0)
 #	else:
 #		p.velocity.y = 0
-
-
-func change_animation() -> void:
-	if p.anim_sprite.animation != "shoot":
-		p.anim_sprite.play("shoot")

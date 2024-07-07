@@ -16,26 +16,26 @@ var g_accel: float = 5000
 var g_jump_speed: float = -350
 var g_friction: float = 4000
 
-
 ## a for air variables
 var a_speed: float = 250
 var a_accel: float = 500
 var a_jump_speed: float = -470
 var a_friction: float = 500
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-
+var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 ## d for dash variables
 var d_speed: float = 800
 var d_accel: float = 10000
-var speedModifier = 0
-
 
 ## stats
 var max_hp: int = 5
 var hp: int = max_hp
 var atk: int = 1
+
+## powerup properties
 var invul: bool = false
+var triple_atk: bool = false
+var speedModifier: float = 0
 
 ## controller stuff
 var sensitivity: float = 8.5
@@ -56,8 +56,10 @@ var dash_dir: int = 0 ## input is "Input.is_action_just_pressed("shift_button")"
 var fire_input: bool = false
 var can_double_jump: bool = false ## resets when u step on the ground
 var can_dash: bool = true ## resets after dashCD timeout
+var in_iframes: bool = false
 
-var is_firing := false
+var is_firing: bool = false
+var bullet_aim: Vector2
 ## for PlayerDead.gd
 var just_respawned: bool = false
 
@@ -73,12 +75,11 @@ var just_respawned: bool = false
 @onready var jump_particles: GPUParticles2D = $GPUParticles2D_Jump
 
 @onready var state_machine: Node = $"State Machine"
-
-var bullet_aim: Vector2
+@onready var viewport: Viewport = get_viewport()
 
 func _ready() -> void:
 	respawn_point = global_position
-	mouse_position = get_viewport().size / 2
+	mouse_position = viewport.size / 2
 
 
 func _process(_delta: float) -> void:
@@ -88,9 +89,9 @@ func _process(_delta: float) -> void:
 		mouse_position.x += move_x * sensitivity
 		mouse_position.y += move_y * sensitivity
 		
-		mouse_position.x = clamp(mouse_position.x, 0, get_viewport().size.x - 1)
-		mouse_position.y = clamp(mouse_position.y, 0, get_viewport().size.y - 1)
-		get_viewport().warp_mouse(mouse_position)
+		mouse_position.x = clamp(mouse_position.x, 0, viewport.size.x - 1)
+		mouse_position.y = clamp(mouse_position.y, 0, viewport.size.y - 1)
+		viewport.warp_mouse(mouse_position)
 	
 	if SceneManager.menu_open: 
 		disable_controls()
@@ -111,38 +112,60 @@ func _process(_delta: float) -> void:
 	#if Input.is_action_just_pressed("interact"):
 		#useItem()
 	fire_input = Input.is_action_pressed("shoot")
+	
+	if invul:
+		anim_sprite.modulate = Color(0.5, 0.5, 1)
+	else:
+		anim_sprite.modulate = Color(1, 1, 1)
 
 
 func _physics_process(_delta: float) -> void:
 	move_and_slide()
 
 
-func _on_timer_is_firing_timeout() -> void:
-	is_firing = false
-
-
-func shoot_bullet() -> void:
+func shoot_bullet(pos_modifier: int) -> void:
 	var bullet: Bullet = BulletPath.instantiate()
 	
 	bullet.lifespan = projectile_lifespan
 	get_tree().root.add_child(bullet)
-	bullet.global_position = global_position
-	bullet.direction = get_global_mouse_position() - bullet.global_position
+	
+	bullet.global_position = (global_position + 
+		bullet_aim.rotated(PI/2 * signi(pos_modifier))
+		* absi(pos_modifier)
+		)
+	bullet.direction = bullet_aim
 	bullet.rotation = bullet_aim.angle()
 	bullet.projectile_speed = projectile_speed
 	bullet.damage = atk
 
 
 func take_damage(damage: int) -> void:
-	if invul:
+	if invul or in_iframes:
 		pass
-	elif hp - 1 > 0:
-		anim_sprite.self_modulate = Color(1, 0, 0)
-		await get_tree().create_timer(0.2).timeout
-		anim_sprite.self_modulate = Color(1, 1, 1)
-		hp -= 1
+	elif hp - damage > 0:
+		hp -= damage
+		show_damage_visual()
 	else:
 		hp = 0
+
+
+func show_damage_visual() -> void:
+	var white := Color(1, 1, 1, 1)
+	var red := Color(1, 0.2, 0.2, 1)
+	var gray := Color(0.4, 0.4, 0.4, 0.8)
+	var iframe_duration: float = 1.5
+	var t_dur: float = iframe_duration / 5
+	
+	in_iframes = true
+	var t: Tween = create_tween()
+	t.tween_property(anim_sprite, "self_modulate", white, t_dur).from(red)
+	t.tween_property(anim_sprite, "self_modulate", gray, t_dur)
+	t.tween_property(anim_sprite, "self_modulate", white, t_dur)
+	t.tween_property(anim_sprite, "self_modulate", gray, t_dur)
+	t.tween_property(anim_sprite, "self_modulate", white, t_dur)
+	await t.finished
+	
+	in_iframes = false
 
 
 func flip_player() -> void:
@@ -157,7 +180,12 @@ func fire() -> void: ## called by PlayerFire state
 	fire_rate_CD.start()
 	timer_is_firing.start()
 	
-	shoot_bullet()
+	if triple_atk:
+		shoot_bullet(8)
+		shoot_bullet(0)
+		shoot_bullet(-8)
+	else:
+		shoot_bullet(0)
 	flip_player()
 
 
@@ -167,48 +195,12 @@ func respawn_player() -> void:
 	anim_sprite.self_modulate = Color(1, 1, 1)
 
 
-#func useItem():
-	#if inventory == Powerup.ballpenBundle:
-		#UnliAmmo()
-	#elif inventory == Powerup.kwekkwek:
-		#healConsummable()
-	#elif inventory == Powerup.kodigo:
-		#useInvul()
-	#elif inventory == Powerup.coffee:
-		#drinkCoffee()
-	#inventory = Powerup.none
-
 func healConsummable() -> void:
 	var healed_amt: int = 1
 	if hp + healed_amt > max_hp:
 		hp = max_hp
 	else:
 		hp = hp + healed_amt
-
-#func UnliAmmo():
-	#unliAmmo = true
-	#ammo = max_ammo
-	#ammoTime.start()
-	
-#func drinkCoffee() -> void:
-	#speedModifier += 200
-	#coffeeTime.start()
-
-#func useInvul() -> void:
-	#invul = true
-	#invulTime.start()
-
-#func getKodigo():
-	#inventory = Powerup.kodigo
-
-#func getHealth():
-	#inventory = Powerup.kwekkwek
-
-#func getCoffee():
-	#inventory = Powerup.coffee
-
-#func getMinigun():
-	#inventory = Powerup.ballpenBundle
 
 
 func disable_controls() -> void:
@@ -221,15 +213,5 @@ func _on_timer_dash_cd_timeout() -> void:
 	can_dash = true
 
 
-#func _on_timer_invul_timeout() -> void:
-	#invul = false
-	#invulTime.stop()
-#
-#
-#func _on_timer_coffee_timeout() -> void:
-	#speedModifier -= 200
-	#coffeeTime.stop()
-
-
-func _on_timer_dash_duration_timeout() -> void:
-	pass #dash_dir = 0
+func _on_timer_is_firing_timeout() -> void:
+	is_firing = false

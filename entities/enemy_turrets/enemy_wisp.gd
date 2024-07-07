@@ -6,7 +6,7 @@ var player_in_sight: bool = false
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var hitbox_playerNearby: Area2D = $Area2D_PlayerNearby
-@onready var explosion: Area2D = $delayed_aoe
+@onready var explosion: DelayedExplosion = $delayed_aoe
 @onready var explosion_line: Line2D = $Line2D
 
 @onready var reload_CD: Timer = $Timer_Reload
@@ -16,10 +16,8 @@ var player_in_sight: bool = false
 
 @onready var RC_player: RayCast2D = $RayCast2D_Player
 
-
 func _ready() -> void:
 	super()
-	$Control.global_position = global_position
 	explosion_line.points[1] = Vector2.ZERO
 	
 	explosion.hide()
@@ -71,12 +69,12 @@ func player_vision():
 		player_in_sight = false
 
 
-func _on_area_2d_player_nearby_body_entered(body) -> void:
+func _on_area_2d_player_nearby_body_entered(body: CharacterBody2D) -> void:
 	if body is Player:
 		target = body
 
 
-func _on_area_2d_player_nearby_body_exited(body) -> void:
+func _on_area_2d_player_nearby_body_exited(body: CharacterBody2D) -> void:
 	if body is Player:
 		target = null
 

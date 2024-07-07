@@ -4,17 +4,10 @@ class_name EnemyRanged
 const BulletPath: PackedScene = preload("res://entities/projectiles/projectile_arrow.tscn")
 
 var player_in_sight: bool = false
-var burst_started: bool = false
-
-## vision stuff:
-var angle_to: float = 100
 
 ## projectile info:
-var projectile_speed: float = 350.0
-
-
-@onready var turret_aim: Node2D = $TurretAim
-@onready var marker: Marker2D = $TurretAim/Marker2D
+var projectile_speed: float = 300.0
+var aim_position: Vector2
 
 @onready var fire_rate_CD: Timer = $Timer_FireRateCD
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
@@ -32,9 +25,10 @@ var projectile_speed: float = 350.0
 func _ready() -> void:
 	super()
 	hostile_mouth.hide()
+	anim_player.play("idle")
 
 
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if hp <= 0:
 		fire_rate_CD.stop()
 		sprite_body.hide()
@@ -43,11 +37,9 @@ func _process(_delta: float) -> void:
 	player_vision()
 	
 	var can_shoot: bool = (target != null and player_in_sight)
-	if can_shoot:
-		turret_aim.look_at(target.global_position)
-	
 	if can_shoot and fire_rate_CD.is_stopped(): 
-		fire_rate_CD.start() ## shoots bullet at fire_rate timeout
+		aim_position = target.global_position - global_position
+		fire_rate_CD.start() ## shoots bullet at fire_rate, ANIMATION PLAYER DOES IT
 	
 	iris_movement()
 
@@ -59,20 +51,21 @@ func iris_movement() -> void:
 		iris.position = Vector2(-5.5, -10) + direction * min(distance, 2)
 	else:
 		iris.position = Vector2(-5.5, -10)
+		anim_player.play("idle")
 
 
 func shoot_bullet() -> void:
 	var bullet: Bullet = BulletPath.instantiate()
 	
-	get_tree().root.add_child(bullet)
 	bullet.global_position = global_position
-	bullet.sprite.self_modulate = Color(1, 0, 0, 1)
-	bullet.direction = marker.global_position - bullet.global_position
-	bullet.rotation = turret_aim.rotation
+	bullet.direction = aim_position
+	bullet.rotation = aim_position.angle()
 	bullet.projectile_speed = projectile_speed
 	
 	bullet.damage = 1
 	bullet.from_enemy = true
+	get_tree().root.add_child(bullet)
+	bullet.modulate = Color(1, 1, 0.6) ## just make a different sprite...
 
 
 func player_vision() -> void:
@@ -103,6 +96,5 @@ func _on_area_2d_player_nearby_body_exited(body: CharacterBody2D) -> void:
 
 
 func _on_timer_fire_rate_cd_timeout() -> void:
-	shoot_bullet()
 	if !anim_player.is_playing():
 		anim_player.play("fire")

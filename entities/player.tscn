@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" path="res://entities/player.gd" id="1_uppic"]
 [ext_resource type="SpriteFrames" uid="uid://c2vx75vuqrqi0" path="res://resources/basic_anims.tres" id="2_wr3fr"]
-[ext_resource type="Script" path="res://scripts/State Machine.gd" id="3_73eq6"]
-[ext_resource type="Script" path="res://scripts/player_components/PowerupManager.gd" id="3_gji18"]
-[ext_resource type="Script" path="res://scripts/player states/PlayerOnGround.gd" id="4_53up4"]
-[ext_resource type="Script" path="res://scripts/player states/PlayerInAir.gd" id="5_enbi2"]
-[ext_resource type="Script" path="res://scripts/player states/PlayerFire.gd" id="6_er8oo"]
-[ext_resource type="Script" path="res://scripts/player states/PlayerDead.gd" id="7_haxam"]
-[ext_resource type="Script" path="res://scripts/player states/PlayerDash.gd" id="8_pi7k4"]
+[ext_resource type="PackedScene" uid="uid://bqxerlcewoj1c" path="res://player/powerup_manager.tscn" id="3_1puy1"]
+[ext_resource type="Script" path="res://scripts/state_machine.gd" id="4_io6d5"]
+[ext_resource type="Script" path="res://player/player states/PlayerOnGround.gd" id="5_nomb2"]
+[ext_resource type="Script" path="res://player/player states/PlayerInAir.gd" id="6_ikxgm"]
+[ext_resource type="Script" path="res://player/player states/PlayerFire.gd" id="7_aomh3"]
+[ext_resource type="Script" path="res://player/player states/PlayerDead.gd" id="8_ybnn8"]
+[ext_resource type="Script" path="res://player/player states/PlayerDash.gd" id="9_qlin8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l4650"]
 size = Vector2(16, 28)
@@ -40,9 +40,9 @@ script = ExtResource("1_uppic")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.95, 0.95)
 sprite_frames = ExtResource("2_wr3fr")
-animation = &"dash"
+animation = &"shoot"
 frame = 5
-frame_progress = 0.891795
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
@@ -56,8 +56,8 @@ process_material = SubResource("ParticleProcessMaterial_10tpu")
 lifetime = 0.45
 one_shot = true
 
-[node name="PowerupManager" type="Node2D" parent="."]
-script = ExtResource("3_gji18")
+[node name="PowerupManager" parent="." node_paths=PackedStringArray("p") instance=ExtResource("3_1puy1")]
+p = NodePath("..")
 
 [node name="Timers" type="Node" parent="."]
 
@@ -85,25 +85,24 @@ wait_time = 2.5
 one_shot = true
 
 [node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
-script = ExtResource("3_73eq6")
+script = ExtResource("4_io6d5")
 initial_state = NodePath("PlayerOnGround")
 
 [node name="PlayerOnGround" type="Node" parent="State Machine"]
-script = ExtResource("4_53up4")
+script = ExtResource("5_nomb2")
 
 [node name="PlayerInAir" type="Node" parent="State Machine"]
-script = ExtResource("5_enbi2")
+script = ExtResource("6_ikxgm")
 
 [node name="PlayerFire" type="Node" parent="State Machine"]
-script = ExtResource("6_er8oo")
+script = ExtResource("7_aomh3")
 
 [node name="PlayerDead" type="Node" parent="State Machine"]
-script = ExtResource("7_haxam")
+script = ExtResource("8_ybnn8")
 
 [node name="PlayerDash" type="Node" parent="State Machine"]
-script = ExtResource("8_pi7k4")
+script = ExtResource("9_qlin8")
 
 [connection signal="timeout" from="Timers/DashCD" to="." method="_on_timer_dash_cd_timeout"]
-[connection signal="timeout" from="Timers/DashDuration" to="." method="_on_timer_dash_duration_timeout"]
 [connection signal="timeout" from="Timers/IsFiring" to="." method="_on_timer_is_firing_timeout"]
 [connection signal="timeout" from="Timers/Respawn" to="." method="_on_timer_respawn_timeout"]

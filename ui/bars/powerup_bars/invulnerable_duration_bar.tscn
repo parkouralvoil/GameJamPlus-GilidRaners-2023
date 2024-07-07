@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://b37pjadqrb7u2"]
+
+[ext_resource type="Script" path="res://ui/bars/powerup_bars/powerup_bar.gd" id="1_l1fuu"]
+[ext_resource type="PackedScene" uid="uid://clfmaj60ep5cf" path="res://ui/bars/circular_green_bar.tscn" id="1_q32qn"]
+[ext_resource type="Texture2D" uid="uid://prmgflqga6wt" path="res://SPRITES/powerups/Kodigo.png" id="2_jf87f"]
+
+[node name="InvulnerableDurationBar" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l1fuu")
+
+[node name="CircularGreenBar" parent="." instance=ExtResource("1_q32qn")]
+layout_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 3.0
+offset_right = 70.0
+offset_bottom = 67.0
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_jf87f")

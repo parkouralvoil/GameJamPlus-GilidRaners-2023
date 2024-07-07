@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bf1s3l40wbjjl"]
+[gd_scene load_steps=8 format=3 uid="uid://bf1s3l40wbjjl"]
 
 [ext_resource type="Script" path="res://entities/enemy_turrets/enemy_laser.gd" id="1_f6uyk"]
 [ext_resource type="Texture2D" uid="uid://cb1bt076t1a6x" path="res://SPRITES/New_enemy_sprites/Project Enemy/ProjectBody1.png" id="2_uum00"]
@@ -13,39 +13,6 @@ size = Vector2(658, 638)
 
 [sub_resource type="LabelSettings" id="LabelSettings_aqcy7"]
 font_size = 13
-
-[sub_resource type="Animation" id="Animation_daibi"]
-resource_name = "fire"
-length = 3.9
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("sprite_body/hostile:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 3.9),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("sprite_body/Marker2D/iris:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 3.9),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_147ma"]
-_data = {
-"fire": SubResource("Animation_daibi")
-}
 
 [node name="enemy_laser" type="CharacterBody2D"]
 position = Vector2(0, 1)
@@ -94,25 +61,13 @@ position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_bkdyh")
 debug_color = Color(0.392157, 0.886275, 1, 0.0901961)
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 1.0
-offset_bottom = 1.0
-
-[node name="Label_HP" type="Label" parent="Control"]
-layout_mode = 0
-offset_left = -16.0
-offset_top = 14.0
-offset_right = 27.0
-offset_bottom = 40.0
+[node name="Label_HP" type="Label" parent="."]
+offset_left = -18.0
+offset_top = 18.0
+offset_right = 25.0
+offset_bottom = 44.0
 text = "40/40"
 label_settings = SubResource("LabelSettings_aqcy7")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_147ma")
-}
 
 [connection signal="body_entered" from="Area2D_PlayerNearby" to="." method="_on_area_2d_player_nearby_body_entered"]
 [connection signal="body_exited" from="Area2D_PlayerNearby" to="." method="_on_area_2d_player_nearby_body_exited"]

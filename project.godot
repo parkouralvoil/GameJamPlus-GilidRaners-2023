@@ -32,10 +32,11 @@ gdscript/warnings/unsafe_call_argument=1
 
 window/size/viewport_width=640
 window/size/viewport_height=360
+window/size/mode=2
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"
-window/stretch/scale_mode="integer"
+window/stretch/aspect="ignore"
 
 [file_customization]
 
@@ -135,6 +136,7 @@ cursor_left={
 2d_physics/layer_3="enemy"
 2d_physics/layer_4="projectile"
 2d_physics/layer_5="player_spawn_area"
+2d_physics/layer_6="powerup_collectible"
 
 [physics]
 

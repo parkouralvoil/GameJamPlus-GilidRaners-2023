@@ -44,13 +44,13 @@ func _physics_process(_delta: float) -> void:
 		collision_particle.position = cast_point
 		
 	laser_line.points[1] = cast_point
+	@warning_ignore("unsafe_property_access")
 	hitbox_length.shape.b = cast_point
-	
 	if target != null:
 		target.take_damage(damage) ## need iframes here or one shot moment
 
 
-func set_is_casting() -> void: # set by enemy script
+func set_is_casting() -> void:
 	if is_casting and !prev_is_casting:
 		prev_is_casting = true
 		animator.play("laser_firing")
@@ -64,6 +64,11 @@ func set_is_casting() -> void: # set by enemy script
 		prev_is_casting = false
 
 
+func _deactivate_laser() -> void: ## for animation player
+	is_casting = false
+	reload_CD.start()
+
+
 func _on_area_2d_body_entered(body: CharacterBody2D) -> void:
 	if body is Player:
 		target = body
@@ -72,11 +77,6 @@ func _on_area_2d_body_entered(body: CharacterBody2D) -> void:
 func _on_area_2d_body_exited(body: CharacterBody2D) -> void:
 	if body is Player:
 		target = null
-
-
-func _deactivate_laser() -> void: # for animation player
-	is_casting = false
-	reload_CD.start()
 
 
 func _on_timer_reload_timeout() -> void:

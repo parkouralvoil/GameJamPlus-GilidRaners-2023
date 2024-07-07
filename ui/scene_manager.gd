@@ -1,16 +1,16 @@
 extends CanvasLayer
 
 ## this is the thing that loads games
-var menu: Resource = load("res://ui/menu.tscn")
+var menu: PackedScene = load("res://ui/menu.tscn")
 
-var first_lvl: Resource = load("res://levels/Lvl 1.tscn")
-var second_lvl: Resource = load("res://levels/Lvl 2.tscn")
+var first_lvl: PackedScene = load("res://levels/Lvl 1.tscn")
+var second_lvl: PackedScene = load("res://levels/Lvl 2.tscn")
 
 #var transition_screen: Resource = load("res://levels/subjects/transition_vn_screen.tscn")
 
-var winning_screen: Resource = load("res://ui/win.tscn")
+var winning_screen: PackedScene = load("res://ui/win.tscn")
 
-var level_array: Array[Resource] = []
+var level_array: Array[PackedScene] = []
 var level: int = 0
 
 var menu_open: bool = false

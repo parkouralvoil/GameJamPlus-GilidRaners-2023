@@ -12,11 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://bx1ojieysbx4j" path="res://entities/enemy_turrets/enemy_ranged.tscn" id="12_rbyum"]
 [ext_resource type="PackedScene" uid="uid://drqyrkt6rv3xv" path="res://entities/enemy_turrets/enemy_wisp.tscn" id="13_uowv5"]
 [ext_resource type="PackedScene" uid="uid://bf1s3l40wbjjl" path="res://entities/enemy_turrets/enemy_laser.tscn" id="14_uj4jp"]
-[ext_resource type="PackedScene" uid="uid://cqnms27pevlor" path="res://entities/powerups/health.tscn" id="15_fhlbh"]
 [ext_resource type="PackedScene" uid="uid://chrai2dqf84l6" path="res://ui/gameover.tscn" id="16_eij76"]
-[ext_resource type="PackedScene" uid="uid://b83lxp16rplq3" path="res://entities/powerups/kodigo.tscn" id="16_gk7dq"]
 [ext_resource type="AudioStream" uid="uid://ym8q6m2pv44g" path="res://resources/music/KOBALT_Lvl_2_Theme.wav" id="17_er08m"]
-[ext_resource type="PackedScene" uid="uid://ckxer07sr7dyo" path="res://entities/powerups/ballpenBundle.tscn" id="17_f45k8"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_oyj25"]
 font = ExtResource("9_00teg")
@@ -164,20 +161,6 @@ position = Vector2(1164, -334)
 
 [node name="enemy_laser4" parent="enemies" instance=ExtResource("14_uj4jp")]
 position = Vector2(874, -430)
-
-[node name="powerups" type="Node2D" parent="."]
-
-[node name="health2" parent="powerups" instance=ExtResource("15_fhlbh")]
-position = Vector2(945, -292)
-
-[node name="health" parent="powerups" instance=ExtResource("15_fhlbh")]
-position = Vector2(-46, -810)
-
-[node name="kodigo" parent="powerups" instance=ExtResource("16_gk7dq")]
-position = Vector2(350, -432)
-
-[node name="ballpenbundle" parent="powerups" instance=ExtResource("17_f45k8")]
-position = Vector2(348, -286)
 
 [node name="Gameover" parent="." instance=ExtResource("16_eij76")]
 

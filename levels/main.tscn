@@ -17,6 +17,7 @@ hud = NodePath("player_hud")
 [node name="player" parent="." instance=ExtResource("2_shwhj")]
 position = Vector2(96, 289)
 
-[node name="player_hud" parent="." instance=ExtResource("3_6nyuj")]
+[node name="player_hud" parent="." node_paths=PackedStringArray("p") instance=ExtResource("3_6nyuj")]
+p = NodePath("../player")
 
 [node name="level_camera" parent="." instance=ExtResource("4_43vdt")]

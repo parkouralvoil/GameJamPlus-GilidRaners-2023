@@ -10,7 +10,7 @@ var color_red := Color(1, 0.2, 0.2)
 var color_default := Color(1, 1, 1)
 
 @onready var hitbox: CollisionShape2D = $CollisionShape2D
-@onready var hp_label: Label = $Control/Label_HP
+@onready var hp_label: Label = $Label_HP
 @onready var hp: int = max_hp:
 	set(value):
 		hp_label.text = "{0}/{1}".format([str(value), str(max_hp)])
@@ -22,7 +22,6 @@ func _ready() -> void:
 
 
 func take_damage(damage: int) -> void:
-	print("HP: %d" % hp)
 	if hp - damage > 0:
 		hp -= damage
 		show_damage_visual()

@@ -55,4 +55,4 @@ func player_respawn() -> void:
 	p.global_position = p.respawn_point
 	Transitioned.emit(self, "PlayerInAir")
 	p.just_respawned = false
-	p.hp = p.respawn_hp
+	p.hp = p.max_hp

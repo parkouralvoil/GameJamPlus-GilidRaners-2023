@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=44 format=3 uid="uid://c2vx75vuqrqi0"]
+[gd_resource type="SpriteFrames" load_steps=42 format=3 uid="uid://c2vx75vuqrqi0"]
 
 [ext_resource type="Texture2D" uid="uid://cgp374kapkmlr" path="res://SPRITES/Animations/Protagonist Sheet_Summa_64x64.png" id="1_uaxma"]
 
@@ -106,17 +106,9 @@ region = Rect2(1600, 0, 64, 64)
 atlas = ExtResource("1_uaxma")
 region = Rect2(1664, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1gmob"]
-atlas = ExtResource("1_uaxma")
-region = Rect2(1728, 0, 64, 64)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_1jsf2"]
 atlas = ExtResource("1_uaxma")
 region = Rect2(1792, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_37wte"]
-atlas = ExtResource("1_uaxma")
-region = Rect2(1856, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5dsaf"]
 atlas = ExtResource("1_uaxma")
@@ -285,20 +277,14 @@ animations = [{
 "texture": SubResource("AtlasTexture_ihprs")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1gmob")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_1jsf2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_37wte")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5dsaf")
 }],
-"loop": true,
+"loop": false,
 "name": &"shoot",
-"speed": 20.0
+"speed": 14.0
 }, {
 "frames": [{
 "duration": 1.0,

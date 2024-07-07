@@ -13,24 +13,25 @@ var markers: Array[Marker2D] = []
 var laser_ready: bool = false
 var cleared_lasers: bool = false
 
-var laser_anim: AnimationPlayer = null ## animation dependence with laser
+var laser_ref: Laser = null ## animation dependence with laser
 
 @onready var hitbox_playerNearby: Area2D = $Area2D_PlayerNearby
+@onready var laser_container: Node2D = $laser_container
 @onready var marker_up: Marker2D = $laser_container/Marker2D_down
 @onready var marker_down: Marker2D = $laser_container/Marker2D_up
 @onready var marker_left: Marker2D = $laser_container/Marker2D_left
 @onready var marker_right: Marker2D = $laser_container/Marker2D_right
 @onready var sprite_body: Sprite2D = $sprite_body
 @onready var iris: Marker2D = $sprite_body/Marker2D
-@onready var anim_player: AnimationPlayer = $AnimationPlayer
+
+@onready var hostile_sprite: Sprite2D = $sprite_body/hostile
 
 
 func _ready() -> void:
 	super()
 	sprite_body.show()
-	$Control.global_position = global_position
 	if diagonal_laser == true:
-		$laser_container.rotation_degrees = 45
+		laser_container.rotation_degrees = 45
 	
 	markers = [marker_down, marker_up, marker_left, marker_right]
 	spawn_lasers()
@@ -39,15 +40,16 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if hp <= 0:
 		sprite_body.hide()
-		anim_player.stop()
 		if !cleared_lasers:
 			despawn_lasers()
 		return
 	
 	iris_movement()
 	
-	if laser_anim.is_playing() and !anim_player.is_playing():
-		anim_player.play("fire")
+	if laser_ref.is_casting:
+		hostile_sprite.show()
+	else:
+		hostile_sprite.hide()
 
 
 func iris_movement() -> void:
@@ -72,8 +74,8 @@ func set_laser(marker: Marker2D, direction: Vector2) -> void:
 	marker.add_child(laser)
 	laser.target_position = laser_range * direction
 	laser.casting_particle.rotation = direction.angle()
-	if laser_anim == null:
-		laser_anim = laser.animator
+	if laser_ref == null:
+		laser_ref = laser
 
 
 func despawn_lasers() -> void:

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3f4tslf4bqok"]
+
+[ext_resource type="Script" path="res://ui/word_effect/word_effect.gd" id="1_4glup"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8lmcu"]
+font_size = 12
+font_color = Color(0.918529, 0.138762, 0.422265, 1)
+
+[node name="WordEffect" type="Label"]
+offset_right = 64.0
+offset_bottom = 23.0
+text = "HP heal!"
+label_settings = SubResource("LabelSettings_8lmcu")
+script = ExtResource("1_4glup")

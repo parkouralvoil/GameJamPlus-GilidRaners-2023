@@ -7,7 +7,6 @@
 [ext_resource type="TileSet" uid="uid://cprdp3kuq606m" path="res://resources/tilesets/math_floor_tileset.tres" id="4_ayoup"]
 [ext_resource type="PackedScene" uid="uid://bx1ojieysbx4j" path="res://entities/enemy_turrets/enemy_ranged.tscn" id="7_ycumf"]
 [ext_resource type="PackedScene" uid="uid://drqyrkt6rv3xv" path="res://entities/enemy_turrets/enemy_wisp.tscn" id="9_bmslb"]
-[ext_resource type="PackedScene" uid="uid://cqnms27pevlor" path="res://entities/powerups/health.tscn" id="12_g1ied"]
 [ext_resource type="PackedScene" uid="uid://k3e86wyibwv8" path="res://entities/player.tscn" id="12_ilnyr"]
 [ext_resource type="PackedScene" uid="uid://daul7ev5657p5" path="res://levels/level_camera.tscn" id="13_nuuan"]
 [ext_resource type="FontFile" uid="uid://bc6tbjnbiqftj" path="res://temporary_assets/transition/aseprite-remix.ttf" id="14_a525j"]
@@ -15,7 +14,6 @@
 [ext_resource type="PackedScene" uid="uid://bf1s3l40wbjjl" path="res://entities/enemy_turrets/enemy_laser.tscn" id="14_yk517"]
 [ext_resource type="PackedScene" uid="uid://chrai2dqf84l6" path="res://ui/gameover.tscn" id="15_hse5i"]
 [ext_resource type="AudioStream" uid="uid://bv8b4w51vgaox" path="res://resources/music/KOBALT_Lvl_1_Theme.wav" id="16_2sm2a"]
-[ext_resource type="PackedScene" uid="uid://igswfojcw23r" path="res://entities/powerups/coffee.tscn" id="16_4lh67"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_g11de"]
 font = ExtResource("14_a525j")
@@ -133,17 +131,6 @@ position = Vector2(1171, -717)
 
 [node name="enemy_laser3" parent="enemies" instance=ExtResource("14_yk517")]
 position = Vector2(395, -301)
-
-[node name="powerups" type="Node2D" parent="."]
-
-[node name="health2" parent="powerups" instance=ExtResource("12_g1ied")]
-position = Vector2(1076, -429)
-
-[node name="coffee" parent="powerups" instance=ExtResource("16_4lh67")]
-position = Vector2(534, -784)
-
-[node name="health" parent="powerups" instance=ExtResource("12_g1ied")]
-position = Vector2(7, -43)
 
 [node name="Label_endoflvl" type="Label" parent="."]
 offset_left = -695.0

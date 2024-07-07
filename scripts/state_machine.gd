@@ -9,8 +9,9 @@ var states: Dictionary = {}
 func _ready() -> void: # this gets all its child objects which are states
 	for child in get_children():
 		if child is State:
-			states[child.name.to_lower()] = child
-			child.Transitioned.connect(on_child_transition)
+			var s: State = child
+			states[child.name.to_lower()] = s
+			s.Transitioned.connect(on_child_transition)
 	
 	if initial_state:
 		initial_state.Enter()

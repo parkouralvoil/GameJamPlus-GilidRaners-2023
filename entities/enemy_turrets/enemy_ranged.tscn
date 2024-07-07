@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bx1ojieysbx4j"]
+[gd_scene load_steps=13 format=3 uid="uid://bx1ojieysbx4j"]
 
 [ext_resource type="Script" path="res://entities/enemy_turrets/enemy_ranged.gd" id="1_42bwg"]
 [ext_resource type="Texture2D" uid="uid://gcajrb68a3pj" path="res://SPRITES/New_enemy_sprites/Quiz Enemy/Enemy_QuizEnemy_Base_64x64.png" id="2_daagv"]
@@ -70,15 +70,55 @@ tracks/3/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_1y6ck"]
+resource_name = "idle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite_body/eye:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite_body/mouth:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sprite_body/fire:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ahj4m"]
 _data = {
-"fire": SubResource("Animation_h3tel")
+"fire": SubResource("Animation_h3tel"),
+"idle": SubResource("Animation_1y6ck")
 }
 
 [node name="enemy_ranged" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("1_42bwg")
-max_hp = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -2.5)
@@ -104,11 +144,6 @@ texture = ExtResource("5_fwew3")
 visible = false
 texture = ExtResource("6_j51a4")
 
-[node name="TurretAim" type="Node2D" parent="."]
-
-[node name="Marker2D" type="Marker2D" parent="TurretAim"]
-position = Vector2(16, 0)
-
 [node name="Timer_FireRateCD" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
@@ -125,18 +160,11 @@ debug_color = Color(0, 0.729412, 0.854902, 0.0588235)
 target_position = Vector2(0, 0)
 collision_mask = 3
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Label_HP" type="Label" parent="Control"]
-layout_mode = 0
-offset_left = -16.0
-offset_top = 20.0
-offset_right = 27.0
-offset_bottom = 46.0
+[node name="Label_HP" type="Label" parent="."]
+offset_left = -17.0
+offset_top = 29.0
+offset_right = 26.0
+offset_bottom = 55.0
 text = "40/40"
 label_settings = SubResource("LabelSettings_aqcy7")
 

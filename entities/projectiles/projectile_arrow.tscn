@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://lqe2ufitxomu" path="res://SPRITES/Ballpen_Projectile/Ballpen.png" id="2_d42l7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hqfqn"]
-size = Vector2(28.75, 3.75)
+size = Vector2(6.25, 3.75)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nb8at"]
 radius = 5.0
@@ -20,7 +20,8 @@ texture = ExtResource("2_d42l7")
 region_rect = Rect2(4, 13, 24, 7)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.624998, 0.625)
+position = Vector2(10.625, 0.625)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_hqfqn")
 
 [node name="Timer_Range_Lifespan" type="Timer" parent="."]
