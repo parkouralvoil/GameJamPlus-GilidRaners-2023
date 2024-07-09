@@ -1,0 +1,311 @@
+[gd_scene load_steps=14 format=3 uid="uid://k3e86wyibwv8"]
+
+[ext_resource type="SpriteFrames" uid="uid://c2vx75vuqrqi0" path="res://resources/basic_anims.tres" id="2_wr3fr"]
+[ext_resource type="PackedScene" uid="uid://bqxerlcewoj1c" path="res://player/powerup_manager.tscn" id="3_1puy1"]
+[ext_resource type="Script" path="res://scripts/state_machine.gd" id="4_io6d5"]
+[ext_resource type="Script" path="res://player/player states/PlayerOnGround.gd" id="5_nomb2"]
+[ext_resource type="Script" path="res://player/player states/PlayerInAir.gd" id="6_ikxgm"]
+[ext_resource type="Script" path="res://player/player states/PlayerFire.gd" id="7_aomh3"]
+[ext_resource type="Script" path="res://player/player states/PlayerDead.gd" id="8_ybnn8"]
+[ext_resource type="Script" path="res://player/player states/PlayerDash.gd" id="9_qlin8"]
+
+[sub_resource type="GDScript" id="GDScript_rxn5h"]
+script/source = "extends CharacterBody2D
+class_name Player
+
+signal player_died
+
+const BulletPath: PackedScene = preload(\"res://entities/projectiles/projectile_arrow.tscn\")
+
+enum Powerup {none = 0, ballpenBundle = 1, coffee = 2, kwekkwek = 3, kodigo = 4}
+## 0, 1, 2, 3, 4
+
+## g for ground variables
+var g_speed: float = 200
+var g_accel: float = 5000
+var g_jump_speed: float = -350
+var g_friction: float = 4000
+
+## a for air variables
+var a_speed: float = 250
+var a_accel: float = 500
+var a_jump_speed: float = -470
+var a_friction: float = 500
+var gravity: float = ProjectSettings.get_setting(\"physics/2d/default_gravity\")
+
+## d for dash variables
+var d_speed: float = 800
+var d_accel: float = 10000
+
+## stats
+var max_hp: int = 1
+var hp: int = max_hp
+var atk: int = 1
+
+## powerup properties
+var invul: bool = false
+var triple_atk: bool = false
+var speedModifier: float = 0
+
+## controller stuff
+var sensitivity: float = 8.5
+var debounce_time := 0.5 # seconds
+var debounce_timer := 0.0
+
+## projectile info
+var projectile_speed: float = 750
+var projectile_lifespan: float = 0.55
+var mouse_position: Vector2
+
+var controller_input: bool = false
+
+## input logic
+var x_movement: float = 0
+var y_movement: float = 0
+var dash_dir: int = 0 ## input is \"Input.is_action_just_pressed(\"shift_button\")\"
+var fire_input: bool = false
+var can_double_jump: bool = false ## resets when u step on the ground
+var can_dash: bool = true ## resets after dashCD timeout
+var in_iframes: bool = false
+
+var is_firing: bool = false
+var bullet_aim: Vector2
+
+@onready var jump_CD: Timer = $Timers/JumpCD
+@onready var timer_is_firing: Timer = $Timers/IsFiring
+@onready var fire_rate_CD: Timer = $Timers/FireRateCD
+
+@onready var dash_duration: Timer = $Timers/DashDuration
+@onready var dash_CD: Timer = $Timers/DashCD
+
+@onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var jump_particles: GPUParticles2D = $GPUParticles2D_Jump
+
+@onready var state_machine: Node = $\"State Machine\"
+@onready var viewport: Viewport = get_viewport()
+
+func _ready() -> void:
+	mouse_position = viewport.size / 2
+
+
+func _process(_delta: float) -> void:
+	if controller_input:
+		var move_y := Input.get_action_strength(\"cursor_down\") - Input.get_action_strength(\"cursor_up\")
+		var move_x := Input.get_action_strength(\"cursor_right\") - Input.get_action_strength(\"cursor_left\")
+		mouse_position.x += move_x * sensitivity
+		mouse_position.y += move_y * sensitivity
+		
+		mouse_position.x = clamp(mouse_position.x, 0, viewport.size.x - 1)
+		mouse_position.y = clamp(mouse_position.y, 0, viewport.size.y - 1)
+		viewport.warp_mouse(mouse_position)
+	
+	#if SceneManager.menu_open: 
+		#disable_controls()
+		#return
+	
+	bullet_aim = global_position.direction_to(get_global_mouse_position()).normalized()
+	if hp <= 0:
+		fire_input = false
+		anim_sprite.self_modulate = Color(1, 0 ,0)
+		return
+		
+	x_movement = Input.get_axis(\"move_left\", \"move_right\")
+	if Input.is_action_just_pressed(\"move_up\"):
+		y_movement = 1
+	else:
+		y_movement = 0
+	
+	#if Input.is_action_just_pressed(\"interact\"):
+		#useItem()
+	fire_input = Input.is_action_pressed(\"shoot\")
+	
+	if invul:
+		anim_sprite.modulate = Color(0.5, 0.5, 1)
+	else:
+		anim_sprite.modulate = Color(1, 1, 1)
+
+
+func _physics_process(_delta: float) -> void:
+	move_and_slide()
+
+
+func shoot_bullet(pos_modifier: int) -> void:
+	var bullet: Bullet = BulletPath.instantiate()
+	
+	bullet.lifespan = projectile_lifespan
+	get_tree().root.add_child(bullet)
+	
+	bullet.global_position = (global_position + 
+		bullet_aim.rotated(PI/2 * signi(pos_modifier))
+		* absi(pos_modifier)
+		)
+	bullet.direction = bullet_aim
+	bullet.rotation = bullet_aim.angle()
+	bullet.projectile_speed = projectile_speed
+	bullet.damage = atk
+
+
+func take_damage(damage: int) -> void:
+	if invul or in_iframes:
+		pass
+	elif hp - damage > 0:
+		hp -= damage
+		show_damage_visual()
+	else:
+		hp = 0
+		player_died.emit()
+
+
+func show_damage_visual() -> void:
+	var white := Color(1, 1, 1, 1)
+	var red := Color(1, 0.2, 0.2, 1)
+	var gray := Color(0.4, 0.4, 0.4, 0.8)
+	var iframe_duration: float = 1.5
+	var t_dur: float = iframe_duration / 5
+	
+	in_iframes = true
+	var t: Tween = create_tween()
+	t.tween_property(anim_sprite, \"self_modulate\", white, t_dur).from(red)
+	t.tween_property(anim_sprite, \"self_modulate\", gray, t_dur)
+	t.tween_property(anim_sprite, \"self_modulate\", white, t_dur)
+	t.tween_property(anim_sprite, \"self_modulate\", gray, t_dur)
+	t.tween_property(anim_sprite, \"self_modulate\", white, t_dur)
+	await t.finished
+	
+	in_iframes = false
+
+
+func flip_player() -> void:
+	if get_global_mouse_position().x < global_position.x:
+		anim_sprite.scale.x = -1
+	else:
+		anim_sprite.scale.x = 1
+
+
+func fire() -> void: ## called by PlayerFire state
+	is_firing = true
+	fire_rate_CD.start()
+	timer_is_firing.start()
+	
+	if triple_atk:
+		shoot_bullet(8)
+		shoot_bullet(0)
+		shoot_bullet(-8)
+	else:
+		shoot_bullet(0)
+	flip_player()
+
+
+func healConsummable() -> void:
+	var healed_amt: int = 1
+	if hp + healed_amt > max_hp:
+		hp = max_hp
+	else:
+		hp = hp + healed_amt
+
+
+func disable_controls() -> void:
+	x_movement = 0
+	y_movement = 0
+	fire_input = false
+
+
+func _on_timer_dash_cd_timeout() -> void:
+	can_dash = true
+
+
+func _on_timer_is_firing_timeout() -> void:
+	is_firing = false
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l4650"]
+size = Vector2(16, 28)
+
+[sub_resource type="Curve" id="Curve_4jcma"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.985849, 0.0210526), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_3376c"]
+curve = SubResource("Curve_4jcma")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_10tpu"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(7, 4, 1)
+direction = Vector3(0, 1, 0)
+spread = 20.0
+initial_velocity_min = 20.0
+initial_velocity_max = 30.0
+gravity = Vector3(0, -40, 0)
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_3376c")
+color = Color(0.545098, 0.545098, 0.545098, 0.52549)
+
+[node name="player" type="CharacterBody2D"]
+collision_layer = 2
+script = SubResource("GDScript_rxn5h")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.95, 0.95)
+sprite_frames = ExtResource("2_wr3fr")
+animation = &"shoot"
+frame = 5
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_l4650")
+
+[node name="GPUParticles2D_Jump" type="GPUParticles2D" parent="."]
+position = Vector2(0, 14)
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_10tpu")
+lifetime = 0.45
+one_shot = true
+
+[node name="PowerupManager" parent="." node_paths=PackedStringArray("p") instance=ExtResource("3_1puy1")]
+p = NodePath("..")
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="JumpCD" type="Timer" parent="Timers"]
+wait_time = 0.15
+one_shot = true
+
+[node name="DashCD" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="DashDuration" type="Timer" parent="Timers"]
+wait_time = 0.15
+one_shot = true
+
+[node name="IsFiring" type="Timer" parent="Timers"]
+wait_time = 0.12
+one_shot = true
+
+[node name="FireRateCD" type="Timer" parent="Timers"]
+wait_time = 0.2
+one_shot = true
+
+[node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("4_io6d5")
+initial_state = NodePath("PlayerOnGround")
+
+[node name="PlayerOnGround" type="Node" parent="State Machine"]
+script = ExtResource("5_nomb2")
+
+[node name="PlayerInAir" type="Node" parent="State Machine"]
+script = ExtResource("6_ikxgm")
+
+[node name="PlayerFire" type="Node" parent="State Machine"]
+script = ExtResource("7_aomh3")
+
+[node name="PlayerDead" type="Node" parent="State Machine"]
+script = ExtResource("8_ybnn8")
+
+[node name="PlayerDash" type="Node" parent="State Machine"]
+script = ExtResource("9_qlin8")
+
+[connection signal="timeout" from="Timers/DashCD" to="." method="_on_timer_dash_cd_timeout"]
+[connection signal="timeout" from="Timers/IsFiring" to="." method="_on_timer_is_firing_timeout"]

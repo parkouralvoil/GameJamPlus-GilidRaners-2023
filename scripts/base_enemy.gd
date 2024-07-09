@@ -40,9 +40,9 @@ func die() -> void:
 	hp_label.visible = false
 	hitbox.set_deferred("disabled", true)
 
-
-func respawn() -> void:
-	hp = max_hp
-	visible = true
-	hp_label.visible = true
-	hitbox.set_deferred("disabled", false)
+## respawn unnecessary, since level scene is just restarted
+#func respawn() -> void: 
+	#hp = max_hp
+	#visible = true
+	#hp_label.visible = true
+	#hitbox.set_deferred("disabled", false)

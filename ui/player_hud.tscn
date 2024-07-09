@@ -8,7 +8,8 @@
 [sub_resource type="LabelSettings" id="LabelSettings_ydmsw"]
 font_size = 12
 
-[node name="player_hud" type="CanvasLayer"]
+[node name="PlayerHud" type="CanvasLayer"]
+layer = 0
 script = ExtResource("1_jvnbh")
 
 [node name="Control" type="Control" parent="."]

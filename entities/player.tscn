@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://k3e86wyibwv8"]
 
-[ext_resource type="Script" path="res://entities/player.gd" id="1_uppic"]
+[ext_resource type="Script" path="res://entities/player.gd" id="1_w4qc0"]
 [ext_resource type="SpriteFrames" uid="uid://c2vx75vuqrqi0" path="res://resources/basic_anims.tres" id="2_wr3fr"]
 [ext_resource type="PackedScene" uid="uid://bqxerlcewoj1c" path="res://player/powerup_manager.tscn" id="3_1puy1"]
 [ext_resource type="Script" path="res://scripts/state_machine.gd" id="4_io6d5"]
@@ -35,7 +35,7 @@ color = Color(0.545098, 0.545098, 0.545098, 0.52549)
 
 [node name="player" type="CharacterBody2D"]
 collision_layer = 2
-script = ExtResource("1_uppic")
+script = ExtResource("1_w4qc0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.95, 0.95)
@@ -80,10 +80,6 @@ one_shot = true
 wait_time = 0.2
 one_shot = true
 
-[node name="Respawn" type="Timer" parent="Timers"]
-wait_time = 2.5
-one_shot = true
-
 [node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("4_io6d5")
 initial_state = NodePath("PlayerOnGround")
@@ -105,4 +101,3 @@ script = ExtResource("9_qlin8")
 
 [connection signal="timeout" from="Timers/DashCD" to="." method="_on_timer_dash_cd_timeout"]
 [connection signal="timeout" from="Timers/IsFiring" to="." method="_on_timer_is_firing_timeout"]
-[connection signal="timeout" from="Timers/Respawn" to="." method="_on_timer_respawn_timeout"]

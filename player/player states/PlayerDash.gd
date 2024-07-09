@@ -1,9 +1,7 @@
 extends State
 class_name PlayerDash
 
-
 @onready var p: Player = owner
-
 
 func Enter() -> void:
 	if p.anim_sprite:
@@ -17,7 +15,6 @@ func Enter() -> void:
 		p.dash_CD.start()
 	if p.jump_particles:
 		p.jump_particles.emitting = true
-		
 
 
 func Exit() -> void:

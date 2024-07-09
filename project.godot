@@ -11,14 +11,14 @@ config_version=5
 [application]
 
 config/name="GameJamPlus-GilidRaners-2023"
-run/main_scene="res://levels/main.tscn"
+run/main_scene="res://main_scene/main.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 run/max_fps=60
 config/icon="res://icon.svg"
 
 [autoload]
 
-SceneManager="*res://ui/scene_manager.tscn"
+GlobalInfo="*res://scripts/autoloads/global_info.gd"
 
 [debug]
 
@@ -32,7 +32,6 @@ gdscript/warnings/unsafe_call_argument=1
 
 window/size/viewport_width=640
 window/size/viewport_height=360
-window/size/mode=2
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"
@@ -43,6 +42,7 @@ window/stretch/aspect="ignore"
 folder_colors={
 "res://SPRITES/": "pink",
 "res://entities/": "red",
+"res://exports/": "gray",
 "res://resources/": "green",
 "res://temporary_assets/": "gray"
 }

@@ -1,12 +1,17 @@
 extends CanvasLayer
 class_name PlayerHud
 
-@export var p: Player
-
 var max_hp: int = 99
 var buff_duration: float = 999.0
 
 var buff_dur_info: BuffDurationResource = load("res://resources/stats/buff_duration_info.tres")
+var p: Player = null: ## given by Main.gd
+	set(val):
+		p = val
+		if p:
+			show() ## show hud
+		else:
+			hide()
 
 @onready var hp_label: Label = $Control/VBoxContainer/Label_HP
 @onready var coffee_bar: PowerupBarControl = $Control/VBoxContainer/HBoxContainer/CoffeeDurationBar
@@ -27,6 +32,7 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	if not p:
 		return
+	
 	hp = p.hp
 	max_hp = p.max_hp
 	

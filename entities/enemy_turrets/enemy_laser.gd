@@ -85,9 +85,9 @@ func despawn_lasers() -> void:
 		laser.queue_free()
 
 
-func respawn() -> void:
-	super()
-	spawn_lasers()
+#func respawn() -> void:
+	#super()
+	#spawn_lasers()
 
 
 func show_damage_visual() -> void:

@@ -57,7 +57,7 @@ func show_line() -> void:
 		explosion_line_lifetime.start()
 
 
-func player_vision():
+func player_vision() -> void:
 	if not target:
 		player_in_sight = false
 		return

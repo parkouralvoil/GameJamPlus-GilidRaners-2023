@@ -1,14 +1,12 @@
 extends CharacterBody2D
 class_name Player
 
-signal PlayerRespawned
+signal player_died
 
 const BulletPath: PackedScene = preload("res://entities/projectiles/projectile_arrow.tscn")
 
 enum Powerup {none = 0, ballpenBundle = 1, coffee = 2, kwekkwek = 3, kodigo = 4}
 ## 0, 1, 2, 3, 4
-
-@export var respawn_point: Vector2 = Vector2.ZERO
 
 ## g for ground variables
 var g_speed: float = 200
@@ -28,7 +26,7 @@ var d_speed: float = 800
 var d_accel: float = 10000
 
 ## stats
-var max_hp: int = 5
+var max_hp: int = 1
 var hp: int = max_hp
 var atk: int = 1
 
@@ -60,13 +58,10 @@ var in_iframes: bool = false
 
 var is_firing: bool = false
 var bullet_aim: Vector2
-## for PlayerDead.gd
-var just_respawned: bool = false
 
 @onready var jump_CD: Timer = $Timers/JumpCD
 @onready var timer_is_firing: Timer = $Timers/IsFiring
 @onready var fire_rate_CD: Timer = $Timers/FireRateCD
-@onready var respawn_CD: Timer = $Timers/Respawn
 
 @onready var dash_duration: Timer = $Timers/DashDuration
 @onready var dash_CD: Timer = $Timers/DashCD
@@ -78,11 +73,14 @@ var just_respawned: bool = false
 @onready var viewport: Viewport = get_viewport()
 
 func _ready() -> void:
-	respawn_point = global_position
 	mouse_position = viewport.size / 2
 
 
 func _process(_delta: float) -> void:
+	if not GlobalInfo.player_can_move: 
+		disable_controls()
+		return
+	
 	if controller_input:
 		var move_y := Input.get_action_strength("cursor_down") - Input.get_action_strength("cursor_up")
 		var move_x := Input.get_action_strength("cursor_right") - Input.get_action_strength("cursor_left")
@@ -92,10 +90,6 @@ func _process(_delta: float) -> void:
 		mouse_position.x = clamp(mouse_position.x, 0, viewport.size.x - 1)
 		mouse_position.y = clamp(mouse_position.y, 0, viewport.size.y - 1)
 		viewport.warp_mouse(mouse_position)
-	
-	if SceneManager.menu_open: 
-		disable_controls()
-		return
 	
 	bullet_aim = global_position.direction_to(get_global_mouse_position()).normalized()
 	if hp <= 0:
@@ -140,13 +134,15 @@ func shoot_bullet(pos_modifier: int) -> void:
 
 
 func take_damage(damage: int) -> void:
-	if invul or in_iframes:
-		pass
-	elif hp - damage > 0:
+	if invul or in_iframes or not GlobalInfo.player_can_move:
+		return
+	
+	if hp - damage > 0:
 		hp -= damage
 		show_damage_visual()
 	else:
 		hp = 0
+		player_died.emit()
 
 
 func show_damage_visual() -> void:
@@ -187,12 +183,6 @@ func fire() -> void: ## called by PlayerFire state
 	else:
 		shoot_bullet(0)
 	flip_player()
-
-
-func respawn_player() -> void:
-	just_respawned = true
-	emit_signal("PlayerRespawned")
-	anim_sprite.self_modulate = Color(1, 1, 1)
 
 
 func healConsummable() -> void:
