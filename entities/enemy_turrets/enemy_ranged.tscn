@@ -1,20 +1,25 @@
-[gd_scene load_steps=13 format=3 uid="uid://bx1ojieysbx4j"]
+[gd_scene load_steps=14 format=3 uid="uid://bx1ojieysbx4j"]
 
 [ext_resource type="Script" path="res://entities/enemy_turrets/enemy_ranged.gd" id="1_42bwg"]
-[ext_resource type="Texture2D" uid="uid://gcajrb68a3pj" path="res://SPRITES/New_enemy_sprites/Quiz Enemy/Enemy_QuizEnemy_Base_64x64.png" id="2_daagv"]
-[ext_resource type="Texture2D" uid="uid://i7uyxr3xonps" path="res://SPRITES/New_enemy_sprites/Quiz Enemy/Enemy_QuizEnemy_Eyes_64x64.png" id="3_tucyf"]
-[ext_resource type="Texture2D" uid="uid://d0fkr3tpglhtx" path="res://SPRITES/New_enemy_sprites/Quiz Enemy/Enemy_QuizEnemy_Iris_64x64.png" id="4_7aa3k"]
-[ext_resource type="Texture2D" uid="uid://dobvojvoqjtq2" path="res://SPRITES/New_enemy_sprites/Quiz Enemy/Enemy_QuizEnemy_NeutralMouth_64x64.png" id="5_fwew3"]
-[ext_resource type="Texture2D" uid="uid://5uoyet561gst" path="res://SPRITES/New_enemy_sprites/Quiz Enemy/Enemy_QuizEnemy_HostileFace_64x64.png" id="6_j51a4"]
+[ext_resource type="Texture2D" uid="uid://gcajrb68a3pj" path="res://assets_sprites/New_enemy_sprites/Quiz Enemy/Enemy_QuizEnemy_Base_64x64.png" id="2_daagv"]
+[ext_resource type="Texture2D" uid="uid://i7uyxr3xonps" path="res://assets_sprites/New_enemy_sprites/Quiz Enemy/Enemy_QuizEnemy_Eyes_64x64.png" id="3_tucyf"]
+[ext_resource type="Texture2D" uid="uid://d0fkr3tpglhtx" path="res://assets_sprites/New_enemy_sprites/Quiz Enemy/Enemy_QuizEnemy_Iris_64x64.png" id="4_7aa3k"]
+[ext_resource type="Texture2D" uid="uid://dobvojvoqjtq2" path="res://assets_sprites/New_enemy_sprites/Quiz Enemy/Enemy_QuizEnemy_NeutralMouth_64x64.png" id="5_fwew3"]
+[ext_resource type="Texture2D" uid="uid://5uoyet561gst" path="res://assets_sprites/New_enemy_sprites/Quiz Enemy/Enemy_QuizEnemy_HostileFace_64x64.png" id="6_j51a4"]
+[ext_resource type="PackedScene" uid="uid://2lj432wb2lwv" path="res://entities/enemy_turrets/temporary_components/label_hp.tscn" id="7_j2d5s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ag5nj"]
-size = Vector2(34, 45)
+size = Vector2(34, 53)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bkdyh"]
 size = Vector2(640, 497)
 
-[sub_resource type="LabelSettings" id="LabelSettings_aqcy7"]
-font_size = 13
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yjmse"]
+bg_color = Color(0.168627, 0.168627, 0.168627, 0.572549)
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
 
 [sub_resource type="Animation" id="Animation_h3tel"]
 resource_name = "fire"
@@ -121,8 +126,9 @@ collision_layer = 4
 script = ExtResource("1_42bwg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, -2.5)
+position = Vector2(1, 1.5)
 shape = SubResource("RectangleShape2D_ag5nj")
+debug_color = Color(0.768627, 0.388235, 0.580392, 0.419608)
 
 [node name="sprite_body" type="Sprite2D" parent="."]
 texture = ExtResource("2_daagv")
@@ -160,13 +166,12 @@ debug_color = Color(0, 0.729412, 0.854902, 0.0588235)
 target_position = Vector2(0, 0)
 collision_mask = 3
 
-[node name="Label_HP" type="Label" parent="."]
-offset_left = -17.0
+[node name="Label_HP" parent="." instance=ExtResource("7_j2d5s")]
+offset_left = -9.0
 offset_top = 29.0
-offset_right = 26.0
-offset_bottom = 55.0
-text = "40/40"
-label_settings = SubResource("LabelSettings_aqcy7")
+offset_right = 11.0
+offset_bottom = 43.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_yjmse")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

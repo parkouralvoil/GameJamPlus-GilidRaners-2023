@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://mxoou7inl18t"]
 
-[ext_resource type="Texture2D" uid="uid://d0u0s7lb3cb8u" path="res://SPRITES/powerups/Coffee.png" id="1_8h5tc"]
+[ext_resource type="Texture2D" uid="uid://d0u0s7lb3cb8u" path="res://assets_sprites/powerups/Coffee.png" id="1_8h5tc"]
 [ext_resource type="PackedScene" uid="uid://4ndydyc5mn8o" path="res://entities/powerups/powerup_itembox.tscn" id="2_o8skr"]
 
 [node name="Coffee" type="Sprite2D"]

@@ -1,0 +1,124 @@
+[gd_scene load_steps=12 format=3 uid="uid://b0pwaujqpawex"]
+
+[ext_resource type="Script" path="res://levels/lvls/level_script.gd" id="1_sx0eq"]
+[ext_resource type="PackedScene" uid="uid://b2177oncwks71" path="res://levels/tilemaps/tilemap_level_1.tscn" id="2_a5aw4"]
+[ext_resource type="PackedScene" uid="uid://bf1s3l40wbjjl" path="res://entities/enemy_turrets/enemy_laser.tscn" id="3_6bf0s"]
+[ext_resource type="PackedScene" uid="uid://drqyrkt6rv3xv" path="res://entities/enemy_turrets/enemy_wisp.tscn" id="4_jv7gv"]
+[ext_resource type="PackedScene" uid="uid://d0tqkoot0b3qv" path="res://entities/powerups/food.tscn" id="5_2y1ff"]
+[ext_resource type="PackedScene" uid="uid://bx1ojieysbx4j" path="res://entities/enemy_turrets/enemy_ranged.tscn" id="5_nnvs1"]
+[ext_resource type="PackedScene" uid="uid://mxoou7inl18t" path="res://entities/powerups/coffee.tscn" id="6_uu3an"]
+[ext_resource type="PackedScene" uid="uid://k3e86wyibwv8" path="res://entities/player.tscn" id="8_udhqx"]
+[ext_resource type="PackedScene" uid="uid://dum2n6h7pyn1" path="res://levels/level_components/exit.tscn" id="9_rl6wr"]
+[ext_resource type="StyleBox" uid="uid://d06lvwml7mc34" path="res://resources/label_settings/normal_tips_style_box.tres" id="12_4k4gu"]
+[ext_resource type="LabelSettings" uid="uid://gbh43s3sdn51" path="res://resources/label_settings/tips.tres" id="13_v1mgr"]
+
+[node name="Level_1" type="Node2D"]
+z_index = -1
+script = ExtResource("1_sx0eq")
+
+[node name="TilemapLevel_1" parent="." instance=ExtResource("2_a5aw4")]
+
+[node name="Tips" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TipWASD" type="Label" parent="Tips"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = -53.0
+offset_right = 194.0
+offset_bottom = -36.0
+theme_override_styles/normal = ExtResource("12_4k4gu")
+text = "Press (A) or (D) to move left/right.
+Press (SHIFT) to dash."
+label_settings = ExtResource("13_v1mgr")
+
+[node name="TipJUMP" type="Label" parent="Tips"]
+layout_mode = 0
+offset_left = -298.0
+offset_top = -87.0
+offset_right = -202.0
+offset_bottom = -80.0
+theme_override_styles/normal = ExtResource("12_4k4gu")
+text = "Press (SPACE) to jump."
+label_settings = ExtResource("13_v1mgr")
+
+[node name="TipDOUBLE" type="Label" parent="Tips"]
+layout_mode = 0
+offset_left = -609.0
+offset_top = -283.0
+offset_right = -494.0
+offset_bottom = -266.0
+theme_override_styles/normal = ExtResource("12_4k4gu")
+text = "Press (SPACE) while mid-air
+to double jump."
+label_settings = ExtResource("13_v1mgr")
+
+[node name="TipATTACK" type="Label" parent="Tips"]
+layout_mode = 0
+offset_left = -336.0
+offset_top = -277.0
+offset_right = -217.0
+offset_bottom = -270.0
+theme_override_styles/normal = ExtResource("12_4k4gu")
+text = "Press (LEFT CLICK) to shoot."
+label_settings = ExtResource("13_v1mgr")
+
+[node name="TipPOWERUP" type="Label" parent="Tips"]
+layout_mode = 0
+offset_left = -356.0
+offset_top = -583.0
+offset_right = -223.0
+offset_bottom = -566.0
+theme_override_styles/normal = ExtResource("12_4k4gu")
+text = "Touch POWERUPS to gain 
+temporary buffs."
+label_settings = ExtResource("13_v1mgr")
+
+[node name="TipSCORE" type="Label" parent="Tips"]
+layout_mode = 0
+offset_left = -123.0
+offset_top = -397.0
+offset_right = 53.0
+offset_bottom = -380.0
+theme_override_styles/normal = ExtResource("12_4k4gu")
+text = "Defeating enemies increases your grades.
+ (grades in-game, not school grades) "
+label_settings = ExtResource("13_v1mgr")
+
+[node name="TipLAST" type="Label" parent="Tips"]
+layout_mode = 0
+offset_left = -854.0
+offset_top = -856.0
+offset_right = -726.0
+offset_bottom = -849.0
+theme_override_styles/normal = ExtResource("12_4k4gu")
+text = "Reach the exit door to finish! "
+label_settings = ExtResource("13_v1mgr")
+
+[node name="EnemyHolder" type="Node2D" parent="."]
+
+[node name="enemy_laser" parent="EnemyHolder" instance=ExtResource("3_6bf0s")]
+position = Vector2(-802, -659)
+
+[node name="enemy_wisp" parent="EnemyHolder" instance=ExtResource("4_jv7gv")]
+position = Vector2(-794, -936)
+
+[node name="enemy_ranged" parent="EnemyHolder" instance=ExtResource("5_nnvs1")]
+position = Vector2(-107, -306)
+
+[node name="PowerupHolder" type="Node2D" parent="."]
+
+[node name="Food" parent="PowerupHolder" instance=ExtResource("5_2y1ff")]
+position = Vector2(-227.96, -520)
+
+[node name="Coffee" parent="PowerupHolder" instance=ExtResource("6_uu3an")]
+position = Vector2(-380.96, -520)
+
+[node name="Player" parent="." instance=ExtResource("8_udhqx")]
+position = Vector2(200, -35)
+
+[node name="Exit" parent="." instance=ExtResource("9_rl6wr")]
+position = Vector2(-968, -972)

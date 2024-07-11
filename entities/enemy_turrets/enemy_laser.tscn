@@ -1,18 +1,16 @@
 [gd_scene load_steps=8 format=3 uid="uid://bf1s3l40wbjjl"]
 
 [ext_resource type="Script" path="res://entities/enemy_turrets/enemy_laser.gd" id="1_f6uyk"]
-[ext_resource type="Texture2D" uid="uid://cb1bt076t1a6x" path="res://SPRITES/New_enemy_sprites/Project Enemy/ProjectBody1.png" id="2_uum00"]
-[ext_resource type="Texture2D" uid="uid://bbhappx64oiwm" path="res://SPRITES/New_enemy_sprites/Project Enemy/ProjectEye1.png" id="3_v3k75"]
-[ext_resource type="Texture2D" uid="uid://ceybokm7ndon3" path="res://SPRITES/New_enemy_sprites/Project Enemy/Enemy_ProjectEnemy_Attack_64x64.png" id="4_u4bae"]
+[ext_resource type="Texture2D" uid="uid://cb1bt076t1a6x" path="res://assets_sprites/New_enemy_sprites/Project Enemy/ProjectBody1.png" id="2_uum00"]
+[ext_resource type="Texture2D" uid="uid://bbhappx64oiwm" path="res://assets_sprites/New_enemy_sprites/Project Enemy/ProjectEye1.png" id="3_v3k75"]
+[ext_resource type="Texture2D" uid="uid://ceybokm7ndon3" path="res://assets_sprites/New_enemy_sprites/Project Enemy/Enemy_ProjectEnemy_Attack_64x64.png" id="4_u4bae"]
+[ext_resource type="PackedScene" uid="uid://2lj432wb2lwv" path="res://entities/enemy_turrets/temporary_components/label_hp.tscn" id="5_0wnjw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ag5nj"]
-size = Vector2(50, 29)
+size = Vector2(50, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bkdyh"]
 size = Vector2(658, 638)
-
-[sub_resource type="LabelSettings" id="LabelSettings_aqcy7"]
-font_size = 13
 
 [node name="enemy_laser" type="CharacterBody2D"]
 position = Vector2(0, 1)
@@ -49,8 +47,9 @@ position = Vector2(-23, -12)
 position = Vector2(23, -12)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -11.5)
+position = Vector2(0, -6)
 shape = SubResource("RectangleShape2D_ag5nj")
+debug_color = Color(0.756863, 0.376471, 0.670588, 0.419608)
 
 [node name="Area2D_PlayerNearby" type="Area2D" parent="."]
 collision_layer = 0
@@ -61,13 +60,11 @@ position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_bkdyh")
 debug_color = Color(0.392157, 0.886275, 1, 0.0901961)
 
-[node name="Label_HP" type="Label" parent="."]
-offset_left = -18.0
-offset_top = 18.0
-offset_right = 25.0
-offset_bottom = 44.0
-text = "40/40"
-label_settings = SubResource("LabelSettings_aqcy7")
+[node name="Label_HP" parent="." instance=ExtResource("5_0wnjw")]
+offset_left = -11.0
+offset_top = 22.0
+offset_right = 9.0
+offset_bottom = 36.0
 
 [connection signal="body_entered" from="Area2D_PlayerNearby" to="." method="_on_area_2d_player_nearby_body_entered"]
 [connection signal="body_exited" from="Area2D_PlayerNearby" to="." method="_on_area_2d_player_nearby_body_exited"]

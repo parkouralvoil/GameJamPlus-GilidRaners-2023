@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://5np362sw5a5t"]
+[gd_scene load_steps=9 format=3 uid="uid://5np362sw5a5t"]
 
 [ext_resource type="Script" path="res://main_scene/main.gd" id="1_f42i5"]
 [ext_resource type="PackedScene" uid="uid://cwtuskfpjx053" path="res://ui/player_hud.tscn" id="3_6nyuj"]
@@ -7,14 +7,17 @@
 [ext_resource type="PackedScene" uid="uid://b0c2uyodj5a3d" path="res://ui/main_UI_screens/win.tscn" id="6_glyfp"]
 [ext_resource type="Script" path="res://main_scene/BlackScreenTransition.gd" id="6_jo6xu"]
 [ext_resource type="PackedScene" uid="uid://daoo34xkqoi76" path="res://ui/menu.tscn" id="7_7wq1i"]
+[ext_resource type="PackedScene" uid="uid://b55fmbmxkqd6w" path="res://ui/main_UI_screens/select_level.tscn" id="7_mgaey"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_f42i5")
 
 [node name="PlayerHud" parent="." instance=ExtResource("3_6nyuj")]
 
-[node name="LevelCamera" parent="." instance=ExtResource("4_43vdt")]
+[node name="Camera" parent="." instance=ExtResource("4_43vdt")]
 position_smoothing_enabled = false
+
+[node name="LevelManager" type="Node" parent="."]
 
 [node name="Gameover" parent="." instance=ExtResource("5_1ejaj")]
 visible = false
@@ -23,6 +26,9 @@ visible = false
 visible = false
 
 [node name="Menu" parent="." instance=ExtResource("7_7wq1i")]
+
+[node name="SelectLevel" parent="." instance=ExtResource("7_mgaey")]
+visible = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

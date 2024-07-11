@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://2lj432wb2lwv"]
+
+[ext_resource type="StyleBox" uid="uid://d06lvwml7mc34" path="res://resources/label_settings/normal_tips_style_box.tres" id="1_b2nfd"]
+[ext_resource type="FontFile" uid="uid://bc6tbjnbiqftj" path="res://assets_other/transition/aseprite-remix.ttf" id="2_p6d1y"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7v786"]
+font = ExtResource("2_p6d1y")
+font_size = 14
+
+[node name="Label_HP" type="Label"]
+offset_right = 20.0
+offset_bottom = 14.0
+theme_override_styles/normal = ExtResource("1_b2nfd")
+text = "1/1"
+label_settings = SubResource("LabelSettings_7v786")

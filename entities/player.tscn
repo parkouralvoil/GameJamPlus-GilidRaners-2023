@@ -25,24 +25,23 @@ particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(7, 4, 1)
 direction = Vector3(0, 1, 0)
-spread = 20.0
-initial_velocity_min = 20.0
-initial_velocity_max = 30.0
+spread = 40.0
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
 gravity = Vector3(0, -40, 0)
-scale_max = 2.0
+scale_min = 4.0
+scale_max = 4.0
 scale_curve = SubResource("CurveTexture_3376c")
-color = Color(0.545098, 0.545098, 0.545098, 0.52549)
+color = Color(1, 1, 1, 0.866667)
 
-[node name="player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_w4qc0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.95, 0.95)
 sprite_frames = ExtResource("2_wr3fr")
-animation = &"shoot"
-frame = 5
-frame_progress = 1.0
+animation = &"dash"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
@@ -51,10 +50,11 @@ shape = SubResource("RectangleShape2D_l4650")
 [node name="GPUParticles2D_Jump" type="GPUParticles2D" parent="."]
 position = Vector2(0, 14)
 emitting = false
-amount = 50
+amount = 25
 process_material = SubResource("ParticleProcessMaterial_10tpu")
 lifetime = 0.45
 one_shot = true
+explosiveness = 1.0
 
 [node name="PowerupManager" parent="." node_paths=PackedStringArray("p") instance=ExtResource("3_1puy1")]
 p = NodePath("..")

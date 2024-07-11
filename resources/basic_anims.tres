@@ -1,6 +1,6 @@
 [gd_resource type="SpriteFrames" load_steps=42 format=3 uid="uid://c2vx75vuqrqi0"]
 
-[ext_resource type="Texture2D" uid="uid://cgp374kapkmlr" path="res://SPRITES/Animations/Protagonist Sheet_Summa_64x64.png" id="1_uaxma"]
+[ext_resource type="Texture2D" uid="uid://cgp374kapkmlr" path="res://assets_sprites/Animations/Protagonist Sheet_Summa_64x64.png" id="1_uaxma"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_inyjc"]
 atlas = ExtResource("1_uaxma")
@@ -203,7 +203,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"dash",
-"speed": 30.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,

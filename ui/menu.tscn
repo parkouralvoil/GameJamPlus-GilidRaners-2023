@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://daoo34xkqoi76"]
 
 [ext_resource type="Script" path="res://ui/menu.gd" id="1_6uaf6"]
-[ext_resource type="Texture2D" uid="uid://bpitfvaxxks0y" path="res://SPRITES/MenuUI/TitleScreen.png" id="2_syoat"]
+[ext_resource type="Texture2D" uid="uid://bpitfvaxxks0y" path="res://assets_sprites/UI_screens/TitleScreen.png" id="2_mmn85"]
 
 [node name="Menu" type="CanvasLayer"]
 script = ExtResource("1_6uaf6")
@@ -10,33 +10,57 @@ script = ExtResource("1_6uaf6")
 offset_right = 2880.0
 offset_bottom = 1620.0
 scale = Vector2(0.222299, 0.220139)
-texture = ExtResource("2_syoat")
+texture = ExtResource("2_mmn85")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_left = 33.0
-offset_top = 198.0
-offset_right = 209.0
+offset_left = 36.0
+offset_top = 161.0
+offset_right = 198.0
 offset_bottom = 322.0
+color = Color(0.282353, 0.560784, 0.596078, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainerInitial" type="VBoxContainer" parent="."]
 offset_left = 45.0
-offset_top = 190.0
+offset_top = 183.0
 offset_right = 187.0
-offset_bottom = 291.0
+offset_bottom = 300.0
+theme_override_constants/separation = 12
 
-[node name="ButtonPlay" type="Button" parent="VBoxContainer"]
+[node name="ButtonPlay" type="Button" parent="VBoxContainerInitial"]
 layout_mode = 2
 text = "Play"
 
-[node name="ButtonOptions" type="Button" parent="VBoxContainer"]
-visible = false
+[node name="ButtonOptions" type="Button" parent="VBoxContainerInitial"]
 layout_mode = 2
-text = "Options"
+text = "Options WIP"
 
-[node name="ButtonExit" type="Button" parent="VBoxContainer"]
+[node name="ButtonExit" type="Button" parent="VBoxContainerInitial"]
 layout_mode = 2
 text = "Exit"
 
-[connection signal="pressed" from="VBoxContainer/ButtonPlay" to="." method="_on_button_play_pressed"]
-[connection signal="pressed" from="VBoxContainer/ButtonOptions" to="." method="_on_button_options_pressed"]
-[connection signal="pressed" from="VBoxContainer/ButtonExit" to="." method="_on_button_exit_pressed"]
+[node name="VBoxContainerPlay" type="VBoxContainer" parent="."]
+visible = false
+offset_left = 45.0
+offset_top = 183.0
+offset_right = 187.0
+offset_bottom = 284.0
+theme_override_constants/separation = 12
+
+[node name="ButtonNewGame" type="Button" parent="VBoxContainerPlay"]
+layout_mode = 2
+text = "New Game"
+
+[node name="ButtonLevelSelect" type="Button" parent="VBoxContainerPlay"]
+layout_mode = 2
+text = "Select Level"
+
+[node name="ButtonBack" type="Button" parent="VBoxContainerPlay"]
+layout_mode = 2
+text = "Back"
+
+[connection signal="pressed" from="VBoxContainerInitial/ButtonPlay" to="." method="_on_button_play_pressed"]
+[connection signal="pressed" from="VBoxContainerInitial/ButtonOptions" to="." method="_on_button_options_pressed"]
+[connection signal="pressed" from="VBoxContainerInitial/ButtonExit" to="." method="_on_button_exit_pressed"]
+[connection signal="pressed" from="VBoxContainerPlay/ButtonNewGame" to="." method="_on_button_new_game_pressed"]
+[connection signal="pressed" from="VBoxContainerPlay/ButtonLevelSelect" to="." method="_on_button_level_select_pressed"]
+[connection signal="pressed" from="VBoxContainerPlay/ButtonBack" to="." method="_on_button_back_pressed"]

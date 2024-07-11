@@ -26,7 +26,7 @@ var d_speed: float = 800
 var d_accel: float = 10000
 
 ## stats
-var max_hp: int = 1
+var max_hp: int = 5
 var hp: int = max_hp
 var atk: int = 1
 

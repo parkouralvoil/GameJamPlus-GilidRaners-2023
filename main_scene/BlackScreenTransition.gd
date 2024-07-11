@@ -5,7 +5,7 @@ signal transition_finished
 
 var opaque := Color(0, 0, 0, 1)
 var transparent := Color(0, 0, 0, 0)
-var transition_duration: float = 0.5
+var transition_duration: float = 0.8
 
 func _ready() -> void:
 	hide()

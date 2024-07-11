@@ -40,11 +40,11 @@ window/stretch/aspect="ignore"
 [file_customization]
 
 folder_colors={
-"res://SPRITES/": "pink",
+"res://assets_other/": "gray",
+"res://assets_sprites/": "pink",
 "res://entities/": "red",
-"res://exports/": "gray",
-"res://resources/": "green",
-"res://temporary_assets/": "gray"
+"res://exports/": "yellow",
+"res://resources/": "green"
 }
 
 [filesystem]

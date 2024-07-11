@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://c5mnfussuwtot"]
 
 [ext_resource type="Script" path="res://entities/projectiles/projectile_arrow.gd" id="1_bk0qx"]
-[ext_resource type="Texture2D" uid="uid://lqe2ufitxomu" path="res://SPRITES/Ballpen_Projectile/Ballpen.png" id="2_d42l7"]
+[ext_resource type="Texture2D" uid="uid://lqe2ufitxomu" path="res://assets_sprites/Ballpen_Projectile/Ballpen.png" id="2_d42l7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hqfqn"]
 size = Vector2(6.25, 3.75)

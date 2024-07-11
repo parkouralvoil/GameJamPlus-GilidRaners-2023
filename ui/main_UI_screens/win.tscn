@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b0c2uyodj5a3d"]
 
 [ext_resource type="Script" path="res://ui/main_UI_screens/win.gd" id="1_4ubd7"]
-[ext_resource type="Texture2D" uid="uid://1muatx7d2tyk" path="res://SPRITES/Win.png" id="1_m1vnk"]
+[ext_resource type="Texture2D" uid="uid://1muatx7d2tyk" path="res://assets_sprites/UI_screens/Win.png" id="1_m1vnk"]
 
 [node name="Win" type="CanvasLayer"]
 script = ExtResource("1_4ubd7")

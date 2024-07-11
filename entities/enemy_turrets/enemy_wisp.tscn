@@ -1,8 +1,9 @@
 [gd_scene load_steps=8 format=3 uid="uid://drqyrkt6rv3xv"]
 
 [ext_resource type="Script" path="res://entities/enemy_turrets/enemy_wisp.gd" id="1_ltqhk"]
-[ext_resource type="Texture2D" uid="uid://q2ibsvmfnoyi" path="res://SPRITES/New_enemy_sprites/Sudden Recitation/Enemy_SuddenRecitationEnemy_64x64.png.png" id="2_3mbw8"]
+[ext_resource type="Texture2D" uid="uid://q2ibsvmfnoyi" path="res://assets_sprites/New_enemy_sprites/Sudden Recitation/Enemy_SuddenRecitationEnemy_64x64.png.png" id="2_3mbw8"]
 [ext_resource type="PackedScene" uid="uid://brcmthhoohsbe" path="res://entities/projectiles/delayed_aoe.tscn" id="3_rui0l"]
+[ext_resource type="PackedScene" uid="uid://2lj432wb2lwv" path="res://entities/enemy_turrets/temporary_components/label_hp.tscn" id="4_6313f"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_eqwra"]
 animations = [{
@@ -17,9 +18,6 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8ipe4"]
 size = Vector2(46, 33)
-
-[sub_resource type="LabelSettings" id="LabelSettings_benym"]
-font_size = 13
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a7ol7"]
 size = Vector2(1800, 1400)
@@ -58,14 +56,6 @@ shape = SubResource("RectangleShape2D_8ipe4")
 target_position = Vector2(0, 0)
 collision_mask = 3
 
-[node name="Label_HP" type="Label" parent="."]
-offset_left = -20.0
-offset_top = 26.0
-offset_right = 23.0
-offset_bottom = 52.0
-text = "40/40"
-label_settings = SubResource("LabelSettings_benym")
-
 [node name="Area2D_PlayerNearby" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
@@ -81,6 +71,12 @@ one_shot = true
 [node name="Timer_Line" type="Timer" parent="."]
 wait_time = 0.6
 one_shot = true
+
+[node name="Label_HP" parent="." instance=ExtResource("4_6313f")]
+offset_left = -8.0
+offset_top = 29.0
+offset_right = 12.0
+offset_bottom = 43.0
 
 [connection signal="body_entered" from="Area2D_PlayerNearby" to="." method="_on_area_2d_player_nearby_body_entered"]
 [connection signal="body_exited" from="Area2D_PlayerNearby" to="." method="_on_area_2d_player_nearby_body_exited"]

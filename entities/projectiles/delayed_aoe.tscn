@@ -1,9 +1,9 @@
 [gd_scene load_steps=12 format=3 uid="uid://brcmthhoohsbe"]
 
 [ext_resource type="Script" path="res://entities/projectiles/delayed_aoe.gd" id="1_eqgal"]
-[ext_resource type="Texture2D" uid="uid://b20w5dnll1xsg" path="res://temporary_assets/blue_circle.png" id="2_1fkwf"]
-[ext_resource type="Texture2D" uid="uid://ckfc87v4rfkeg" path="res://temporary_assets/red_circle.png" id="3_nicmw"]
-[ext_resource type="Texture2D" uid="uid://cwihixqqodq3y" path="res://SPRITES/Animations/Explosion.png" id="4_7o6xc"]
+[ext_resource type="Texture2D" uid="uid://b20w5dnll1xsg" path="res://assets_other/blue_circle.png" id="2_1fkwf"]
+[ext_resource type="Texture2D" uid="uid://ckfc87v4rfkeg" path="res://assets_other/red_circle.png" id="3_nicmw"]
+[ext_resource type="Texture2D" uid="uid://cwihixqqodq3y" path="res://assets_sprites/Animations/Explosion.png" id="4_7o6xc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c5b8v"]
 radius = 427.617

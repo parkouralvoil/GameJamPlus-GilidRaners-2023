@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://4ndydyc5mn8o"]
 
 [ext_resource type="Script" path="res://entities/powerups/powerup_itembox.gd" id="1_h7i2x"]
-[ext_resource type="Texture2D" uid="uid://ckblmqcnrwfnb" path="res://SPRITES/other/100x100 white circle.png" id="2_pud3x"]
+[ext_resource type="Texture2D" uid="uid://ckblmqcnrwfnb" path="res://assets_sprites/other/100x100 white circle.png" id="2_pud3x"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8jkws"]
 radius = 17.0294

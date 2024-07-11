@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://ui/bars/powerup_bars/powerup_bar.gd" id="1_l1fuu"]
 [ext_resource type="PackedScene" uid="uid://clfmaj60ep5cf" path="res://ui/bars/circular_green_bar.tscn" id="1_q32qn"]
-[ext_resource type="Texture2D" uid="uid://prmgflqga6wt" path="res://SPRITES/powerups/Kodigo.png" id="2_jf87f"]
+[ext_resource type="Texture2D" uid="uid://prmgflqga6wt" path="res://assets_sprites/powerups/Kodigo.png" id="2_jf87f"]
 
 [node name="InvulnerableDurationBar" type="Control"]
 layout_mode = 3

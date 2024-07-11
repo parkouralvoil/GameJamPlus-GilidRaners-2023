@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://clfmaj60ep5cf" path="res://ui/bars/circular_green_bar.tscn" id="1_d5dqa"]
 [ext_resource type="Script" path="res://ui/bars/powerup_bars/powerup_bar.gd" id="1_vw4wk"]
-[ext_resource type="Texture2D" uid="uid://d0u0s7lb3cb8u" path="res://SPRITES/powerups/Coffee.png" id="2_w7bnr"]
+[ext_resource type="Texture2D" uid="uid://d0u0s7lb3cb8u" path="res://assets_sprites/powerups/Coffee.png" id="2_w7bnr"]
 
 [node name="CoffeeDurationBar" type="Control"]
 layout_mode = 3

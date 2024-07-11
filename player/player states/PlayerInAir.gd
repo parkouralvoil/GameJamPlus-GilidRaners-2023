@@ -77,7 +77,7 @@ func air_movement(input_delta: float) -> void:
 func air_jump() -> void:
 	if p.y_movement == 1 and p.jump_CD.is_stopped() and p.can_double_jump and p.dash_duration.is_stopped():
 		p.velocity = Vector2(p.velocity.x, p.a_jump_speed)
-		p.jump_particles.emitting = true
+		p.jump_particles.restart()
 		p.jump_CD.start()
 		p.can_double_jump = false
 #		if p.x_movement == 0:

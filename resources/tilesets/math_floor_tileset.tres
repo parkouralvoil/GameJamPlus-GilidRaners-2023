@@ -1,7 +1,7 @@
 [gd_resource type="TileSet" load_steps=5 format=3 uid="uid://cprdp3kuq606m"]
 
-[ext_resource type="Texture2D" uid="uid://b7wxnkaxym52p" path="res://SPRITES/Math building/rainbow floor.png" id="1_u5sm7"]
-[ext_resource type="Texture2D" uid="uid://ddbo85pycqjwq" path="res://SPRITES/Math building/rainbow floor v2.png" id="2_s5trk"]
+[ext_resource type="Texture2D" uid="uid://b7wxnkaxym52p" path="res://assets_sprites/tilesets/Math building/rainbow floor.png" id="1_u5sm7"]
+[ext_resource type="Texture2D" uid="uid://ddbo85pycqjwq" path="res://assets_sprites/tilesets/Math building/rainbow floor v2.png" id="2_s5trk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m5s2h"]
 texture = ExtResource("1_u5sm7")

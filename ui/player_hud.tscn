@@ -1,12 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://cwtuskfpjx053"]
+[gd_scene load_steps=8 format=3 uid="uid://cwtuskfpjx053"]
 
 [ext_resource type="Script" path="res://ui/player_hud.gd" id="1_jvnbh"]
+[ext_resource type="StyleBox" uid="uid://d06lvwml7mc34" path="res://resources/label_settings/normal_tips_style_box.tres" id="2_226ks"]
+[ext_resource type="FontFile" uid="uid://bc6tbjnbiqftj" path="res://assets_other/transition/aseprite-remix.ttf" id="2_clue1"]
 [ext_resource type="PackedScene" uid="uid://jvbbluwspua8" path="res://ui/bars/powerup_bars/penbundle_duration_bar.tscn" id="2_hbhab"]
 [ext_resource type="PackedScene" uid="uid://dpyjemnbbm1p5" path="res://ui/bars/powerup_bars/coffee_duration_bar.tscn" id="3_mrkl4"]
 [ext_resource type="PackedScene" uid="uid://b37pjadqrb7u2" path="res://ui/bars/powerup_bars/invulnerable_duration_bar.tscn" id="4_6x5mv"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_ydmsw"]
-font_size = 12
+[sub_resource type="LabelSettings" id="LabelSettings_7h65w"]
+font = ExtResource("2_clue1")
+font_size = 14
 
 [node name="PlayerHud" type="CanvasLayer"]
 layer = 0
@@ -18,27 +21,18 @@ anchors_preset = 0
 offset_right = 76.0
 offset_bottom = 65.0
 
-[node name="ColorRect" type="ColorRect" parent="Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 106.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.129412, 0.129412, 0.129412, 0.631373)
-
 [node name="VBoxContainer" type="VBoxContainer" parent="Control"]
 layout_mode = 0
-offset_left = 5.0
-offset_right = 67.0
-offset_bottom = 59.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 126.0
+offset_bottom = 65.0
 
 [node name="Label_HP" type="Label" parent="Control/VBoxContainer"]
 layout_mode = 2
+theme_override_styles/normal = ExtResource("2_226ks")
 text = "HP: 5/5 "
-label_settings = SubResource("LabelSettings_ydmsw")
+label_settings = SubResource("LabelSettings_7h65w")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer"]
 custom_minimum_size = Vector2(10, 10)

@@ -1,0 +1,110 @@
+[gd_scene load_steps=3 format=3 uid="uid://b55fmbmxkqd6w"]
+
+[ext_resource type="Script" path="res://ui/main_UI_screens/select_level.gd" id="1_2ktxn"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_u1pj5"]
+font_size = 24
+font_color = Color(0.964706, 0.878431, 0.901961, 1)
+
+[node name="SelectLevel" type="CanvasLayer"]
+script = ExtResource("1_2ktxn")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackgroundRed" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.67451, 0.372549, 0.478431, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 20
+
+[node name="BackgroundWhite" type="ColorRect" parent="MarginContainer"]
+layout_mode = 2
+color = Color(0.941176, 0.827451, 0.858824, 1)
+
+[node name="LevelButtons" type="VBoxContainer" parent="."]
+offset_left = 70.0
+offset_top = 93.0
+offset_right = 204.0
+offset_bottom = 299.0
+theme_override_constants/separation = 8
+
+[node name="Level1" type="Button" parent="LevelButtons"]
+layout_mode = 2
+text = "1: Study Room "
+alignment = 0
+
+[node name="Level2" type="Button" parent="LevelButtons"]
+layout_mode = 2
+text = "2: Pop Quiz"
+alignment = 0
+
+[node name="Level3" type="Button" parent="LevelButtons"]
+layout_mode = 2
+text = "3: Late for Class! WIP"
+alignment = 0
+
+[node name="Level4" type="Button" parent="LevelButtons"]
+layout_mode = 2
+text = "4: Recitation WIP"
+alignment = 0
+
+[node name="Level5" type="Button" parent="LevelButtons"]
+layout_mode = 2
+text = "5: (old lvl 1)  WIP"
+alignment = 0
+
+[node name="Level6" type="Button" parent="LevelButtons"]
+layout_mode = 2
+text = "6: (old lvl 2) WIP"
+alignment = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 25.0
+offset_bottom = 85.0
+grow_horizontal = 2
+
+[node name="Panel" type="Panel" parent="CenterContainer"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer"]
+layout_mode = 2
+text = "Level Selection Menu"
+label_settings = SubResource("LabelSettings_u1pj5")
+
+[node name="BackButton" type="Button" parent="."]
+offset_left = 521.0
+offset_top = 300.0
+offset_right = 596.0
+offset_bottom = 331.0
+text = "Back"
+
+[connection signal="pressed" from="LevelButtons/Level1" to="." method="_on_level_1_pressed"]
+[connection signal="pressed" from="LevelButtons/Level2" to="." method="_on_level_2_pressed"]
+[connection signal="pressed" from="LevelButtons/Level3" to="." method="_on_level_3_pressed"]
+[connection signal="pressed" from="LevelButtons/Level4" to="." method="_on_level_4_pressed"]
+[connection signal="pressed" from="LevelButtons/Level5" to="." method="_on_level_5_pressed"]
+[connection signal="pressed" from="LevelButtons/Level6" to="." method="_on_level_6_pressed"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

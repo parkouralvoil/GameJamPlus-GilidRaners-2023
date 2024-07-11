@@ -1,10 +1,10 @@
 [gd_resource type="TileSet" load_steps=11 format=3 uid="uid://cticwbi1drxjt"]
 
-[ext_resource type="Texture2D" uid="uid://w5qwx1ee4yng" path="res://SPRITES/Math building/pipes.png" id="1_tiy7p"]
-[ext_resource type="Texture2D" uid="uid://d4i5knj8pfiei" path="res://SPRITES/Math building/pattern.png" id="2_wowl4"]
-[ext_resource type="Texture2D" uid="uid://skko1u51uva3" path="res://SPRITES/Math building/letters complete.png" id="3_vkdi6"]
-[ext_resource type="Texture2D" uid="uid://d2tn14j3y5bk1" path="res://SPRITES/Math building/classroom.png" id="4_c584c"]
-[ext_resource type="Texture2D" uid="uid://caxekq70v0htq" path="res://SPRITES/Math building/chair.png" id="5_cakqp"]
+[ext_resource type="Texture2D" uid="uid://w5qwx1ee4yng" path="res://assets_sprites/tilesets/Math building/pipes.png" id="1_tiy7p"]
+[ext_resource type="Texture2D" uid="uid://d4i5knj8pfiei" path="res://assets_sprites/tilesets/Math building/pattern.png" id="2_wowl4"]
+[ext_resource type="Texture2D" uid="uid://skko1u51uva3" path="res://assets_sprites/tilesets/Math building/letters complete.png" id="3_vkdi6"]
+[ext_resource type="Texture2D" uid="uid://d2tn14j3y5bk1" path="res://assets_sprites/tilesets/Math building/classroom.png" id="4_c584c"]
+[ext_resource type="Texture2D" uid="uid://caxekq70v0htq" path="res://assets_sprites/tilesets/Math building/chair.png" id="5_cakqp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8iifc"]
 texture = ExtResource("1_tiy7p")
