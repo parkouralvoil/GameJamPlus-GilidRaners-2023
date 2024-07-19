@@ -9,7 +9,10 @@ const lvl_3: PackedScene = preload("res://levels/lvls/lvl_3.tscn")
 const lvl_4: PackedScene = preload("res://levels/lvls/lvl_4.tscn")
 const lvl_5: PackedScene = preload("res://levels/lvls/lvl_5.tscn")
 
-var tracked_level: PackedScene
+var tracked_level: PackedScene:
+	set(scene):
+		tracked_level = scene
+		_change_music()
 
 @onready var current_level: Level # = $TestLevel
 @onready var player: Player
@@ -23,6 +26,7 @@ var tracked_level: PackedScene
 @onready var select_level_screen: SelectLevelMenu = $SelectLevel
 
 @onready var black_screen: BlackScreenTransition = $CanvasLayer/BlackScreenTransition
+@onready var pause_menu: PauseMenuScreen = $PauseMenu
 
 func _ready() -> void:
 	menu_screen.pressed_play.connect(begin_game.bind(lvl_1))
@@ -36,14 +40,14 @@ func _ready() -> void:
 	
 	game_over_screen.restart_pressed.connect(reset_scene)
 	win_screen.menu_pressed.connect(show_menu)
-
+	
+	pause_menu.can_pause = false
 
 func _process(_delta: float) -> void:
 	if not player:
 		return
 	
 	camera.global_position = player.global_position
-	
 
 
 func _input(event: InputEvent) -> void:
@@ -67,9 +71,11 @@ func reset_scene() -> void:
 func _next_lvl_or_end() -> void:
 	if tracked_level: ## theres still a next level
 		_add_level_to_tree()
+		pause_menu.can_pause = true
 	else: ## win screen -> main menu
 		current_level = null
 		show_win_screen()
+		pause_menu.can_pause = false
 	black_screen.in_next_scene()
 
 
@@ -122,6 +128,7 @@ func show_game_over() -> void:
 
 
 func show_win_screen() -> void:
+	SoundManager.play_victory_sfx()
 	win_screen.show()
 	menu_screen.hide()
 
@@ -138,3 +145,19 @@ func show_menu() -> void:
 func _hide_UI_screens() -> void:
 	menu_screen.hide()
 	select_level_screen.hide()
+
+
+func _change_music() -> void:
+	match tracked_level:
+		lvl_1:
+			SoundManager.play_music(1)
+		lvl_2:
+			SoundManager.play_music(1)
+		lvl_3:
+			SoundManager.play_music(1)
+		lvl_4:
+			SoundManager.play_music(1)
+		lvl_5:
+			SoundManager.play_music(2)
+		_:
+			SoundManager.play_music(0)

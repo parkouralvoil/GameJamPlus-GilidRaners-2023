@@ -13,14 +13,15 @@ var p: Player = null: ## given by Main.gd
 		else:
 			hide()
 
-@onready var hp_label: Label = $Control/VBoxContainer/Label_HP
-@onready var coffee_bar: PowerupBarControl = $Control/VBoxContainer/HBoxContainer/CoffeeDurationBar
-@onready var pen_bar: PowerupBarControl = $Control/VBoxContainer/HBoxContainer/PenbundleDurationBar
-@onready var invul_bar: PowerupBarControl = $Control/VBoxContainer/HBoxContainer/InvulnerableDurationBar
+@onready var healtbar: TextureProgressBar = $Control/HeartHealthbar
+@onready var coffee_bar: PowerupBarControl = $Control/HBoxContainer/CoffeeDurationBar
+@onready var pen_bar: PowerupBarControl = $Control/HBoxContainer/PenbundleDurationBar
+@onready var invul_bar: PowerupBarControl = $Control/HBoxContainer/InvulnerableDurationBar
 
 @onready var hp: int:
 	set(value):
-		hp_label.text = "HP: %d/%d" % [value, max_hp]
+		healtbar.value = value
+		hp = value
 
 
 func _ready() -> void:

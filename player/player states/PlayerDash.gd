@@ -8,6 +8,8 @@ func Enter() -> void:
 		p.anim_sprite.play("dash")
 	p.velocity = Vector2(200 * p.dash_dir, 0) # to set direction and initial speed
 	
+	SoundManager.play_dash_sfx()
+	
 	p.can_dash = false
 	if p.dash_duration:
 		p.dash_duration.start()

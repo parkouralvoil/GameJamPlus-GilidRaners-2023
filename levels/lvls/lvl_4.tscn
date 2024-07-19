@@ -51,7 +51,7 @@ position = Vector2(785, -473)
 position = Vector2(1088, -717)
 
 [node name="enemy_wisp4" parent="EnemyHolder" instance=ExtResource("5_ea76m")]
-position = Vector2(2051, -1013)
+position = Vector2(2051, -902)
 
 [node name="enemy_wisp5" parent="EnemyHolder" instance=ExtResource("5_ea76m")]
 position = Vector2(2190, -1226)

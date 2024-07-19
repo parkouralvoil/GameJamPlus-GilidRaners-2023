@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://f3m4lwnn27d0"
-path="res://.godot/imported/Failed_Quiz.png-ed8d143071144fd2a455f7249c35eaac.ctex"
+uid="uid://c1ya6euq85ahf"
+path="res://.godot/imported/healthbar_hearts_empty.png-fc539a6a228f09697e88c6f43b4d1cf2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets_sprites/QuizPaperEnemy/Failed_Quiz.png"
-dest_files=["res://.godot/imported/Failed_Quiz.png-ed8d143071144fd2a455f7249c35eaac.ctex"]
+source_file="res://assets_sprites/other/healthbar_hearts_empty.png"
+dest_files=["res://.godot/imported/healthbar_hearts_empty.png-fc539a6a228f09697e88c6f43b4d1cf2.ctex"]
 
 [params]
 

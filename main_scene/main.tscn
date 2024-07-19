@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://5np362sw5a5t"]
+[gd_scene load_steps=10 format=3 uid="uid://5np362sw5a5t"]
 
 [ext_resource type="Script" path="res://main_scene/main.gd" id="1_f42i5"]
 [ext_resource type="PackedScene" uid="uid://cwtuskfpjx053" path="res://ui/player_hud.tscn" id="3_6nyuj"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://main_scene/BlackScreenTransition.gd" id="6_jo6xu"]
 [ext_resource type="PackedScene" uid="uid://daoo34xkqoi76" path="res://ui/menu.tscn" id="7_7wq1i"]
 [ext_resource type="PackedScene" uid="uid://b55fmbmxkqd6w" path="res://ui/main_UI_screens/select_level.tscn" id="7_mgaey"]
+[ext_resource type="PackedScene" uid="uid://c3xk785uy7ej1" path="res://main_scene/pause_menu.tscn" id="8_rjwq4"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_f42i5")
@@ -31,7 +32,11 @@ visible = false
 [node name="SelectLevel" parent="." instance=ExtResource("7_mgaey")]
 visible = false
 
+[node name="PauseMenu" parent="." instance=ExtResource("8_rjwq4")]
+visible = false
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 3
 
 [node name="BlackScreenTransition" type="ColorRect" parent="CanvasLayer"]
 visible = false

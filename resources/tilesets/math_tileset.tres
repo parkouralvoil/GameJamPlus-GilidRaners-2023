@@ -177,6 +177,12 @@ texture = ExtResource("2_ce16v")
 5:6/0 = 0
 5:6/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 5:6/0/physics_layer_0/angular_velocity = 0.0
+4:6/0 = 0
+4:6/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:6/0/physics_layer_0/angular_velocity = 0.0
+4:5/0 = 0
+4:5/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:5/0/physics_layer_0/angular_velocity = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1e0hx"]
 texture = ExtResource("3_gsuov")

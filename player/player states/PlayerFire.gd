@@ -9,6 +9,7 @@ func Enter() -> void:
 	apply_recoil()
 	p.anim_sprite.stop()
 	p.anim_sprite.play("shoot")
+	SoundManager.play_arrow_sfx()
 
 
 func Exit() -> void:

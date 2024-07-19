@@ -45,6 +45,7 @@ func _on_area_entered(area: Area2D) -> void:
 		return
 	
 	var up: PowerUps = area
+	SoundManager.play_powerup_sfx()
 	effect_pos = up.global_position
 	match up.current_powerup_type:
 		up.PowerupType.INVINCIBLE:

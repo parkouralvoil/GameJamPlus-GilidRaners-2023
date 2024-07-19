@@ -9,6 +9,8 @@ var target: Player = null
 var color_red := Color(1, 0.2, 0.2)
 var color_default := Color(1, 1, 1)
 
+var _initial_pos: Vector2
+
 @onready var hitbox: CollisionShape2D = $CollisionShape2D
 @onready var hp_label: Label = $Label_HP
 @onready var hp: int = max_hp:
@@ -19,9 +21,12 @@ var color_default := Color(1, 1, 1)
 
 func _ready() -> void:
 	hp = max_hp
+	_initial_pos = global_position
 
 
 func take_damage(damage: int) -> void:
+	SoundManager.play_enemy_ouch(_initial_pos)
+	ParticleManager.hit_trigger(_initial_pos)
 	if hp - damage > 0:
 		hp -= damage
 		show_damage_visual()

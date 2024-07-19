@@ -25,6 +25,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if hp <= 0:
+		explosion.can_explode = false
 		return
 
 func _physics_process(_delta: float) -> void:

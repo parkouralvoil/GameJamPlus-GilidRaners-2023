@@ -134,9 +134,11 @@ func shoot_bullet(pos_modifier: int) -> void:
 
 
 func take_damage(damage: int) -> void:
-	if invul or in_iframes or not GlobalInfo.player_can_move:
+	if invul or in_iframes or not GlobalInfo.player_can_move or hp == 0:
 		return
 	
+	SoundManager.play_playerhit_sfx()
+	ParticleManager.hit_trigger(global_position)
 	if hp - damage > 0:
 		hp -= damage
 		show_damage_visual()
@@ -177,9 +179,9 @@ func fire() -> void: ## called by PlayerFire state
 	timer_is_firing.start()
 	
 	if triple_atk:
-		shoot_bullet(8)
+		shoot_bullet(5)
 		shoot_bullet(0)
-		shoot_bullet(-8)
+		shoot_bullet(-5)
 	else:
 		shoot_bullet(0)
 	flip_player()

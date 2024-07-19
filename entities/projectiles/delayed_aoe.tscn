@@ -98,6 +98,7 @@ texture = ExtResource("2_1fkwf")
 [node name="Sprite2D_RedCircle" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.466667)
 position = Vector2(-2, -2)
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_nicmw")
 
 [node name="AnimatedSprite2D_Explosion" type="AnimatedSprite2D" parent="."]

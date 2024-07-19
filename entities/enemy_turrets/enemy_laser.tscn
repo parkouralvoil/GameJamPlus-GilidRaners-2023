@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://2lj432wb2lwv" path="res://entities/enemy_turrets/temporary_components/label_hp.tscn" id="5_0wnjw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ag5nj"]
-size = Vector2(50, 40)
+size = Vector2(69, 48.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bkdyh"]
 size = Vector2(2297, 912)
@@ -47,7 +47,7 @@ position = Vector2(-23, -12)
 position = Vector2(23, -12)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -6)
+position = Vector2(0, -3.25)
 shape = SubResource("RectangleShape2D_ag5nj")
 debug_color = Color(0.756863, 0.376471, 0.670588, 0.419608)
 

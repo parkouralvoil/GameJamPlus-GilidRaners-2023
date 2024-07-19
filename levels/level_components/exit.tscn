@@ -36,7 +36,7 @@ grow_vertical = 2
 
 [node name="LabelExit" type="Label" parent="Panel/CenterContainer"]
 layout_mode = 2
-text = "Press E to enter"
+text = "Press E to leave"
 label_settings = ExtResource("2_eic5q")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
