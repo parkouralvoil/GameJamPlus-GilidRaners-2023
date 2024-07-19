@@ -5,11 +5,12 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_7v786"]
 font = ExtResource("2_p6d1y")
-font_size = 14
+font_size = 12
+font_color = Color(1, 0.372549, 0.372549, 1)
 
 [node name="Label_HP" type="Label"]
-offset_right = 20.0
-offset_bottom = 14.0
+offset_right = 18.0
+offset_bottom = 13.0
 theme_override_styles/normal = ExtResource("1_b2nfd")
 text = "1/1"
 label_settings = SubResource("LabelSettings_7v786")

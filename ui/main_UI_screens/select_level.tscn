@@ -60,22 +60,17 @@ alignment = 0
 
 [node name="Level3" type="Button" parent="LevelButtons"]
 layout_mode = 2
-text = "3: Late for Class! WIP"
+text = "3: Late for Class!"
 alignment = 0
 
 [node name="Level4" type="Button" parent="LevelButtons"]
 layout_mode = 2
-text = "4: Recitation WIP"
+text = "4: Math Recitation "
 alignment = 0
 
 [node name="Level5" type="Button" parent="LevelButtons"]
 layout_mode = 2
-text = "5: (old lvl 1)  WIP"
-alignment = 0
-
-[node name="Level6" type="Button" parent="LevelButtons"]
-layout_mode = 2
-text = "6: (old lvl 2) WIP"
+text = "5: Monday..."
 alignment = 0
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
@@ -106,5 +101,4 @@ text = "Back"
 [connection signal="pressed" from="LevelButtons/Level3" to="." method="_on_level_3_pressed"]
 [connection signal="pressed" from="LevelButtons/Level4" to="." method="_on_level_4_pressed"]
 [connection signal="pressed" from="LevelButtons/Level5" to="." method="_on_level_5_pressed"]
-[connection signal="pressed" from="LevelButtons/Level6" to="." method="_on_level_6_pressed"]
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

@@ -6,7 +6,14 @@ const LaserPath: PackedScene = preload("res://entities/projectiles/laser.tscn")
 @export var diagonal_laser: bool = false
 
 var laser_range: float = 2000
-var player_in_sight: bool = false
+var lasers_spawned: bool = false
+var player_in_sight: bool = false:
+	set(value):
+		player_in_sight = value
+		if value == true and not lasers_spawned:
+			spawn_lasers()
+			lasers_spawned = true
+
 var markers: Array[Marker2D] = []
 
 ## laser start up and fire
@@ -24,6 +31,8 @@ var laser_ref: Laser = null ## animation dependence with laser
 @onready var sprite_body: Sprite2D = $sprite_body
 @onready var iris: Marker2D = $sprite_body/Marker2D
 
+@onready var RC_player: RayCast2D = $RayCast2D_Player
+
 @onready var hostile_sprite: Sprite2D = $sprite_body/hostile
 
 
@@ -34,7 +43,6 @@ func _ready() -> void:
 		laser_container.rotation_degrees = 45
 	
 	markers = [marker_down, marker_up, marker_left, marker_right]
-	spawn_lasers()
 
 
 func _process(_delta: float) -> void:
@@ -45,11 +53,13 @@ func _process(_delta: float) -> void:
 		return
 	
 	iris_movement()
+	player_vision()
 	
-	if laser_ref.is_casting:
-		hostile_sprite.show()
-	else:
-		hostile_sprite.hide()
+	if lasers_spawned:
+		if laser_ref.is_casting:
+			hostile_sprite.show()
+		else:
+			hostile_sprite.hide()
 
 
 func iris_movement() -> void:
@@ -88,6 +98,18 @@ func despawn_lasers() -> void:
 #func respawn() -> void:
 	#super()
 	#spawn_lasers()
+
+
+func player_vision() -> void:
+	if not target:
+		player_in_sight = false
+		return
+	
+	RC_player.target_position = target.global_position - global_position
+	if RC_player.get_collider() == target:
+		player_in_sight = true
+	else:
+		player_in_sight = false
 
 
 func show_damage_visual() -> void:

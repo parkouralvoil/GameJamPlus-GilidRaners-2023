@@ -5,6 +5,9 @@ const test_level_2: PackedScene = preload("res://levels/lvls/test_lvl_2.tscn")
 
 const lvl_1: PackedScene = preload("res://levels/lvls/lvl_1.tscn")
 const lvl_2: PackedScene = preload("res://levels/lvls/lvl_2.tscn")
+const lvl_3: PackedScene = preload("res://levels/lvls/lvl_3.tscn")
+const lvl_4: PackedScene = preload("res://levels/lvls/lvl_4.tscn")
+const lvl_5: PackedScene = preload("res://levels/lvls/lvl_5.tscn")
 
 var tracked_level: PackedScene
 
@@ -27,6 +30,9 @@ func _ready() -> void:
 	
 	select_level_screen.selected_lvl_1.connect(begin_game.bind(lvl_1))
 	select_level_screen.selected_lvl_2.connect(begin_game.bind(lvl_2))
+	select_level_screen.selected_lvl_3.connect(begin_game.bind(lvl_3))
+	select_level_screen.selected_lvl_4.connect(begin_game.bind(lvl_4))
+	select_level_screen.selected_lvl_5.connect(begin_game.bind(lvl_5))
 	
 	game_over_screen.restart_pressed.connect(reset_scene)
 	win_screen.menu_pressed.connect(show_menu)
@@ -89,8 +95,12 @@ func _go_next_level() -> void:
 		lvl_1:
 			tracked_level = lvl_2
 		lvl_2:
-			tracked_level = null
-		_:
+			tracked_level = lvl_3
+		lvl_3:
+			tracked_level = lvl_4
+		lvl_4:
+			tracked_level = lvl_5
+		lvl_5:
 			tracked_level = null
 	hud.hide()
 	GlobalInfo.player_can_move = false

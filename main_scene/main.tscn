@@ -15,6 +15,7 @@ script = ExtResource("1_f42i5")
 [node name="PlayerHud" parent="." instance=ExtResource("3_6nyuj")]
 
 [node name="Camera" parent="." instance=ExtResource("4_43vdt")]
+position = Vector2(1272, -315)
 position_smoothing_enabled = false
 
 [node name="LevelManager" type="Node" parent="."]

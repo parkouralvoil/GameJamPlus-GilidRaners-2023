@@ -1,0 +1,87 @@
+[gd_scene load_steps=11 format=3 uid="uid://dpnegrgfhbjr1"]
+
+[ext_resource type="Script" path="res://levels/lvls/level_script.gd" id="1_oc83p"]
+[ext_resource type="PackedScene" uid="uid://wugd31ybscm" path="res://levels/tilemaps/tilemap_level_4.tscn" id="2_3xlex"]
+[ext_resource type="PackedScene" uid="uid://k3e86wyibwv8" path="res://entities/player.tscn" id="3_fyt3u"]
+[ext_resource type="PackedScene" uid="uid://mxoou7inl18t" path="res://entities/powerups/coffee.tscn" id="4_8y4c8"]
+[ext_resource type="PackedScene" uid="uid://d0tqkoot0b3qv" path="res://entities/powerups/food.tscn" id="5_1nvec"]
+[ext_resource type="PackedScene" uid="uid://drqyrkt6rv3xv" path="res://entities/enemy_turrets/enemy_wisp.tscn" id="5_ea76m"]
+[ext_resource type="PackedScene" uid="uid://ca6cuf2ur0gok" path="res://entities/powerups/kodego.tscn" id="5_mmq8b"]
+[ext_resource type="PackedScene" uid="uid://bs7gqpdc2ymfo" path="res://entities/powerups/ballpen_bundle.tscn" id="6_1621p"]
+[ext_resource type="PackedScene" uid="uid://bx1ojieysbx4j" path="res://entities/enemy_turrets/enemy_ranged.tscn" id="6_lrpba"]
+[ext_resource type="PackedScene" uid="uid://dum2n6h7pyn1" path="res://levels/level_components/exit.tscn" id="7_hghkw"]
+
+[node name="lvl_4" type="Node2D"]
+script = ExtResource("1_oc83p")
+
+[node name="TilemapLevel_4" parent="." instance=ExtResource("2_3xlex")]
+
+[node name="Player" parent="." instance=ExtResource("3_fyt3u")]
+position = Vector2(265, -683)
+
+[node name="PowerupHolder" type="Node2D" parent="."]
+
+[node name="Coffee" parent="PowerupHolder" instance=ExtResource("4_8y4c8")]
+position = Vector2(1652, -768)
+
+[node name="Food" parent="PowerupHolder" instance=ExtResource("5_1nvec")]
+position = Vector2(2890, -1050)
+
+[node name="BallpenBundle" parent="PowerupHolder" instance=ExtResource("6_1621p")]
+position = Vector2(2448, -901)
+
+[node name="BallpenBundle2" parent="PowerupHolder" instance=ExtResource("6_1621p")]
+position = Vector2(944, -604)
+
+[node name="Food2" parent="PowerupHolder" instance=ExtResource("5_1nvec")]
+position = Vector2(1960, -1447)
+
+[node name="Kodigo" parent="PowerupHolder" instance=ExtResource("5_mmq8b")]
+position = Vector2(2057, -1623)
+
+[node name="EnemyHolder" type="Node2D" parent="."]
+
+[node name="enemy_wisp" parent="EnemyHolder" instance=ExtResource("5_ea76m")]
+position = Vector2(284, -187)
+
+[node name="enemy_wisp2" parent="EnemyHolder" instance=ExtResource("5_ea76m")]
+position = Vector2(785, -473)
+
+[node name="enemy_wisp3" parent="EnemyHolder" instance=ExtResource("5_ea76m")]
+position = Vector2(1088, -717)
+
+[node name="enemy_wisp4" parent="EnemyHolder" instance=ExtResource("5_ea76m")]
+position = Vector2(2051, -1013)
+
+[node name="enemy_wisp5" parent="EnemyHolder" instance=ExtResource("5_ea76m")]
+position = Vector2(2190, -1226)
+
+[node name="enemy_wisp6" parent="EnemyHolder" instance=ExtResource("5_ea76m")]
+position = Vector2(1878, -1397)
+
+[node name="enemy_wisp7" parent="EnemyHolder" instance=ExtResource("5_ea76m")]
+position = Vector2(2451, -1772)
+
+[node name="enemy_wisp8" parent="EnemyHolder" instance=ExtResource("5_ea76m")]
+position = Vector2(2665, -1445)
+
+[node name="enemy_wisp9" parent="EnemyHolder" instance=ExtResource("5_ea76m")]
+position = Vector2(3354, -187)
+
+[node name="enemy_wisp10" parent="EnemyHolder" instance=ExtResource("5_ea76m")]
+position = Vector2(3259, -96)
+
+[node name="enemy_ranged" parent="EnemyHolder" instance=ExtResource("6_lrpba")]
+position = Vector2(2874, -1196)
+
+[node name="enemy_ranged2" parent="EnemyHolder" instance=ExtResource("6_lrpba")]
+position = Vector2(2194, -1050)
+
+[node name="enemy_ranged3" parent="EnemyHolder" instance=ExtResource("6_lrpba")]
+position = Vector2(741, -746)
+
+[node name="enemy_ranged4" parent="EnemyHolder" instance=ExtResource("6_lrpba")]
+position = Vector2(2258, -1851)
+
+[node name="Exit" parent="." instance=ExtResource("7_hghkw")]
+position = Vector2(3592, -56)

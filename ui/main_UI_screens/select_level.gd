@@ -7,7 +7,6 @@ signal selected_lvl_2
 signal selected_lvl_3
 signal selected_lvl_4
 signal selected_lvl_5
-signal selected_lvl_6
 
 
 func _on_level_1_pressed() -> void:
@@ -28,10 +27,6 @@ func _on_level_4_pressed() -> void:
 
 func _on_level_5_pressed() -> void:
 	selected_lvl_5.emit()
-
-
-func _on_level_6_pressed() -> void:
-	selected_lvl_6.emit()
 
 
 func _on_back_button_pressed() -> void:

@@ -1,0 +1,123 @@
+[gd_scene load_steps=8 format=3 uid="uid://dhthpvi3u45ju"]
+
+[ext_resource type="Script" path="res://levels/lvls/level_script.gd" id="1_6lpv8"]
+[ext_resource type="PackedScene" uid="uid://bbyawndp350do" path="res://levels/tilemaps/tilemap_level_3.tscn" id="2_jxb25"]
+[ext_resource type="PackedScene" uid="uid://k3e86wyibwv8" path="res://entities/player.tscn" id="3_j4jau"]
+[ext_resource type="PackedScene" uid="uid://mxoou7inl18t" path="res://entities/powerups/coffee.tscn" id="4_f2yl2"]
+[ext_resource type="PackedScene" uid="uid://bf1s3l40wbjjl" path="res://entities/enemy_turrets/enemy_laser.tscn" id="5_sq23k"]
+[ext_resource type="PackedScene" uid="uid://ca6cuf2ur0gok" path="res://entities/powerups/kodego.tscn" id="5_wv44t"]
+[ext_resource type="PackedScene" uid="uid://dum2n6h7pyn1" path="res://levels/level_components/exit.tscn" id="7_qlnuw"]
+
+[node name="lvl_3" type="Node2D"]
+script = ExtResource("1_6lpv8")
+
+[node name="TilemapLevel_3" parent="." instance=ExtResource("2_jxb25")]
+
+[node name="Player" parent="." instance=ExtResource("3_j4jau")]
+position = Vector2(208, -121)
+
+[node name="PowerupHolder" type="Node2D" parent="."]
+
+[node name="Coffee" parent="PowerupHolder" instance=ExtResource("4_f2yl2")]
+position = Vector2(454, -110)
+
+[node name="Coffee2" parent="PowerupHolder" instance=ExtResource("4_f2yl2")]
+position = Vector2(1643, -310)
+
+[node name="Coffee3" parent="PowerupHolder" instance=ExtResource("4_f2yl2")]
+position = Vector2(454, -492)
+
+[node name="Coffee4" parent="PowerupHolder" instance=ExtResource("4_f2yl2")]
+position = Vector2(1960, -880)
+
+[node name="Coffee5" parent="PowerupHolder" instance=ExtResource("4_f2yl2")]
+position = Vector2(2016, -880)
+
+[node name="Coffee6" parent="PowerupHolder" instance=ExtResource("4_f2yl2")]
+position = Vector2(2073, -880)
+
+[node name="Coffee7" parent="PowerupHolder" instance=ExtResource("4_f2yl2")]
+position = Vector2(2565, -880)
+
+[node name="Coffee8" parent="PowerupHolder" instance=ExtResource("4_f2yl2")]
+position = Vector2(3074, -880)
+
+[node name="Coffee9" parent="PowerupHolder" instance=ExtResource("4_f2yl2")]
+position = Vector2(3557, -880)
+
+[node name="Coffee10" parent="PowerupHolder" instance=ExtResource("4_f2yl2")]
+position = Vector2(6350, -768)
+
+[node name="Coffee11" parent="PowerupHolder" instance=ExtResource("4_f2yl2")]
+position = Vector2(5009, -653)
+
+[node name="Coffee12" parent="PowerupHolder" instance=ExtResource("4_f2yl2")]
+position = Vector2(5670, -655)
+
+[node name="Coffee13" parent="PowerupHolder" instance=ExtResource("4_f2yl2")]
+position = Vector2(6349, -540)
+
+[node name="Coffee14" parent="PowerupHolder" instance=ExtResource("4_f2yl2")]
+position = Vector2(5670, -540)
+
+[node name="Coffee15" parent="PowerupHolder" instance=ExtResource("4_f2yl2")]
+position = Vector2(5013, -440)
+
+[node name="Coffee16" parent="PowerupHolder" instance=ExtResource("4_f2yl2")]
+position = Vector2(5670, -433)
+
+[node name="Coffee17" parent="PowerupHolder" instance=ExtResource("4_f2yl2")]
+position = Vector2(6350, -320)
+
+[node name="Coffee18" parent="PowerupHolder" instance=ExtResource("4_f2yl2")]
+position = Vector2(5670, -320)
+
+[node name="Coffee19" parent="PowerupHolder" instance=ExtResource("4_f2yl2")]
+position = Vector2(5009, -206)
+
+[node name="Coffee20" parent="PowerupHolder" instance=ExtResource("4_f2yl2")]
+position = Vector2(1649, -687)
+
+[node name="Coffee21" parent="PowerupHolder" instance=ExtResource("4_f2yl2")]
+position = Vector2(368, -880)
+
+[node name="Kodigo" parent="PowerupHolder" instance=ExtResource("5_wv44t")]
+position = Vector2(6350, -196)
+
+[node name="EnemyHolder" type="Node2D" parent="."]
+
+[node name="enemy_laser" parent="EnemyHolder" instance=ExtResource("5_sq23k")]
+position = Vector2(375, -198)
+
+[node name="enemy_laser2" parent="EnemyHolder" instance=ExtResource("5_sq23k")]
+position = Vector2(1548, -286)
+
+[node name="enemy_laser3" parent="EnemyHolder" instance=ExtResource("5_sq23k")]
+position = Vector2(1227, -570)
+
+[node name="enemy_laser4" parent="EnemyHolder" instance=ExtResource("5_sq23k")]
+position = Vector2(773, -479)
+
+[node name="enemy_laser5" parent="EnemyHolder" instance=ExtResource("5_sq23k")]
+position = Vector2(1654, -861)
+
+[node name="enemy_laser6" parent="EnemyHolder" instance=ExtResource("5_sq23k")]
+position = Vector2(777, -973)
+
+[node name="enemy_laser7" parent="EnemyHolder" instance=ExtResource("5_sq23k")]
+position = Vector2(6476, -745)
+
+[node name="enemy_laser8" parent="EnemyHolder" instance=ExtResource("5_sq23k")]
+position = Vector2(4924, -635)
+
+[node name="enemy_laser9" parent="EnemyHolder" instance=ExtResource("5_sq23k")]
+position = Vector2(5163, -100)
+
+[node name="enemy_laser10" parent="EnemyHolder" instance=ExtResource("5_sq23k")]
+position = Vector2(4847, -78)
+
+[node name="enemy_laser11" parent="EnemyHolder" instance=ExtResource("5_sq23k")]
+position = Vector2(5477, -120)
+
+[node name="Exit" parent="." instance=ExtResource("7_qlnuw")]
+position = Vector2(4423, -92)
