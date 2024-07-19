@@ -26,13 +26,13 @@ offset_bottom = 40.0
 
 [node name="TipWASD" type="Label" parent="Tips"]
 layout_mode = 0
-offset_left = 48.0
-offset_top = -53.0
-offset_right = 194.0
-offset_bottom = -36.0
+offset_left = 25.0
+offset_top = -60.0
+offset_right = 171.0
+offset_bottom = -43.0
 theme_override_styles/normal = ExtResource("12_4k4gu")
 text = "Press (A) or (D) to move left/right.
-Press (SHIFT) to dash."
+Press (SHIFT) to dash. "
 label_settings = ExtResource("13_v1mgr")
 
 [node name="TipJUMP" type="Label" parent="Tips"]
@@ -42,7 +42,7 @@ offset_top = -87.0
 offset_right = -202.0
 offset_bottom = -80.0
 theme_override_styles/normal = ExtResource("12_4k4gu")
-text = "Press (SPACE) to jump."
+text = "Press (SPACE) or (W) to jump."
 label_settings = ExtResource("13_v1mgr")
 
 [node name="TipDOUBLE" type="Label" parent="Tips"]
@@ -77,15 +77,24 @@ text = "Touch POWERUPS to gain
 temporary buffs."
 label_settings = ExtResource("13_v1mgr")
 
-[node name="TipSCORE" type="Label" parent="Tips"]
+[node name="TipENEMY" type="Label" parent="Tips"]
 layout_mode = 0
-offset_left = -123.0
-offset_top = -397.0
-offset_right = 53.0
-offset_bottom = -380.0
+offset_left = -50.0
+offset_top = -324.0
+offset_right = 68.0
+offset_bottom = -307.0
 theme_override_styles/normal = ExtResource("12_4k4gu")
-text = "Defeating enemies increases your grades.
- (grades in-game, not school grades) "
+text = "Defeating enemies can help 
+you progress the level."
+label_settings = ExtResource("13_v1mgr")
+
+[node name="TipPAUSE" type="Label" parent="Tips"]
+offset_left = -854.0
+offset_top = -561.0
+offset_right = -721.0
+offset_bottom = -554.0
+theme_override_styles/normal = ExtResource("12_4k4gu")
+text = "Press (ESC) to pause the game."
 label_settings = ExtResource("13_v1mgr")
 
 [node name="TipLAST" type="Label" parent="Tips"]
@@ -95,7 +104,7 @@ offset_top = -856.0
 offset_right = -726.0
 offset_bottom = -849.0
 theme_override_styles/normal = ExtResource("12_4k4gu")
-text = "Reach the exit door to finish! "
+text = "Reach the open door to finish! "
 label_settings = ExtResource("13_v1mgr")
 
 [node name="EnemyHolder" type="Node2D" parent="."]

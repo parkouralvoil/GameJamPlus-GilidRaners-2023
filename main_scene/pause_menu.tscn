@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c3xk785uy7ej1"]
+[gd_scene load_steps=5 format=3 uid="uid://c3xk785uy7ej1"]
 
 [ext_resource type="Script" path="res://main_scene/pause_menu.gd" id="1_3rp17"]
+[ext_resource type="StyleBox" uid="uid://d06lvwml7mc34" path="res://resources/label_settings/normal_tips_style_box.tres" id="2_uhuc7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h70ai"]
 bg_color = Color(0, 0, 0, 0.756863)
@@ -92,3 +93,23 @@ text = "Change Difficulty"
 [node name="ReturnToMenu" type="Button" parent="CenterContainer2/VBoxContainer"]
 layout_mode = 2
 text = "Return to menu"
+
+[node name="Meme" type="Label" parent="."]
+visible = false
+offset_left = 432.0
+offset_top = 170.0
+offset_right = 623.0
+offset_bottom = 245.0
+theme_override_styles/normal = ExtResource("2_uhuc7")
+text = "Just like class, you can no longer change things once its started."
+autowrap_mode = 2
+
+[node name="Line2D" type="Line2D" parent="Meme"]
+position = Vector2(-35.3499, 37)
+points = PackedVector2Array(30.3499, -3, -3, -3)
+width = 5.0
+
+[connection signal="pressed" from="CenterContainer2/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="CenterContainer2/VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="CenterContainer2/VBoxContainer/DifficultyMeme" to="." method="_on_difficulty_meme_pressed"]
+[connection signal="pressed" from="CenterContainer2/VBoxContainer/ReturnToMenu" to="." method="_on_return_to_menu_pressed"]

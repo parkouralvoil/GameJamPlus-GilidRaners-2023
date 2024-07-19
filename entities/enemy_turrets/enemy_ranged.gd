@@ -65,7 +65,6 @@ func shoot_bullet() -> void:
 	bullet.damage = 1
 	bullet.from_enemy = true
 	get_tree().root.add_child(bullet)
-	bullet.modulate = Color(1, 1, 0.6) ## just make a different sprite...
 
 
 func player_vision() -> void:
@@ -82,7 +81,7 @@ func player_vision() -> void:
 
 func show_damage_visual() -> void:
 	var t: Tween = create_tween()
-	t.tween_property(sprite_body, "self_modulate", color_default, 0.1).from(color_red)
+	t.tween_property(sprite_body, "self_modulate", color_default, 0.2).from(color_red)
 
 
 func _on_area_2d_player_nearby_body_entered(body: CharacterBody2D) -> void:

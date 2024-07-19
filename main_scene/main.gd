@@ -12,7 +12,6 @@ const lvl_5: PackedScene = preload("res://levels/lvls/lvl_5.tscn")
 var tracked_level: PackedScene:
 	set(scene):
 		tracked_level = scene
-		_change_music()
 
 @onready var current_level: Level # = $TestLevel
 @onready var player: Player
@@ -27,10 +26,21 @@ var tracked_level: PackedScene:
 
 @onready var black_screen: BlackScreenTransition = $CanvasLayer/BlackScreenTransition
 @onready var pause_menu: PauseMenuScreen = $PauseMenu
+@onready var options_menu: OptionsMenuScreen = $OptionsMenu
+
+## Explanation:
+## ALL entries to the levels always begins at fxn "begin_game"
+## begin_game calls reset_scene, which removes current level and gets the next scene
+
+## _next_lvl_or_end does either
+## 1. go next level
+## 2. end the game (either win screen or straigth to menu if u didnt beat last lvl)
+
 
 func _ready() -> void:
 	menu_screen.pressed_play.connect(begin_game.bind(lvl_1))
 	menu_screen.pressed_select_level.connect(show_select_level_menu)
+	menu_screen.pressed_options.connect(show_options_menu)
 	
 	select_level_screen.selected_lvl_1.connect(begin_game.bind(lvl_1))
 	select_level_screen.selected_lvl_2.connect(begin_game.bind(lvl_2))
@@ -42,6 +52,9 @@ func _ready() -> void:
 	win_screen.menu_pressed.connect(show_menu)
 	
 	pause_menu.can_pause = false
+	pause_menu.pressed_options.connect(show_options_menu)
+	pause_menu.pressed_return_to_menu.connect(chose_to_leave)
+	pause_menu.hide_options.connect(hide_option_screen)
 
 func _process(_delta: float) -> void:
 	if not player:
@@ -74,10 +87,11 @@ func _next_lvl_or_end() -> void:
 		pause_menu.can_pause = true
 	else: ## win screen -> main menu
 		current_level = null
-		show_win_screen()
 		pause_menu.can_pause = false
+		show_win_screen()
+		
 	black_screen.in_next_scene()
-
+	_change_music()
 
 func _add_level_to_tree() -> void:
 	current_level = tracked_level.instantiate() ## WEIRDNESS
@@ -125,11 +139,13 @@ func show_select_level_menu() -> void:
 func show_game_over() -> void:
 	await get_tree().create_timer(0.75).timeout
 	game_over_screen.show()
+	pause_menu.can_pause = false
 
 
 func show_win_screen() -> void:
 	SoundManager.play_victory_sfx()
 	win_screen.show()
+	pause_menu.can_pause = false
 	menu_screen.hide()
 
 
@@ -140,6 +156,31 @@ func show_menu() -> void:
 	win_screen.hide()
 	menu_screen.show()
 	black_screen.in_next_scene()
+
+
+func show_options_menu() -> void:
+	options_menu.show()
+
+
+func chose_to_leave() -> void: ## left through pause menu
+	tracked_level = null
+	hud.p = null
+	pause_menu.hide()
+	black_screen.out_current_scene()
+	await black_screen.transition_finished
+	get_tree().paused = false
+	player = null
+	
+	current_level.queue_free()
+	await current_level.tree_exited
+	current_level = null
+	pause_menu.can_pause = false
+	_change_music()
+	show_menu()
+
+
+func hide_option_screen() -> void:
+	options_menu.hide()
 
 
 func _hide_UI_screens() -> void:

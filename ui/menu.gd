@@ -3,6 +3,7 @@ class_name MainMenu
 
 signal pressed_play
 signal pressed_select_level
+signal pressed_options
 
 var red := Color(0.74, 0.38, 0.5)
 var blue := Color(0.3, 0.55, 0.6)
@@ -10,7 +11,7 @@ var blue := Color(0.3, 0.55, 0.6)
 @onready var bg: ColorRect = $ColorRect
 @onready var menu_initial: VBoxContainer = $VBoxContainerInitial
 @onready var menu_play: VBoxContainer = $VBoxContainerPlay
-
+@onready var credits: Control = $Credits
 
 func _ready() -> void:
 	visibility_changed.connect(_return_menu_initial)
@@ -31,7 +32,7 @@ func _on_button_play_pressed() -> void:
 
 
 func _on_button_options_pressed() -> void:
-	pass # Replace with function body.
+	pressed_options.emit()
 
 
 func _on_button_exit_pressed() -> void:
@@ -51,3 +52,11 @@ func _on_button_back_pressed() -> void:
 	_return_menu_initial()
 
 #endregion
+
+
+func _on_button_credits_pressed() -> void:
+	credits.show()
+
+
+func _on_button_credits_back_pressed() -> void:
+	credits.hide()

@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name Bullet
 
+const RED_TEXTURE: Texture = preload("res://assets_sprites/Ballpen_Projectile/Red_Ballpen.png")
+
 var projectile_speed: float = 400
 var direction: Vector2 = Vector2(0, 1)
 
@@ -18,6 +20,8 @@ var from_enemy: bool = false ## by default,it assumes its from player
 
 func _ready() -> void:
 	timer_range_lifespan.start(lifespan)
+	if from_enemy:
+		sprite.texture = RED_TEXTURE
 
 
 func _physics_process(delta: float) -> void:

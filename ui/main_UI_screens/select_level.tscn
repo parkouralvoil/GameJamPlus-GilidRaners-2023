@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://b55fmbmxkqd6w"]
+[gd_scene load_steps=4 format=3 uid="uid://b55fmbmxkqd6w"]
 
 [ext_resource type="Script" path="res://ui/main_UI_screens/select_level.gd" id="1_2ktxn"]
+[ext_resource type="Texture2D" uid="uid://d1mkubwi430a2" path="res://assets_sprites/other/portraitsprite2.png" id="2_x6u2v"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_u1pj5"]
 font_size = 24
@@ -40,6 +41,15 @@ theme_override_constants/margin_bottom = 20
 [node name="BackgroundWhite" type="ColorRect" parent="MarginContainer"]
 layout_mode = 2
 color = Color(0.941176, 0.827451, 0.858824, 1)
+
+[node name="Portrait" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(300, 0)
+offset_left = 256.4
+offset_top = 6.0
+offset_right = 2256.4
+offset_bottom = 2006.0
+scale = Vector2(0.174, 0.174)
+texture = ExtResource("2_x6u2v")
 
 [node name="LevelButtons" type="VBoxContainer" parent="."]
 offset_left = 70.0

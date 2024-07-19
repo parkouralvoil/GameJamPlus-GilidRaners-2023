@@ -18,6 +18,7 @@ offset_right = 76.0
 offset_bottom = 65.0
 
 [node name="HealthbarBackground" type="ColorRect" parent="Control"]
+layout_mode = 0
 offset_right = 220.0
 offset_bottom = 44.0
 color = Color(0.196078, 0.207843, 0.188235, 0.521569)

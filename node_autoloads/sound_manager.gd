@@ -36,13 +36,13 @@ func play_music(chosen_music_type: MusicType) -> void:
 	match chosen_music_type:
 		MusicType.LOBBY:
 			asp_music.stream = SampLofi
-			asp_music.volume_db = curr_vol + 4
+			asp_music.volume_db = curr_vol + 6
 		MusicType.EASY:
 			asp_music.stream = KobaltLvl_1
-			asp_music.volume_db = curr_vol - 4
+			asp_music.volume_db = curr_vol - 5
 		MusicType.HARD:
 			asp_music.stream = KobaltLvl_2
-			asp_music.volume_db = curr_vol - 4
+			asp_music.volume_db = curr_vol - 5
 	
 	last_music = chosen_music_type
 	asp_music.play()

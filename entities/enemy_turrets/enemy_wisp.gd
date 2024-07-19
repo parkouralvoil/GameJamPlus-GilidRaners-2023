@@ -13,6 +13,7 @@ var player_in_sight: bool = false
 @onready var reload_wait_time: float = 3.0
 @onready var explosion_line_lifetime: Timer = $Timer_Line
 @onready var rotater: Node2D = $Rotator
+@onready var sprite_body: AnimatedSprite2D = $AnimatedSprite2D ## should really just be a sprite2d
 
 @onready var RC_player: RayCast2D = $RayCast2D_Player
 
@@ -69,6 +70,10 @@ func player_vision() -> void:
 	else:
 		player_in_sight = false
 
+
+func show_damage_visual() -> void:
+	var t: Tween = create_tween()
+	t.tween_property(sprite_body, "self_modulate", color_default, 0.2).from(color_red)
 
 func _on_area_2d_player_nearby_body_entered(body: CharacterBody2D) -> void:
 	if body is Player:

@@ -114,7 +114,7 @@ func player_vision() -> void:
 
 func show_damage_visual() -> void:
 	var t: Tween = create_tween()
-	t.tween_property(sprite_body, "self_modulate", color_default, 0.1).from(color_red)
+	t.tween_property(sprite_body, "self_modulate", color_default, 0.2).from(color_red)
 
 
 func _on_area_2d_player_nearby_body_entered(body: CharacterBody2D) -> void:

@@ -21,7 +21,6 @@ region_rect = Rect2(4, 13, 24, 7)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(10.625, 0.625)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_hqfqn")
 
 [node name="Timer_Range_Lifespan" type="Timer" parent="."]
