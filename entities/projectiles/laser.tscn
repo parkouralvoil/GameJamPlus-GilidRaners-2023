@@ -92,14 +92,14 @@ resource_local_to_scene = true
 offsets = PackedFloat32Array(0, 0.989189)
 colors = PackedColorArray(0.513726, 0, 0, 1, 0.468356, 0, 0, 0.105882)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_shdcg"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hx3hc"]
 gradient = SubResource("Gradient_2pm6j")
 
 [sub_resource type="Curve" id="Curve_4en82"]
 _data = [Vector2(0.731481, 1), 0.0, 0.0, 0, 0, Vector2(0.99537, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_e8hsa"]
+[sub_resource type="CurveTexture" id="CurveTexture_a4x5h"]
 curve = SubResource("Curve_4en82")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2uhf0"]
@@ -110,8 +110,8 @@ initial_velocity_max = 60.0
 gravity = Vector3(0, 0, 0)
 scale_min = 5.0
 scale_max = 8.0
-scale_curve = SubResource("CurveTexture_e8hsa")
-color_ramp = SubResource("GradientTexture1D_shdcg")
+scale_curve = SubResource("CurveTexture_a4x5h")
+color_ramp = SubResource("GradientTexture1D_hx3hc")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_el2xi"]
 particle_flag_disable_z = true
@@ -121,8 +121,8 @@ initial_velocity_max = 50.0
 gravity = Vector3(0, 0, 0)
 scale_min = 5.0
 scale_max = 8.0
-scale_curve = SubResource("CurveTexture_e8hsa")
-color_ramp = SubResource("GradientTexture1D_shdcg")
+scale_curve = SubResource("CurveTexture_a4x5h")
+color_ramp = SubResource("GradientTexture1D_hx3hc")
 
 [node name="laser" type="RayCast2D"]
 target_position = Vector2(0, 2000)
