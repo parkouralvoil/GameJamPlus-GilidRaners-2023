@@ -1,100 +1,257 @@
-[gd_scene load_steps=6 format=3 uid="uid://daoo34xkqoi76"]
+[gd_scene load_steps=7 format=3 uid="uid://daoo34xkqoi76"]
 
 [ext_resource type="Script" path="res://ui/menu.gd" id="1_6uaf6"]
-[ext_resource type="Theme" uid="uid://yfilg2o18ag5" path="res://temporary_assets/transition/subtitle_text_theme.tres" id="2_n1bxf"]
-[ext_resource type="Texture2D" uid="uid://bpitfvaxxks0y" path="res://SPRITES/MenuUI/TitleScreen.png" id="2_syoat"]
-[ext_resource type="AudioStream" uid="uid://db34xf4bh5yhf" path="res://resources/music/samp_lofi.wav" id="4_82l1q"]
+[ext_resource type="Texture2D" uid="uid://bpitfvaxxks0y" path="res://assets_sprites/UI_screens/TitleScreen.png" id="2_mmn85"]
+[ext_resource type="LabelSettings" uid="uid://dum27gvh87f0d" path="res://resources/label_settings/credits_font_colored.tres" id="3_dxd3g"]
+[ext_resource type="LabelSettings" uid="uid://bb7aphfjmdp60" path="res://resources/label_settings/credits_font.tres" id="4_wno1f"]
+[ext_resource type="LabelSettings" uid="uid://cvl053y2bpp8d" path="res://resources/label_settings/credits_link_font.tres" id="5_3g5xe"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_at2w8"]
-font_size = 25
+[sub_resource type="LabelSettings" id="LabelSettings_djn6p"]
+font_size = 18
 
-[node name="Menu" type="Control"]
+[node name="Menu" type="CanvasLayer"]
+script = ExtResource("1_6uaf6")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 2880.0
+offset_bottom = 1635.0
+scale = Vector2(0.222299, 0.220139)
+texture = ExtResource("2_mmn85")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 36.0
+offset_top = 161.0
+offset_right = 198.0
+offset_bottom = 325.0
+color = Color(0.282353, 0.560784, 0.596078, 1)
+
+[node name="VBoxContainerInitial" type="VBoxContainer" parent="."]
+offset_left = 45.0
+offset_top = 175.0
+offset_right = 187.0
+offset_bottom = 335.0
+theme_override_constants/separation = 6
+
+[node name="ButtonPlay" type="Button" parent="VBoxContainerInitial"]
+layout_mode = 2
+text = "Play"
+
+[node name="ButtonOptions" type="Button" parent="VBoxContainerInitial"]
+layout_mode = 2
+text = "Options"
+
+[node name="ButtonCredits" type="Button" parent="VBoxContainerInitial"]
+layout_mode = 2
+text = "Credits"
+
+[node name="ButtonExit" type="Button" parent="VBoxContainerInitial"]
+layout_mode = 2
+text = "Exit"
+
+[node name="VBoxContainerPlay" type="VBoxContainer" parent="."]
+visible = false
+offset_left = 45.0
+offset_top = 183.0
+offset_right = 187.0
+offset_bottom = 284.0
+theme_override_constants/separation = 12
+
+[node name="ButtonNewGame" type="Button" parent="VBoxContainerPlay"]
+layout_mode = 2
+text = "New Game"
+
+[node name="ButtonLevelSelect" type="Button" parent="VBoxContainerPlay"]
+layout_mode = 2
+text = "Select Level"
+
+[node name="ButtonBack" type="Button" parent="VBoxContainerPlay"]
+layout_mode = 2
+text = "Back"
+
+[node name="Credits" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_6uaf6")
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_left = 198.0
-offset_top = 65.0
-offset_right = 458.0
-offset_bottom = 103.0
-text = "UPD LIFE SIMULATOR"
-label_settings = SubResource("LabelSettings_at2w8")
-
-[node name="MarginContainer2" type="MarginContainer" parent="."]
-custom_minimum_size = Vector2(120, 30)
-layout_mode = 2
-offset_left = 32.0
-offset_top = 256.0
-offset_right = 212.0
-offset_bottom = 287.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
-layout_mode = 2
-
-[node name="Options" type="Button" parent="MarginContainer2/VBoxContainer"]
-layout_mode = 2
-text = "Play "
-
-[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer2/VBoxContainer/Options"]
-z_index = 1
-layout_mode = 0
-offset_left = 177.0
-offset_top = -5.0
-offset_right = 427.0
-offset_bottom = 45.0
-theme = ExtResource("2_n1bxf")
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/normal_font_size = 12
-text = "Just like class, you can no longer change things once its started."
-fit_content = true
-
-[node name="MarginContainer" type="MarginContainer" parent="."]
-custom_minimum_size = Vector2(120, 30)
+[node name="ColorRect" type="ColorRect" parent="Credits"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -287.0
-offset_top = 33.0
-offset_right = -167.0
-offset_bottom = 64.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0, 0, 0, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="ButtonCreditsBack" type="Button" parent="Credits"]
+layout_mode = 2
+offset_left = 490.0
+offset_top = 303.0
+offset_right = 605.0
+offset_bottom = 334.0
+text = "Back to menu"
+
+[node name="StudioLabel" type="Label" parent="Credits"]
+layout_mode = 2
+offset_left = 83.0
+offset_top = 18.0
+offset_right = 248.0
+offset_bottom = 44.0
+text = "Gilid Raners Studio"
+label_settings = SubResource("LabelSettings_djn6p")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Credits"]
+layout_direction = 3
+layout_mode = 2
+offset_left = 189.0
+offset_top = 47.0
+offset_right = 616.0
+offset_bottom = 336.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Credits/ScrollContainer"]
+layout_direction = 2
 layout_mode = 2
 
-[node name="Play" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="ColoredLabel" type="Label" parent="Credits/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-text = "Play "
+text = "Project Manager"
+label_settings = ExtResource("3_dxd3g")
+horizontal_alignment = 1
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(319.889, 178.687)
-scale = Vector2(0.222299, 0.220139)
-texture = ExtResource("2_syoat")
-metadata/_edit_lock_ = true
+[node name="Name" type="Label" parent="Credits/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Amado Cleto"
+label_settings = ExtResource("4_wno1f")
+horizontal_alignment = 1
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("4_82l1q")
-autoplay = true
+[node name="ColoredLabel2" type="Label" parent="Credits/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Programmers"
+label_settings = ExtResource("3_dxd3g")
+horizontal_alignment = 1
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 0
-offset_left = 34.0
-offset_top = 290.0
-offset_right = 129.0
-offset_bottom = 330.0
-color = Color(0.996094, 0.988281, 0.953125, 1)
+[node name="Name2" type="Label" parent="Credits/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Amiel Ante"
+label_settings = ExtResource("4_wno1f")
+horizontal_alignment = 1
 
-[connection signal="pressed" from="MarginContainer2/VBoxContainer/Options" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[node name="Name6" type="Label" parent="Credits/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Kiyan Vasquez"
+label_settings = ExtResource("4_wno1f")
+horizontal_alignment = 1
+
+[node name="Name7" type="Label" parent="Credits/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Justin Lidasan"
+label_settings = ExtResource("4_wno1f")
+horizontal_alignment = 1
+
+[node name="Name8" type="Label" parent="Credits/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Harry Quijano"
+label_settings = ExtResource("4_wno1f")
+horizontal_alignment = 1
+
+[node name="ColoredLabel3" type="Label" parent="Credits/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Art"
+label_settings = ExtResource("3_dxd3g")
+horizontal_alignment = 1
+
+[node name="Name3" type="Label" parent="Credits/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Chelsea Tan"
+label_settings = ExtResource("4_wno1f")
+horizontal_alignment = 1
+
+[node name="Name11" type="Label" parent="Credits/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Iwame"
+label_settings = ExtResource("4_wno1f")
+horizontal_alignment = 1
+
+[node name="Name12" type="Label" parent="Credits/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Izech Siasoco"
+label_settings = ExtResource("4_wno1f")
+horizontal_alignment = 1
+
+[node name="Name13" type="Label" parent="Credits/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Jonat Roxas"
+label_settings = ExtResource("4_wno1f")
+horizontal_alignment = 1
+
+[node name="Name9" type="Label" parent="Credits/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Kait Katigbac"
+label_settings = ExtResource("4_wno1f")
+horizontal_alignment = 1
+
+[node name="Name10" type="Label" parent="Credits/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Zel Escanillas"
+label_settings = ExtResource("4_wno1f")
+horizontal_alignment = 1
+
+[node name="ColoredLabel4" type="Label" parent="Credits/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Music"
+label_settings = ExtResource("3_dxd3g")
+horizontal_alignment = 1
+
+[node name="Name4" type="Label" parent="Credits/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Kobalt"
+label_settings = ExtResource("4_wno1f")
+horizontal_alignment = 1
+
+[node name="Name5" type="Label" parent="Credits/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Rose Reyes"
+label_settings = ExtResource("4_wno1f")
+horizontal_alignment = 1
+
+[node name="ColoredLabel5" type="Label" parent="Credits/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "SFX"
+label_settings = ExtResource("3_dxd3g")
+horizontal_alignment = 1
+
+[node name="link" type="Label" parent="Credits/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Freesound - achievement.mp3 by Kastenfrosch"
+label_settings = ExtResource("5_3g5xe")
+horizontal_alignment = 1
+
+[node name="link2" type="Label" parent="Credits/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Freesound - Sick Fly Enemy Dead Sound by AUDACITIER"
+label_settings = ExtResource("5_3g5xe")
+horizontal_alignment = 1
+
+[node name="link3" type="Label" parent="Credits/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Freesound - Whoosh / Dash (2) by Kastenfrosch"
+label_settings = ExtResource("5_3g5xe")
+horizontal_alignment = 1
+
+[node name="link4" type="Label" parent="Credits/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Other SFX from Kenny Game Assets and Zapslat"
+label_settings = ExtResource("5_3g5xe")
+horizontal_alignment = 1
+
+[connection signal="pressed" from="VBoxContainerInitial/ButtonPlay" to="." method="_on_button_play_pressed"]
+[connection signal="pressed" from="VBoxContainerInitial/ButtonOptions" to="." method="_on_button_options_pressed"]
+[connection signal="pressed" from="VBoxContainerInitial/ButtonCredits" to="." method="_on_button_credits_pressed"]
+[connection signal="pressed" from="VBoxContainerInitial/ButtonExit" to="." method="_on_button_exit_pressed"]
+[connection signal="pressed" from="VBoxContainerPlay/ButtonNewGame" to="." method="_on_button_new_game_pressed"]
+[connection signal="pressed" from="VBoxContainerPlay/ButtonLevelSelect" to="." method="_on_button_level_select_pressed"]
+[connection signal="pressed" from="VBoxContainerPlay/ButtonBack" to="." method="_on_button_back_pressed"]
+[connection signal="pressed" from="Credits/ButtonCreditsBack" to="." method="_on_button_credits_back_pressed"]

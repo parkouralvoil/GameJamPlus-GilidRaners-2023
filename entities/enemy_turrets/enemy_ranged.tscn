@@ -1,33 +1,25 @@
-[gd_scene load_steps=13 format=3 uid="uid://bx1ojieysbx4j"]
+[gd_scene load_steps=14 format=3 uid="uid://bx1ojieysbx4j"]
 
 [ext_resource type="Script" path="res://entities/enemy_turrets/enemy_ranged.gd" id="1_42bwg"]
-[ext_resource type="Texture2D" uid="uid://gcajrb68a3pj" path="res://SPRITES/New_enemy_sprites/Quiz Enemy/Enemy_QuizEnemy_Base_64x64.png" id="2_daagv"]
-[ext_resource type="Texture2D" uid="uid://i7uyxr3xonps" path="res://SPRITES/New_enemy_sprites/Quiz Enemy/Enemy_QuizEnemy_Eyes_64x64.png" id="3_tucyf"]
-[ext_resource type="Texture2D" uid="uid://d0fkr3tpglhtx" path="res://SPRITES/New_enemy_sprites/Quiz Enemy/Enemy_QuizEnemy_Iris_64x64.png" id="4_7aa3k"]
-[ext_resource type="Texture2D" uid="uid://dobvojvoqjtq2" path="res://SPRITES/New_enemy_sprites/Quiz Enemy/Enemy_QuizEnemy_NeutralMouth_64x64.png" id="5_fwew3"]
-[ext_resource type="Texture2D" uid="uid://5uoyet561gst" path="res://SPRITES/New_enemy_sprites/Quiz Enemy/Enemy_QuizEnemy_HostileFace_64x64.png" id="6_j51a4"]
+[ext_resource type="Texture2D" uid="uid://gcajrb68a3pj" path="res://assets_sprites/New_enemy_sprites/Quiz Enemy/Enemy_QuizEnemy_Base_64x64.png" id="2_daagv"]
+[ext_resource type="Texture2D" uid="uid://i7uyxr3xonps" path="res://assets_sprites/New_enemy_sprites/Quiz Enemy/Enemy_QuizEnemy_Eyes_64x64.png" id="3_tucyf"]
+[ext_resource type="Texture2D" uid="uid://d0fkr3tpglhtx" path="res://assets_sprites/New_enemy_sprites/Quiz Enemy/Enemy_QuizEnemy_Iris_64x64.png" id="4_7aa3k"]
+[ext_resource type="Texture2D" uid="uid://dobvojvoqjtq2" path="res://assets_sprites/New_enemy_sprites/Quiz Enemy/Enemy_QuizEnemy_NeutralMouth_64x64.png" id="5_fwew3"]
+[ext_resource type="Texture2D" uid="uid://5uoyet561gst" path="res://assets_sprites/New_enemy_sprites/Quiz Enemy/Enemy_QuizEnemy_HostileFace_64x64.png" id="6_j51a4"]
+[ext_resource type="PackedScene" uid="uid://2lj432wb2lwv" path="res://entities/enemy_turrets/temporary_components/label_hp.tscn" id="7_j2d5s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ag5nj"]
-size = Vector2(34, 45)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_2gmdq"]
-animations = [{
-"frames": [],
-"loop": false,
-"name": &"fire",
-"speed": 20.0
-}, {
-"frames": [],
-"loop": false,
-"name": &"idle",
-"speed": 5.0
-}]
+size = Vector2(34, 53)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bkdyh"]
 size = Vector2(640, 497)
 
-[sub_resource type="LabelSettings" id="LabelSettings_aqcy7"]
-font_size = 13
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yjmse"]
+bg_color = Color(0.168627, 0.168627, 0.168627, 0.572549)
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
 
 [sub_resource type="Animation" id="Animation_h3tel"]
 resource_name = "fire"
@@ -35,7 +27,7 @@ length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("body/eye:visible")
+tracks/0/path = NodePath("sprite_body/eye:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -47,7 +39,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("body/mouth:visible")
+tracks/1/path = NodePath("sprite_body/mouth:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -59,7 +51,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("body/fire:visible")
+tracks/2/path = NodePath("sprite_body/fire:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -83,9 +75,50 @@ tracks/3/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_1y6ck"]
+resource_name = "idle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite_body/eye:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite_body/mouth:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sprite_body/fire:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ahj4m"]
 _data = {
-"fire": SubResource("Animation_h3tel")
+"fire": SubResource("Animation_h3tel"),
+"idle": SubResource("Animation_1y6ck")
 }
 
 [node name="enemy_ranged" type="CharacterBody2D"]
@@ -93,45 +126,32 @@ collision_layer = 4
 script = ExtResource("1_42bwg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, -2.5)
+position = Vector2(1, 1.5)
 shape = SubResource("RectangleShape2D_ag5nj")
+debug_color = Color(0.768627, 0.388235, 0.580392, 0.419608)
 
-[node name="body" type="Sprite2D" parent="."]
+[node name="sprite_body" type="Sprite2D" parent="."]
 texture = ExtResource("2_daagv")
 
-[node name="eye" type="Sprite2D" parent="body"]
+[node name="eye" type="Sprite2D" parent="sprite_body"]
 texture = ExtResource("3_tucyf")
 
-[node name="Marker2D" type="Marker2D" parent="body/eye"]
+[node name="Marker2D" type="Marker2D" parent="sprite_body/eye"]
 position = Vector2(-5.5, -10)
 
-[node name="iris" type="Sprite2D" parent="body/eye/Marker2D"]
+[node name="iris" type="Sprite2D" parent="sprite_body/eye/Marker2D"]
 texture = ExtResource("4_7aa3k")
 offset = Vector2(5.5, 10)
 
-[node name="mouth" type="Sprite2D" parent="body"]
+[node name="mouth" type="Sprite2D" parent="sprite_body"]
 texture = ExtResource("5_fwew3")
 
-[node name="fire" type="Sprite2D" parent="body"]
+[node name="fire" type="Sprite2D" parent="sprite_body"]
 visible = false
 texture = ExtResource("6_j51a4")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -1)
-sprite_frames = SubResource("SpriteFrames_2gmdq")
-animation = &"fire"
-
-[node name="Node2D_Aim" type="Node2D" parent="."]
-
-[node name="Marker2D" type="Marker2D" parent="Node2D_Aim"]
-position = Vector2(16, 0)
-
-[node name="Timer_Reload" type="Timer" parent="."]
-wait_time = 1.25
-one_shot = true
-
 [node name="Timer_FireRateCD" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 2.0
 one_shot = true
 
 [node name="Area2D_PlayerNearby" type="Area2D" parent="."]
@@ -146,27 +166,18 @@ debug_color = Color(0, 0.729412, 0.854902, 0.0588235)
 target_position = Vector2(0, 0)
 collision_mask = 3
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Label_HP" type="Label" parent="Control"]
-layout_mode = 0
-offset_left = -16.0
-offset_top = 20.0
-offset_right = 27.0
-offset_bottom = 46.0
-text = "40/40"
-label_settings = SubResource("LabelSettings_aqcy7")
+[node name="Label_HP" parent="." instance=ExtResource("7_j2d5s")]
+offset_left = -9.0
+offset_top = 29.0
+offset_right = 11.0
+offset_bottom = 43.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_yjmse")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_ahj4m")
 }
 
-[connection signal="timeout" from="Timer_Reload" to="." method="_on_timer_reload_timeout"]
 [connection signal="timeout" from="Timer_FireRateCD" to="." method="_on_timer_fire_rate_cd_timeout"]
 [connection signal="body_entered" from="Area2D_PlayerNearby" to="." method="_on_area_2d_player_nearby_body_entered"]
 [connection signal="body_exited" from="Area2D_PlayerNearby" to="." method="_on_area_2d_player_nearby_body_exited"]

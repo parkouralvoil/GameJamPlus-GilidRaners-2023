@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="BuffDurationResource" load_steps=2 format=3 uid="uid://do57ehuxcnofp"]
+
+[ext_resource type="Script" path="res://resources/script_resource/buff_durations.gd" id="1_6wm11"]
+
+[resource]
+script = ExtResource("1_6wm11")

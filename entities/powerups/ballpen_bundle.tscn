@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bs7gqpdc2ymfo"]
+
+[ext_resource type="Texture2D" uid="uid://dru6j32b2qi2w" path="res://assets_sprites/powerups/Ballpens.png" id="1_xekwt"]
+[ext_resource type="PackedScene" uid="uid://4ndydyc5mn8o" path="res://entities/powerups/powerup_itembox.tscn" id="2_5k0lc"]
+
+[node name="BallpenBundle" type="Sprite2D"]
+texture_filter = 1
+scale = Vector2(0.97, 0.97)
+texture = ExtResource("1_xekwt")
+offset = Vector2(0, -3)
+
+[node name="Powerup" parent="." instance=ExtResource("2_5k0lc")]
+current_powerup_type = 3

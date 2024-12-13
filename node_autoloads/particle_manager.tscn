@@ -1,0 +1,67 @@
+[gd_scene load_steps=5 format=3 uid="uid://j1yjg1b4m57s"]
+
+[ext_resource type="Script" path="res://node_autoloads/particle_manager.gd" id="1_qqrrl"]
+
+[sub_resource type="Curve" id="Curve_qcdk6"]
+_data = [Vector2(0.382222, 1), 0.0, -1.61871, 0, 1, Vector2(1, 0), -1.61871, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_jh5jj"]
+curve = SubResource("Curve_qcdk6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qeyv1"]
+particle_flag_disable_z = true
+angle_min = -180.0
+angle_max = 180.0
+direction = Vector3(0, 0, 0)
+initial_velocity_min = 350.0
+initial_velocity_max = 400.0
+gravity = Vector3(0, 0, 0)
+scale_min = 3.0
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_jh5jj")
+
+[node name="ParticleManager" type="Node"]
+script = ExtResource("1_qqrrl")
+
+[node name="HitEffectQueue" type="Node" parent="."]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="HitEffectQueue"]
+emitting = false
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_qeyv1")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="HitEffectQueue"]
+emitting = false
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_qeyv1")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+
+[node name="GPUParticles2D3" type="GPUParticles2D" parent="HitEffectQueue"]
+emitting = false
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_qeyv1")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+
+[node name="GPUParticles2D4" type="GPUParticles2D" parent="HitEffectQueue"]
+emitting = false
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_qeyv1")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+
+[node name="GPUParticles2D5" type="GPUParticles2D" parent="HitEffectQueue"]
+emitting = false
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_qeyv1")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0

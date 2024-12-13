@@ -1,28 +1,42 @@
-extends Control
+extends CanvasLayer
+class_name PlayerHud
 
-var max_hp: float = 999.0
+var max_hp: int = 99
 var buff_duration: float = 999.0
 
-@onready var hp = $Label_HP:
-	set(value):
-		hp.text = "HP: %.0f/%.0f" % [value, max_hp]
+var buff_dur_info: BuffDurationResource = load("res://resources/stats/buff_duration_info.tres")
+var p: Player = null: ## given by Main.gd
+	set(val):
+		p = val
+		if p:
+			show() ## show hud
+		else:
+			hide()
 
-@onready var energy = $Label_Energy:
-	set(value):
-		energy.text = "Energy: " + str(value)
+@onready var healtbar: TextureProgressBar = $Control/HeartHealthbar
+@onready var coffee_bar: PowerupBarControl = $Control/HBoxContainer/CoffeeDurationBar
+@onready var pen_bar: PowerupBarControl = $Control/HBoxContainer/PenbundleDurationBar
+@onready var invul_bar: PowerupBarControl = $Control/HBoxContainer/InvulnerableDurationBar
 
-@onready var ammo = $Label_Ammo:
+@onready var hp: int:
 	set(value):
-		ammo.text = "Ammo: " + str(value)
+		healtbar.value = value
+		hp = value
 
-@onready var reload_time = $Label_Reload:
-	set(value):
-		reload_time.text = "Reloading: %.1f" % value
 
-@onready var powerup = $Label_Powerup:
-	set(value):
-		powerup.text = "%s" % value
+func _ready() -> void:
+	invul_bar.max_duration = buff_dur_info.MAX_DUR_INVULNERABLE
+	pen_bar.max_duration = buff_dur_info.MAX_DUR_PENBUNDLE
+	coffee_bar.max_duration = buff_dur_info.MAX_DUR_COFFEE
 
-@onready var current_buff = $Label_CurrentBuff:
-	set(value):
-		current_buff.text = "%s for %.1f" % [value, buff_duration]
+
+func _physics_process(_delta: float) -> void:
+	if not p:
+		return
+	
+	hp = p.hp
+	max_hp = p.max_hp
+	
+	invul_bar.duration = buff_dur_info.dur_invulnerable
+	pen_bar.duration = buff_dur_info.dur_penbundle
+	coffee_bar.duration = buff_dur_info.dur_coffee

@@ -1,0 +1,69 @@
+[gd_scene load_steps=8 format=3 uid="uid://bs1ktat5bsyk2"]
+
+[ext_resource type="Script" path="res://levels/lvls/level_script.gd" id="1_2gfov"]
+[ext_resource type="PackedScene" uid="uid://bllqk2ow6ln7s" path="res://levels/tilemaps/tilemap_level_2.tscn" id="1_q4eio"]
+[ext_resource type="PackedScene" uid="uid://k3e86wyibwv8" path="res://entities/player.tscn" id="2_w445v"]
+[ext_resource type="PackedScene" uid="uid://d0tqkoot0b3qv" path="res://entities/powerups/food.tscn" id="3_jhh4r"]
+[ext_resource type="PackedScene" uid="uid://bs7gqpdc2ymfo" path="res://entities/powerups/ballpen_bundle.tscn" id="4_o462l"]
+[ext_resource type="PackedScene" uid="uid://bx1ojieysbx4j" path="res://entities/enemy_turrets/enemy_ranged.tscn" id="5_qroxm"]
+[ext_resource type="PackedScene" uid="uid://dum2n6h7pyn1" path="res://levels/level_components/exit.tscn" id="5_yw37r"]
+
+[node name="lvl_2" type="Node2D"]
+script = ExtResource("1_2gfov")
+
+[node name="TilemapLevel_2" parent="." instance=ExtResource("1_q4eio")]
+
+[node name="Player" parent="." instance=ExtResource("2_w445v")]
+position = Vector2(136, -87)
+
+[node name="PowerupHolder" type="Node2D" parent="."]
+
+[node name="Food" parent="PowerupHolder" instance=ExtResource("3_jhh4r")]
+position = Vector2(935, -569)
+
+[node name="Food2" parent="PowerupHolder" instance=ExtResource("3_jhh4r")]
+position = Vector2(1057, -187)
+
+[node name="BallpenBundle" parent="PowerupHolder" instance=ExtResource("4_o462l")]
+position = Vector2(584, -344)
+
+[node name="BallpenBundle2" parent="PowerupHolder" instance=ExtResource("4_o462l")]
+position = Vector2(1296, -317)
+
+[node name="EnemyHolder" type="Node2D" parent="."]
+
+[node name="enemy_ranged" parent="EnemyHolder" instance=ExtResource("5_qroxm")]
+position = Vector2(737, -115)
+
+[node name="enemy_ranged2" parent="EnemyHolder" instance=ExtResource("5_qroxm")]
+position = Vector2(551, -238)
+
+[node name="enemy_ranged3" parent="EnemyHolder" instance=ExtResource("5_qroxm")]
+position = Vector2(512, -537)
+
+[node name="enemy_ranged4" parent="EnemyHolder" instance=ExtResource("5_qroxm")]
+position = Vector2(722, -592)
+
+[node name="enemy_ranged5" parent="EnemyHolder" instance=ExtResource("5_qroxm")]
+position = Vector2(662, -532)
+
+[node name="enemy_ranged6" parent="EnemyHolder" instance=ExtResource("5_qroxm")]
+position = Vector2(783, -532)
+
+[node name="enemy_ranged7" parent="EnemyHolder" instance=ExtResource("5_qroxm")]
+position = Vector2(1170, -424)
+
+[node name="enemy_ranged8" parent="EnemyHolder" instance=ExtResource("5_qroxm")]
+position = Vector2(1173, -188)
+
+[node name="enemy_ranged9" parent="EnemyHolder" instance=ExtResource("5_qroxm")]
+position = Vector2(1358, -77)
+
+[node name="enemy_ranged11" parent="EnemyHolder" instance=ExtResource("5_qroxm")]
+position = Vector2(1353, -580)
+
+[node name="enemy_ranged10" parent="EnemyHolder" instance=ExtResource("5_qroxm")]
+position = Vector2(987, -79)
+
+[node name="Exit" parent="." instance=ExtResource("5_yw37r")]
+position = Vector2(1768, -53)

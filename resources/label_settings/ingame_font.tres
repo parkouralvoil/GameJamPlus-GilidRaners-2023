@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://ktmje07axcxj"]
+
+[ext_resource type="FontFile" uid="uid://bc6tbjnbiqftj" path="res://assets_other/transition/aseprite-remix.ttf" id="1_p4t4p"]
+
+[resource]
+font = ExtResource("1_p4t4p")
+font_size = 14
+font_color = Color(0.105882, 0.384314, 0.721569, 1)

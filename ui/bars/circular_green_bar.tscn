@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://clfmaj60ep5cf"]
+
+[ext_resource type="Texture2D" uid="uid://ckblmqcnrwfnb" path="res://assets_sprites/other/100x100 white circle.png" id="1_ke3ck"]
+
+[node name="CircularGreenBar" type="TextureProgressBar"]
+offset_right = 100.0
+offset_bottom = 100.0
+scale = Vector2(0.5, 0.5)
+step = 0.01
+value = 40.0
+fill_mode = 5
+texture_under = ExtResource("1_ke3ck")
+texture_progress = ExtResource("1_ke3ck")
+tint_under = Color(0.196078, 0.196078, 0.196078, 0.439216)
+tint_progress = Color(0.788235, 0.788235, 0.788235, 1)

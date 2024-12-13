@@ -1,13 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://k3e86wyibwv8"]
+[gd_scene load_steps=14 format=3 uid="uid://k3e86wyibwv8"]
 
-[ext_resource type="Script" path="res://entities/player.gd" id="1_uppic"]
+[ext_resource type="Script" path="res://entities/player.gd" id="1_w4qc0"]
 [ext_resource type="SpriteFrames" uid="uid://c2vx75vuqrqi0" path="res://resources/basic_anims.tres" id="2_wr3fr"]
-[ext_resource type="Script" path="res://scripts/State Machine.gd" id="3_73eq6"]
-[ext_resource type="Script" path="res://scripts/player states/PlayerOnGround.gd" id="4_53up4"]
-[ext_resource type="Script" path="res://scripts/player states/PlayerInAir.gd" id="5_enbi2"]
-[ext_resource type="Script" path="res://scripts/player states/PlayerFire.gd" id="6_er8oo"]
-[ext_resource type="Script" path="res://scripts/player states/PlayerDead.gd" id="7_haxam"]
-[ext_resource type="Script" path="res://scripts/player states/PlayerDash.gd" id="8_pi7k4"]
+[ext_resource type="PackedScene" uid="uid://bqxerlcewoj1c" path="res://player/powerup_manager.tscn" id="3_1puy1"]
+[ext_resource type="Script" path="res://scripts/state_machine.gd" id="4_io6d5"]
+[ext_resource type="Script" path="res://player/player states/PlayerOnGround.gd" id="5_nomb2"]
+[ext_resource type="Script" path="res://player/player states/PlayerInAir.gd" id="6_ikxgm"]
+[ext_resource type="Script" path="res://player/player states/PlayerFire.gd" id="7_aomh3"]
+[ext_resource type="Script" path="res://player/player states/PlayerDead.gd" id="8_ybnn8"]
+[ext_resource type="Script" path="res://player/player states/PlayerDash.gd" id="9_qlin8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l4650"]
 size = Vector2(16, 28)
@@ -20,124 +21,83 @@ point_count = 2
 curve = SubResource("Curve_4jcma")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_10tpu"]
+particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(7, 4, 1)
-particle_flag_disable_z = true
 direction = Vector3(0, 1, 0)
-spread = 20.0
+spread = 40.0
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
 gravity = Vector3(0, -40, 0)
-initial_velocity_min = 20.0
-initial_velocity_max = 30.0
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
-scale_max = 2.0
+scale_min = 4.0
+scale_max = 4.0
 scale_curve = SubResource("CurveTexture_3376c")
-color = Color(0.545098, 0.545098, 0.545098, 0.52549)
+color = Color(1, 1, 1, 0.866667)
 
-[node name="player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D"]
 collision_layer = 2
-script = ExtResource("1_uppic")
+script = ExtResource("1_w4qc0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.95, 0.95)
 sprite_frames = ExtResource("2_wr3fr")
 animation = &"dash"
-frame = 5
-frame_progress = 0.891795
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_l4650")
 
-[node name="Timer_JumpCD" type="Timer" parent="."]
-wait_time = 0.15
-one_shot = true
-
-[node name="Timer_Invul" type="Timer" parent="."]
-wait_time = 5.0
-one_shot = true
-
-[node name="Timer_Coffee" type="Timer" parent="."]
-wait_time = 10.0
-one_shot = true
-
-[node name="Timer_UnliAmmo" type="Timer" parent="."]
-wait_time = 10.0
-one_shot = true
-
-[node name="Timer_DashCD" type="Timer" parent="."]
-wait_time = 0.15
-one_shot = true
-
-[node name="Timer_EnergyStartCD" type="Timer" parent="."]
-one_shot = true
-
-[node name="Timer_EnergyRegenCD" type="Timer" parent="."]
-wait_time = 0.1
-
-[node name="Timer_IsFiring" type="Timer" parent="."]
-wait_time = 0.12
-one_shot = true
-
-[node name="Timer_FireRateCD" type="Timer" parent="."]
-wait_time = 0.2
-one_shot = true
-
-[node name="Timer_Reload" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
-
-[node name="Timer_Respawn" type="Timer" parent="."]
-wait_time = 2.5
-one_shot = true
-
-[node name="Left_DoubleTap" type="Timer" parent="."]
-wait_time = 0.2
-
-[node name="Right_DoubleTap" type="Timer" parent="."]
-wait_time = 0.2
-
 [node name="GPUParticles2D_Jump" type="GPUParticles2D" parent="."]
 position = Vector2(0, 14)
 emitting = false
-amount = 50
+amount = 25
 process_material = SubResource("ParticleProcessMaterial_10tpu")
 lifetime = 0.45
 one_shot = true
+explosiveness = 1.0
 
-[node name="Node2D_Aim" type="Node2D" parent="."]
+[node name="PowerupManager" parent="." node_paths=PackedStringArray("p") instance=ExtResource("3_1puy1")]
+p = NodePath("..")
 
-[node name="Marker2D" type="Marker2D" parent="Node2D_Aim"]
-position = Vector2(7, 0)
+[node name="Timers" type="Node" parent="."]
+
+[node name="JumpCD" type="Timer" parent="Timers"]
+wait_time = 0.15
+one_shot = true
+
+[node name="DashCD" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="DashDuration" type="Timer" parent="Timers"]
+wait_time = 0.15
+one_shot = true
+
+[node name="IsFiring" type="Timer" parent="Timers"]
+wait_time = 0.12
+one_shot = true
+
+[node name="FireRateCD" type="Timer" parent="Timers"]
+wait_time = 0.2
+one_shot = true
 
 [node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
-script = ExtResource("3_73eq6")
+script = ExtResource("4_io6d5")
 initial_state = NodePath("PlayerOnGround")
 
 [node name="PlayerOnGround" type="Node" parent="State Machine"]
-script = ExtResource("4_53up4")
+script = ExtResource("5_nomb2")
 
 [node name="PlayerInAir" type="Node" parent="State Machine"]
-script = ExtResource("5_enbi2")
+script = ExtResource("6_ikxgm")
 
 [node name="PlayerFire" type="Node" parent="State Machine"]
-script = ExtResource("6_er8oo")
+script = ExtResource("7_aomh3")
 
 [node name="PlayerDead" type="Node" parent="State Machine"]
-script = ExtResource("7_haxam")
+script = ExtResource("8_ybnn8")
 
 [node name="PlayerDash" type="Node" parent="State Machine"]
-script = ExtResource("8_pi7k4")
+script = ExtResource("9_qlin8")
 
-[connection signal="timeout" from="Timer_Invul" to="." method="_on_timer_invul_timeout"]
-[connection signal="timeout" from="Timer_Coffee" to="." method="_on_timer_coffee_timeout"]
-[connection signal="timeout" from="Timer_Coffee" to="." method="_on_timer_invul_timeout"]
-[connection signal="timeout" from="Timer_UnliAmmo" to="." method="_on_timer_unli_ammo_timeout"]
-[connection signal="timeout" from="Timer_DashCD" to="." method="_on_timer_dash_cd_timeout"]
-[connection signal="timeout" from="Timer_EnergyStartCD" to="." method="_on_timer_energy_start_cd_timeout"]
-[connection signal="timeout" from="Timer_EnergyRegenCD" to="." method="_on_timer_energy_regen_cd_timeout"]
-[connection signal="timeout" from="Timer_IsFiring" to="." method="_on_timer_is_firing_timeout"]
-[connection signal="timeout" from="Timer_Reload" to="." method="_on_timer_reload_timeout"]
-[connection signal="timeout" from="Timer_Respawn" to="." method="_on_timer_respawn_timeout"]
-[connection signal="timeout" from="Left_DoubleTap" to="." method="_on_left_double_tap_timeout"]
-[connection signal="timeout" from="Right_DoubleTap" to="." method="_on_right_double_tap_timeout"]
+[connection signal="timeout" from="Timers/DashCD" to="." method="_on_timer_dash_cd_timeout"]
+[connection signal="timeout" from="Timers/IsFiring" to="." method="_on_timer_is_firing_timeout"]

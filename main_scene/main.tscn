@@ -1,0 +1,165 @@
+[gd_scene load_steps=24 format=3 uid="uid://5np362sw5a5t"]
+
+[ext_resource type="Script" path="res://main_scene/main.gd" id="1_f42i5"]
+[ext_resource type="PackedScene" uid="uid://cwtuskfpjx053" path="res://ui/player_hud.tscn" id="3_6nyuj"]
+[ext_resource type="PackedScene" uid="uid://daul7ev5657p5" path="res://main_scene/level_camera.tscn" id="4_43vdt"]
+[ext_resource type="PackedScene" uid="uid://chrai2dqf84l6" path="res://ui/main_UI_screens/gameover.tscn" id="5_1ejaj"]
+[ext_resource type="PackedScene" uid="uid://b0c2uyodj5a3d" path="res://ui/main_UI_screens/win.tscn" id="6_glyfp"]
+[ext_resource type="Script" path="res://main_scene/BlackScreenTransition.gd" id="6_jo6xu"]
+[ext_resource type="PackedScene" uid="uid://daoo34xkqoi76" path="res://ui/menu.tscn" id="7_7wq1i"]
+[ext_resource type="PackedScene" uid="uid://b55fmbmxkqd6w" path="res://ui/main_UI_screens/select_level.tscn" id="7_mgaey"]
+[ext_resource type="PackedScene" uid="uid://c3xk785uy7ej1" path="res://main_scene/pause_menu.tscn" id="8_rjwq4"]
+[ext_resource type="PackedScene" uid="uid://degjua6thwj7i" path="res://ui/main_UI_screens/options_menu.tscn" id="9_go6ui"]
+[ext_resource type="Script" path="res://main_scene/WebParticleLoader.gd" id="11_n4ebp"]
+
+[sub_resource type="Curve" id="Curve_swoaj"]
+_data = [Vector2(0.382222, 1), 0.0, -1.61871, 0, 1, Vector2(1, 0), -1.61871, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_jh5jj"]
+curve = SubResource("Curve_swoaj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vv285"]
+particle_flag_disable_z = true
+angle_min = -180.0
+angle_max = 180.0
+direction = Vector3(0, 0, 0)
+initial_velocity_min = 350.0
+initial_velocity_max = 400.0
+gravity = Vector3(0, 0, 0)
+scale_min = 3.0
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_jh5jj")
+
+[sub_resource type="Curve" id="Curve_nmh4h"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.985849, 0.0210526), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_3376c"]
+curve = SubResource("Curve_nmh4h")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_urv4f"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(7, 4, 1)
+direction = Vector3(0, 1, 0)
+spread = 40.0
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, -40, 0)
+scale_min = 4.0
+scale_max = 4.0
+scale_curve = SubResource("CurveTexture_3376c")
+color = Color(1, 1, 1, 0.866667)
+
+[sub_resource type="Gradient" id="Gradient_2sguh"]
+offsets = PackedFloat32Array(0, 0.989189)
+colors = PackedColorArray(0.513726, 0, 0, 1, 0.468356, 0, 0, 0.105882)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_shdcg"]
+gradient = SubResource("Gradient_2sguh")
+
+[sub_resource type="Curve" id="Curve_30nau"]
+_data = [Vector2(0.731481, 1), 0.0, 0.0, 0, 0, Vector2(0.99537, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_e8hsa"]
+curve = SubResource("Curve_30nau")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pcw06"]
+particle_flag_disable_z = true
+spread = 20.0
+initial_velocity_min = 50.0
+initial_velocity_max = 60.0
+gravity = Vector3(0, 0, 0)
+scale_min = 5.0
+scale_max = 8.0
+scale_curve = SubResource("CurveTexture_e8hsa")
+color_ramp = SubResource("GradientTexture1D_shdcg")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7cmgk"]
+particle_flag_disable_z = true
+spread = 90.0
+initial_velocity_min = 40.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, 0, 0)
+scale_min = 5.0
+scale_max = 8.0
+scale_curve = SubResource("CurveTexture_e8hsa")
+color_ramp = SubResource("GradientTexture1D_shdcg")
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_f42i5")
+
+[node name="PlayerHud" parent="." instance=ExtResource("3_6nyuj")]
+
+[node name="Camera" parent="." instance=ExtResource("4_43vdt")]
+position = Vector2(1272, -315)
+position_smoothing_enabled = false
+
+[node name="LevelManager" type="Node" parent="."]
+
+[node name="Gameover" parent="." instance=ExtResource("5_1ejaj")]
+visible = false
+
+[node name="Win" parent="." instance=ExtResource("6_glyfp")]
+visible = false
+
+[node name="Menu" parent="." instance=ExtResource("7_7wq1i")]
+process_mode = 3
+
+[node name="SelectLevel" parent="." instance=ExtResource("7_mgaey")]
+process_mode = 3
+visible = false
+
+[node name="PauseMenu" parent="." instance=ExtResource("8_rjwq4")]
+visible = false
+
+[node name="OptionsMenu" parent="." instance=ExtResource("9_go6ui")]
+process_mode = 3
+visible = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="BlackScreenTransition" type="ColorRect" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("6_jo6xu")
+
+[node name="WebParticleLoader" type="Node2D" parent="."]
+position = Vector2(-339, 2059)
+script = ExtResource("11_n4ebp")
+
+[node name="HitParticles" type="GPUParticles2D" parent="WebParticleLoader"]
+emitting = false
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_vv285")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+
+[node name="PlayerJumpParticles" type="GPUParticles2D" parent="WebParticleLoader"]
+position = Vector2(84, -55)
+emitting = false
+amount = 25
+process_material = SubResource("ParticleProcessMaterial_urv4f")
+lifetime = 0.45
+one_shot = true
+explosiveness = 1.0
+
+[node name="CastingParticles" type="GPUParticles2D" parent="WebParticleLoader"]
+rotation = 1.5708
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_pcw06")
+
+[node name="CollisionParticles" type="GPUParticles2D" parent="WebParticleLoader"]
+rotation = 1.5708
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_7cmgk")
+lifetime = 0.8

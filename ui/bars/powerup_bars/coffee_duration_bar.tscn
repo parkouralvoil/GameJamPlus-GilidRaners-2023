@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpyjemnbbm1p5"]
+
+[ext_resource type="PackedScene" uid="uid://clfmaj60ep5cf" path="res://ui/bars/circular_green_bar.tscn" id="1_d5dqa"]
+[ext_resource type="Script" path="res://ui/bars/powerup_bars/powerup_bar.gd" id="1_vw4wk"]
+[ext_resource type="Texture2D" uid="uid://d0u0s7lb3cb8u" path="res://assets_sprites/powerups/Coffee.png" id="2_w7bnr"]
+
+[node name="CoffeeDurationBar" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vw4wk")
+
+[node name="CircularGreenBar" parent="." instance=ExtResource("1_d5dqa")]
+layout_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -6.0
+offset_top = -10.0
+offset_right = 58.0
+offset_bottom = 54.0
+texture = ExtResource("2_w7bnr")

@@ -1,0 +1,115 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3xk785uy7ej1"]
+
+[ext_resource type="Script" path="res://main_scene/pause_menu.gd" id="1_3rp17"]
+[ext_resource type="StyleBox" uid="uid://d06lvwml7mc34" path="res://resources/label_settings/normal_tips_style_box.tres" id="2_uhuc7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h70ai"]
+bg_color = Color(0, 0, 0, 0.756863)
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_o52di"]
+font_size = 24
+font_color = Color(0.964706, 0.878431, 0.901961, 1)
+
+[node name="PauseMenu" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_3rp17")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackgroundBlack" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0627451, 0.0627451, 0.0627451, 0.584314)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 20
+
+[node name="BackgroundBlue" type="ColorRect" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+color = Color(0.12549, 0.168627, 0.227451, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 25.0
+offset_bottom = 85.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="CenterContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_h70ai")
+text = "Game Paused"
+label_settings = SubResource("LabelSettings_o52di")
+
+[node name="CenterContainer2" type="CenterContainer" parent="."]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -87.0
+offset_bottom = 93.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer2"]
+layout_mode = 2
+
+[node name="Resume" type="Button" parent="CenterContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="Options" type="Button" parent="CenterContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="DifficultyMeme" type="Button" parent="CenterContainer2/VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "Change Difficulty"
+
+[node name="ReturnToMenu" type="Button" parent="CenterContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Return to menu"
+
+[node name="Meme" type="Label" parent="."]
+visible = false
+offset_left = 432.0
+offset_top = 170.0
+offset_right = 623.0
+offset_bottom = 245.0
+theme_override_styles/normal = ExtResource("2_uhuc7")
+text = "Just like class, you can no longer change things once its started."
+autowrap_mode = 2
+
+[node name="Line2D" type="Line2D" parent="Meme"]
+position = Vector2(-35.3499, 37)
+points = PackedVector2Array(30.3499, -3, -3, -3)
+width = 5.0
+
+[connection signal="pressed" from="CenterContainer2/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="CenterContainer2/VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="CenterContainer2/VBoxContainer/DifficultyMeme" to="." method="_on_difficulty_meme_pressed"]
+[connection signal="pressed" from="CenterContainer2/VBoxContainer/ReturnToMenu" to="." method="_on_return_to_menu_pressed"]

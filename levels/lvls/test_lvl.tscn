@@ -1,0 +1,48 @@
+[gd_scene load_steps=10 format=3 uid="uid://in2uaoxcuhjk"]
+
+[ext_resource type="PackedScene" uid="uid://233qawtprsiw" path="res://levels/tilemaps/test_tilemap.tscn" id="1_ih36m"]
+[ext_resource type="Script" path="res://levels/lvls/level_script.gd" id="1_lley0"]
+[ext_resource type="PackedScene" uid="uid://ca6cuf2ur0gok" path="res://entities/powerups/kodego.tscn" id="3_5cef4"]
+[ext_resource type="PackedScene" uid="uid://bf1s3l40wbjjl" path="res://entities/enemy_turrets/enemy_laser.tscn" id="3_c2odo"]
+[ext_resource type="PackedScene" uid="uid://d0tqkoot0b3qv" path="res://entities/powerups/food.tscn" id="4_3xyaq"]
+[ext_resource type="PackedScene" uid="uid://mxoou7inl18t" path="res://entities/powerups/coffee.tscn" id="5_8ta0n"]
+[ext_resource type="PackedScene" uid="uid://bs7gqpdc2ymfo" path="res://entities/powerups/ballpen_bundle.tscn" id="6_vudjj"]
+[ext_resource type="PackedScene" uid="uid://k3e86wyibwv8" path="res://entities/player.tscn" id="7_mcadt"]
+[ext_resource type="PackedScene" uid="uid://dum2n6h7pyn1" path="res://levels/level_components/exit.tscn" id="9_gywd1"]
+
+[node name="TestLevel" type="Node2D"]
+z_index = -1
+script = ExtResource("1_lley0")
+
+[node name="TestTilemap" parent="." instance=ExtResource("1_ih36m")]
+
+[node name="EnemyHolder" type="Node2D" parent="."]
+
+[node name="enemy_laser" parent="EnemyHolder" instance=ExtResource("3_c2odo")]
+position = Vector2(496, 178)
+
+[node name="PowerupHolder" type="Node2D" parent="."]
+
+[node name="Kodigo" parent="PowerupHolder" instance=ExtResource("3_5cef4")]
+position = Vector2(45, 231)
+
+[node name="Food" parent="PowerupHolder" instance=ExtResource("4_3xyaq")]
+position = Vector2(140, 154)
+
+[node name="Coffee" parent="PowerupHolder" instance=ExtResource("5_8ta0n")]
+position = Vector2(48, 329)
+
+[node name="Coffee2" parent="PowerupHolder" instance=ExtResource("5_8ta0n")]
+position = Vector2(202, 325)
+
+[node name="Coffee3" parent="PowerupHolder" instance=ExtResource("5_8ta0n")]
+position = Vector2(288, 321)
+
+[node name="BallpenBundle" parent="PowerupHolder" instance=ExtResource("6_vudjj")]
+position = Vector2(147, 236)
+
+[node name="Player" parent="." instance=ExtResource("7_mcadt")]
+position = Vector2(133, 322)
+
+[node name="Exit" parent="." instance=ExtResource("9_gywd1")]
+position = Vector2(360, 328)

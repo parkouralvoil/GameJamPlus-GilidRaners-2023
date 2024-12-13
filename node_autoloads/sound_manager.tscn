@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://boha1scbvax1p"]
+
+[ext_resource type="Script" path="res://node_autoloads/sound_manager.gd" id="1_0d4ke"]
+[ext_resource type="AudioStream" uid="uid://ckb3t365h2gkx" path="res://assets_other/audio/enemy-die0.mp3" id="2_2rikl"]
+[ext_resource type="AudioStream" uid="uid://epedprvjj4go" path="res://assets_other/audio/zapsplat_bow_arrow.mp3" id="3_rn1u7"]
+[ext_resource type="AudioStream" uid="uid://c3oxvfpy45yr" path="res://assets_other/audio/pickup4_trim.mp3" id="4_k1bb2"]
+[ext_resource type="AudioStream" uid="uid://ciqeg5w03rotr" path="res://assets_other/audio/hit2.ogg" id="5_kjtek"]
+[ext_resource type="AudioStream" uid="uid://c0s5axmr00nyf" path="res://assets_other/audio/victory.mp3" id="6_pb8mx"]
+[ext_resource type="AudioStream" uid="uid://cnmwbr30w27ky" path="res://assets_other/audio/enemy_explosion.mp3" id="7_3c40r"]
+[ext_resource type="AudioStream" uid="uid://7nx8ggi1i008" path="res://assets_other/audio/dash.ogg" id="7_dqgne"]
+
+[node name="SoundManager" type="Node"]
+script = ExtResource("1_0d4ke")
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
+
+[node name="NonPosSFX" type="Node" parent="."]
+
+[node name="Arrow" type="AudioStreamPlayer" parent="NonPosSFX"]
+stream = ExtResource("3_rn1u7")
+volume_db = -4.0
+bus = &"Sound"
+
+[node name="PowerUp" type="AudioStreamPlayer" parent="NonPosSFX"]
+stream = ExtResource("4_k1bb2")
+volume_db = -5.0
+bus = &"Sound"
+
+[node name="PlayerHit" type="AudioStreamPlayer" parent="NonPosSFX"]
+stream = ExtResource("5_kjtek")
+volume_db = -8.0
+pitch_scale = 0.95
+bus = &"Sound"
+
+[node name="Victory" type="AudioStreamPlayer" parent="NonPosSFX"]
+stream = ExtResource("6_pb8mx")
+volume_db = -5.0
+bus = &"Sound"
+
+[node name="Dash" type="AudioStreamPlayer" parent="NonPosSFX"]
+stream = ExtResource("7_dqgne")
+volume_db = -10.0
+bus = &"Sound"
+
+[node name="PosSFX" type="Node" parent="."]
+
+[node name="HandExplosion" type="AudioStreamPlayer2D" parent="PosSFX"]
+stream = ExtResource("7_3c40r")
+bus = &"Sound"
+
+[node name="EnemyOuch" type="AudioStreamPlayer2D" parent="PosSFX"]
+stream = ExtResource("2_2rikl")
+volume_db = 10.0
+bus = &"Sound"

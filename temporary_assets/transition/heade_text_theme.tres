@@ -1,7 +1,0 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cpc1n6gjq3k44"]
-
-[ext_resource type="FontFile" uid="uid://bc6tbjnbiqftj" path="res://temporary_assets/transition/aseprite-remix.ttf" id="1_e3chd"]
-
-[resource]
-RichTextLabel/font_sizes/normal_font_size = 28
-RichTextLabel/fonts/normal_font = ExtResource("1_e3chd")

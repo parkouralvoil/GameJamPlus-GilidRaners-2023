@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=3 uid="uid://chrai2dqf84l6"]
+
+[ext_resource type="Script" path="res://ui/main_UI_screens/gameover.gd" id="1_sxs5p"]
+[ext_resource type="Texture2D" uid="uid://dje8j1puqbofv" path="res://assets_sprites/UI_screens/FailScreen.png" id="2_vktp4"]
+
+[node name="Gameover" type="CanvasLayer"]
+script = ExtResource("1_sxs5p")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 2880.0
+offset_bottom = 1620.0
+scale = Vector2(0.222107, 0.222222)
+texture = ExtResource("2_vktp4")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RestartButton" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 149.0
+offset_top = 120.0
+offset_right = 280.0
+offset_bottom = 151.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Restart"
+
+[connection signal="pressed" from="Control/RestartButton" to="." method="_on_button_pressed"]

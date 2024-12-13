@@ -1,10 +1,10 @@
 [gd_scene load_steps=5 format=3 uid="uid://c5mnfussuwtot"]
 
 [ext_resource type="Script" path="res://entities/projectiles/projectile_arrow.gd" id="1_bk0qx"]
-[ext_resource type="Texture2D" uid="uid://lqe2ufitxomu" path="res://SPRITES/Ballpen_Projectile/Ballpen.png" id="2_d42l7"]
+[ext_resource type="Texture2D" uid="uid://lqe2ufitxomu" path="res://assets_sprites/Ballpen_Projectile/Ballpen.png" id="2_d42l7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hqfqn"]
-size = Vector2(28.75, 3.75)
+size = Vector2(6.25, 3.75)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nb8at"]
 radius = 5.0
@@ -20,19 +20,11 @@ texture = ExtResource("2_d42l7")
 region_rect = Rect2(4, 13, 24, 7)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.624998, 0.625)
+position = Vector2(10.625, 0.625)
 shape = SubResource("RectangleShape2D_hqfqn")
 
 [node name="Timer_Range_Lifespan" type="Timer" parent="."]
 wait_time = 3.0
-one_shot = true
-
-[node name="Timer_Collision_Lifespan" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
-
-[node name="Timer_DeactivateHitbox" type="Timer" parent="."]
-wait_time = 0.05
 one_shot = true
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -45,9 +37,9 @@ scale = Vector2(0.75, 0.75)
 shape = SubResource("CircleShape2D_nb8at")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-2.38419e-07, 0)
+scale = Vector2(1.5, 0.5)
 
 [connection signal="timeout" from="Timer_Range_Lifespan" to="." method="_on_timer_lifespan_timeout"]
-[connection signal="timeout" from="Timer_Collision_Lifespan" to="." method="_on_timer_collision_lifespan_timeout"]
-[connection signal="timeout" from="Timer_DeactivateHitbox" to="." method="_on_timer_deactivate_hitbox_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

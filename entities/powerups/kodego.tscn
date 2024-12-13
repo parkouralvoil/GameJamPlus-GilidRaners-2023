@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://ca6cuf2ur0gok"]
+
+[ext_resource type="Texture2D" uid="uid://prmgflqga6wt" path="res://assets_sprites/powerups/Kodigo.png" id="1_bqr62"]
+[ext_resource type="PackedScene" uid="uid://4ndydyc5mn8o" path="res://entities/powerups/powerup_itembox.tscn" id="2_tsnv0"]
+
+[node name="Kodigo" type="Sprite2D"]
+texture_filter = 1
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_bqr62")
+offset = Vector2(0, -3)
+
+[node name="Powerup" parent="." instance=ExtResource("2_tsnv0")]
+scale = Vector2(2, 2)

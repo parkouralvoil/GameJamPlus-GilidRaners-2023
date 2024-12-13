@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3f4tslf4bqok"]
+
+[ext_resource type="Script" path="res://ui/word_effect/word_effect.gd" id="1_4glup"]
+[ext_resource type="LabelSettings" uid="uid://ktmje07axcxj" path="res://resources/label_settings/ingame_font.tres" id="1_6lyop"]
+
+[node name="WordEffect" type="Label"]
+offset_right = 66.0
+offset_bottom = 14.0
+text = "HP heal!"
+label_settings = ExtResource("1_6lyop")
+script = ExtResource("1_4glup")

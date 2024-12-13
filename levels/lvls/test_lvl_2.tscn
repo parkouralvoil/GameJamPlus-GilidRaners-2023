@@ -1,0 +1,41 @@
+[gd_scene load_steps=9 format=3 uid="uid://b0j48o8we5s15"]
+
+[ext_resource type="Script" path="res://levels/lvls/level_script.gd" id="1_7hdnp"]
+[ext_resource type="PackedScene" uid="uid://233qawtprsiw" path="res://levels/tilemaps/test_tilemap.tscn" id="2_wklka"]
+[ext_resource type="PackedScene" uid="uid://drqyrkt6rv3xv" path="res://entities/enemy_turrets/enemy_wisp.tscn" id="3_b7vsy"]
+[ext_resource type="PackedScene" uid="uid://d0tqkoot0b3qv" path="res://entities/powerups/food.tscn" id="5_vk8wc"]
+[ext_resource type="PackedScene" uid="uid://mxoou7inl18t" path="res://entities/powerups/coffee.tscn" id="6_lepfm"]
+[ext_resource type="PackedScene" uid="uid://bs7gqpdc2ymfo" path="res://entities/powerups/ballpen_bundle.tscn" id="7_vly71"]
+[ext_resource type="PackedScene" uid="uid://k3e86wyibwv8" path="res://entities/player.tscn" id="8_v4urn"]
+[ext_resource type="PackedScene" uid="uid://dum2n6h7pyn1" path="res://levels/level_components/exit.tscn" id="9_k14ec"]
+
+[node name="TestLevel" type="Node2D"]
+z_index = -1
+script = ExtResource("1_7hdnp")
+
+[node name="TestTilemap" parent="." instance=ExtResource("2_wklka")]
+
+[node name="EnemyHolder" type="Node2D" parent="."]
+
+[node name="enemy_wisp" parent="EnemyHolder" instance=ExtResource("3_b7vsy")]
+position = Vector2(72, 148)
+
+[node name="PowerupHolder" type="Node2D" parent="."]
+
+[node name="Food" parent="PowerupHolder" instance=ExtResource("5_vk8wc")]
+position = Vector2(45, 238)
+
+[node name="Coffee" parent="PowerupHolder" instance=ExtResource("6_lepfm")]
+position = Vector2(48, 329)
+
+[node name="Coffee2" parent="PowerupHolder" instance=ExtResource("6_lepfm")]
+position = Vector2(202, 325)
+
+[node name="BallpenBundle" parent="PowerupHolder" instance=ExtResource("7_vly71")]
+position = Vector2(123, 238)
+
+[node name="Player" parent="." instance=ExtResource("8_v4urn")]
+position = Vector2(133, 322)
+
+[node name="Exit" parent="." instance=ExtResource("9_k14ec")]
+position = Vector2(360, 327)

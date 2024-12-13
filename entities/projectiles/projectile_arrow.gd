@@ -1,63 +1,54 @@
 extends CharacterBody2D
+class_name Bullet
 
-var projectile_speed: float = 600
+const RED_TEXTURE: Texture = preload("res://assets_sprites/Ballpen_Projectile/Red_Ballpen.png")
+
+var projectile_speed: float = 400
 var direction: Vector2 = Vector2(0, 1)
 
-var damage: float = 10.0
-
-@onready var timer_range_lifespan: Timer = $Timer_Range_Lifespan
-@onready var timer_collision_lifespan: Timer = $Timer_Collision_Lifespan
-@onready var timer_deactive_hitbox: Timer = $Timer_DeactivateHitbox
-
-var lifespan: float = 3.0
-
-@onready var damage_hitbox = $Area2D
-@onready var sprite = $Sprite2D # so other codes can reference it
+var damage: int = 1
+var lifespan: float = 3.0 ## seconds
 
 var active_hitbox: bool = true
-var from_enemy: bool = false # by default,it assumes its from player
+var from_enemy: bool = false ## by default,it assumes its from player
 
-func _ready():
+@onready var timer_range_lifespan: Timer = $Timer_Range_Lifespan
+
+
+@onready var damage_hitbox: Area2D = $Area2D
+@onready var sprite: Sprite2D = $Sprite2D ## so other codes can reference it
+
+func _ready() -> void:
 	timer_range_lifespan.start(lifespan)
+	if from_enemy:
+		sprite.texture = RED_TEXTURE
 
-func _physics_process(delta):
+
+func _physics_process(delta: float) -> void:
 	velocity = direction.normalized() * projectile_speed * delta
 	
 	var collision_info: KinematicCollision2D = move_and_collide(velocity)
 	if collision_info:
-		direction = Vector2.ZERO
-		timer_range_lifespan.paused = true
-		
-		if timer_range_lifespan.paused and timer_collision_lifespan.is_stopped():
-			timer_collision_lifespan.start()
-		
-		if timer_deactive_hitbox.is_stopped():
-			timer_deactive_hitbox.start()
-		return
+		queue_free()
 
 
-func _on_timer_lifespan_timeout():
+func _on_timer_lifespan_timeout() -> void:
 	queue_free()
 
-func _on_area_2d_body_entered(body):
-	if !from_enemy:
+
+func _on_area_2d_body_entered(body: CharacterBody2D) -> void:
+	if not from_enemy:
 		if body is Enemy and active_hitbox:
-			var enemy = body
+			var enemy: Enemy = body
 			enemy.take_damage(damage)
 			queue_free()
 	else:
 		if body is Player and active_hitbox:
-			var player = body
+			var player: Player = body
 			player.take_damage(damage)
 			queue_free()
 
-func _on_timer_deactivate_hitbox_timeout():
-	active_hitbox = false
 
-func _on_timer_collision_lifespan_timeout():
-	timer_range_lifespan.paused = false
-
-
-func _on_visible_on_screen_notifier_2d_screen_exited():
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void: ## only affects player projectiles
 	if !from_enemy and direction != Vector2.ZERO:
 		queue_free()

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0tqkoot0b3qv"]
+
+[ext_resource type="Texture2D" uid="uid://bu2gbc6um1y50" path="res://assets_sprites/powerups/KwekKwek_1.png" id="1_36kau"]
+[ext_resource type="PackedScene" uid="uid://4ndydyc5mn8o" path="res://entities/powerups/powerup_itembox.tscn" id="2_6gj1j"]
+
+[node name="Food" type="Sprite2D"]
+texture_filter = 1
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_36kau")
+
+[node name="Powerup" parent="." instance=ExtResource("2_6gj1j")]
+scale = Vector2(4, 4)
+current_powerup_type = 2
